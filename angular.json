@@ -1,0 +1,179 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "enterprise-alerts": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "css"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/firebase-messaging-sw.js",
+              "src/manifest.json"
+            ],
+            "styles": [
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bootstrap-select.min.css",
+              "src/assets/css/select2.css",
+              "src/assets/css/font.css",
+              "src/assets/css/iconstyle.css",
+              "src/assets/css/owl.carousel.css",
+              "src/assets/css/font-awesome.min.css",
+              "src/assets/css/cutom-scrollbar.css",
+              "src/assets/css/dataTables.bootstrap.css",
+              "src/assets/css/keyboard.css",
+              "src/assets/css/daterangepicker.css",
+              "node_modules/izitoast/dist/css/iziToast.min.css",
+              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css",
+              // "src/assets/keymanweb/osk/kmwosk.scss",
+              "src/assets/css/style.css",
+              "src/assets/css/responsive.css"
+            ],
+            "scripts": [
+              "src/assets/js/jquery-1.12.4.min.js",
+              "src/assets/js/jquery-ui-custom.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/bootstrap-select.min.js",
+              "src/assets/js/select2.js",
+              "src/assets/js/cutom-scrollbar.js",
+              "src/assets/js/owl.carousel.js",
+              "src/assets/js/jquery.dataTables.min.js",
+              "src/assets/js/dataTables.bootstrap.min.js",
+              "src/assets/js/jquery.keyboard.js",
+              "src/assets/js/moment.min.js",
+              "src/assets/js/daterangepicker.js",
+              "src/assets/js/main.js",
+              "node_modules/izitoast/dist/js/iziToast.min.js",
+              "node_modules/select2/dist/js/select2.min.js",
+
+              "src/assets/js/dataTables.buttons.min.js",
+              "src/assets/js/buttons.flash.min.js",
+              "src/assets/js/buttons.html5.min.js",
+              "src/assets/js/jszip.min.js",
+              "src/assets/js/pdfmake.min.js",
+              "src/assets/js/vfs_fonts.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "enterprise-alerts:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "enterprise-alerts:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "enterprise-alerts:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "enterprise-alerts:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "enterprise-alerts:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "enterprise-alerts",
+  "cli": {
+    "analytics": "a232d20e-973f-48d8-ae49-0cfebdd88ba5"
+  }
+}

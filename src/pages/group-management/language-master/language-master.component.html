@@ -1,0 +1,179 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.Languagemaster.Home' | translate}}</a></li>
+        <li class="breadcrumb-item active">{{'label.Languagemaster.LanguageMaster' | translate}}</li>
+    </ol>
+</div>
+<div class="inner-head display-head">
+    <h2><a href="javascript:void(0)" (click)="back()" class="back-btn"><span class="icon-back"></span></a>
+        {{'label.Languagemaster.LanguageMaster' | translate}}
+        
+    </h2>
+
+    <!-- <h2 *ngIf="!isEdit && !isApprove">{{role.menuLabel}}</h2> -->
+    <!-- <h2 *ngIf="isApprove">Approve Customer</h2> -->
+    <!-- <a *ngIf="showDetails" (click)=back() href="javascript:void(0)" class="cancel-btn cancel-bg"><span class="icon-back"></span>Back</a> -->
+</div>
+<div class="col-md-10 padl0 padr0 px-0">
+
+    <form>
+        <div class="form-list lng-formgroup">
+            <div class="form-group">
+                <label>{{'label.Languagemaster.SelectLanguage' | translate}}</label>
+                <div class="language-select-inline">
+                    <div class="styled-select">
+                        <select (change)="getSelected($event)" name="langy" [(ngModel)]="languageObj.langy">
+                            <option value="undefined" selected disabled>
+                                {{'label.Languagemaster.SelectLanguages' | translate}} 
+                            </option>
+
+                            <option *ngFor="let language of getInActiveLanguage(); let i=index "
+                                value="{{language.langId}}">
+                                {{language.langDesc}} <span>- {{language.nativeDesc}}</span></option>
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+
+
+                        <!-- <ng-container *ngFor="let language of listLanguages">
+                            <option *ngIf= "language.active == '0'"  value="{{language.langId}}">{{language.langDesc}}</option>
+                          </ng-container> -->
+
+                    </div>
+                    <a class="add-btn" [class.disabled]="getAccessRole('isAdd')"
+                        (click)="addActiveLanguage('d')">{{'label.Languagemaster.Add' | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    <h6 class="sltd-lng">{{'label.Languagemaster.LanguagesSelected' | translate}}</h6>
+    <span *ngFor="let language of getActiveLanguage(); let i=index ">
+        <div class="language-list">
+            <div class="lng-list">
+                <span class="lng-name"><span>{{language.langDesc}}</span> - {{language.nativeDesc}}</span>
+                <span *ngIf="language.isDefault == '0'" class="text-approved"></span>
+                <span *ngIf="language.isDefault == '1'" class="text-approved">
+                    <i class="icon-preTick"></i>
+                    {{'label.Languagemaster.DefaultLanguage' | translate}}  
+                </span>
+                <span *ngIf="language.isDefault == '1'">
+                    <span class="icon-status-change st-change" (click)="ezhil(i)"></span>
+                    <div class="staus-cont status-cont-active" id="removeDefault{{i}}"
+                        *ngIf="language.isDefault == '1' && language.isDefault != '0'">
+                        <div class="icon-close1 status-closediv"></div>
+                        <p [class.disabled]="getAccessRole('isEdit')" (click)="RemovedefaultLanguage(language)"><span
+                                class="icon-close"></span> 
+                                {{'label.Languagemaster.RemoveDefaultLanguage' | translate}}
+                             </p>
+                        <p [class.disabled]="getAccessRole('isDelete')" class="border-bottom-0 cursor-pointer"
+                            data-toggle="modal" (click)="openModal(language)"><span class="icon-delete"></span>
+                            {{'label.Languagemaster.Remove' | translate}}
+                        </p>
+                    </div>
+
+                </span>
+                <span *ngIf="language.isDefault == '0' ">
+
+                    <span class="icon-status-change st-change" (click)="ezhil2(i)"></span>
+
+                    <div class="staus-cont status-cont-active" id="addDefault{{i}}"
+                        *ngIf="language.isDefault == '0' && language.isDefault != '1'">
+                        <div class="icon-close1 status-closediv"></div>
+                        <!-- <p [class.disabled]="getAccessRole('isEdit')" (click)="defaultLanguage(language)"><span
+                                class="icon-preTick"></span> Set Default
+                            Language</p> -->
+
+                            <p [class.disabled]="getAccessRole('isEdit')" (click)="openModalDefaultLanguage(language)"><span
+                                class="icon-preTick"></span> {{'label.Languagemaster.SetDefaultLanguage' | translate}}
+                            </p>
+
+                        <p [class.disabled]="getAccessRole('isDelete')" class="border-bottom-0 cursor-pointer"
+                            (click)="openModal(language)" data-toggle="modal"><span class="icon-delete"></span>
+                            {{'label.Languagemaster.Remove' | translate}}
+                        </p>
+                    </div>
+                </span>
+
+
+
+
+            </div>
+        </div>
+    </span>
+    <!-- <div class="language-list">
+        <div class="lng-list">
+            <span class="lng-name"><span>Arabic</span> - ﻰﺑﺮﻋ</span>
+            <span class="text-approved"><i class="icon-preTick"></i>Default Language</span>
+            <span class="icon-status-change st-change"></span>
+
+        </div>
+    </div> -->
+
+</div>
+
+<!-- <div class="button-right">
+    <a class="cancel-btn"><span >Cancel</span></a>
+    <input type="submit" class="add-btn" value="Save" />
+
+    <a href="#" class="add-btn">ADD</a>
+</div> -->
+<!-- notification modal -->
+<div class="modal fade left-alignmodal" id="remove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium lng-modal" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="success-msg">
+                    <span class="icon-language-notification lng-popup-icon"></span>
+                    <p>{{'label.Languagemaster.Areyou' | translate}}</p>
+                    <div class="btn-groups">
+                        <input value="{{'label.Languagemaster.Yes' | translate}}" type="submit" (click)="removee()">
+                        <input value="{{'label.Languagemaster.No' | translate}}" type="submit" (click)="cancel()" class="no-btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- set as default -->
+<div class="modal fade left-alignmodal" id="remove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium lng-modal" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="success-msg">
+                    <span class="icon-language-notification lng-popup-icon"></span>
+                    <p>{{'label.Languagemaster.Areyou' | translate}}</p>
+                    <div class="btn-groups">
+                        <input value="{{'label.Languagemaster.Yes' | translate}}" type="submit" (click)="removee()">
+                        <input value="{{'label.Languagemaster.No' | translate}}" type="submit" (click)="cancel()" class="no-btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- notification modal -->
+<div class="modal fade left-alignmodal" id="changeToSetAsDefault" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium lng-modal" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="success-msg">
+                    <span class="icon-language-notification lng-popup-icon"></span>
+                    <p>{{'label.Languagemaster.Areyou1' | translate}} </p>
+                    <div class="btn-groups">
+                        <input value="{{'label.Languagemaster.Yes' | translate}}" type="submit" (click)="changeToSetAsDefault()">
+                        <input value="{{'label.Languagemaster.No' | translate}}" type="submit" (click)="cancel()" class="no-btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

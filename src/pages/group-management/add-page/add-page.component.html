@@ -1,0 +1,166 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home</a></li>
+        <li *ngIf="!isEdit" class="breadcrumb-item active">Add Page</li>
+        <li *ngIf="isEdit" class="breadcrumb-item active">Edit Page</li>
+    </ol>
+</div>
+<div class="inner-head">
+    <h2 *ngIf="!isEdit"> <a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Add Page</h2>
+    <h2 *ngIf="isEdit"> <a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Edit Page</h2>
+   
+</div>
+<form [formGroup]="pageForm">
+    <div class="form-list">
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Page Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="pageObj.menu_label"
+                        formControlName="menu_label" id="menu_label" autocomplete="off">
+                
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['menu_label'].hasError('required') &&pageForm.controls['menu_label'].touched">
+                    Page Name is required</div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Page Icon</label>
+                    <input type="text" class="form-control" [(ngModel)]="pageObj.menu_icon" formControlName="menu_icon"
+                        id="menu_icon" autocomplete="off">
+               
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['menu_icon'].hasError('required') &&pageForm.controls['menu_icon'].touched">
+                    Page Icon is required</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Page Url</label>
+                    <input type="text" class="form-control" [(ngModel)]="pageObj.menu_url" formControlName="menu_url"
+                        id="menu_url" autocomplete="off">
+               
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['menu_url'].hasError('required') &&pageForm.controls['menu_url'].touched">
+                    Page Url is required</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Sequence</label>
+                    <input type="number" class="form-control" [(ngModel)]="pageObj.sequence" formControlName="sequence"
+                        id="sequence" autocomplete="off">
+                
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['sequence'].hasError('required') &&pageForm.controls['sequence'].touched">
+                    Sequence is required</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Is Default</label>
+                    <div class="styled-select">
+
+                        <select formControlName="is_default" [(ngModel)]="pageObj.is_default" id="is_default">
+                            <option value="undefined" selected disabled>Select</option>
+
+                            <option value=1>Yes</option>
+                            <option value=0>No</option>
+
+                            <!-- <option>973</option> -->
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+                    <!-- <input type="text" class="form-control" [(ngModel)]="pageObj.is_default"
+                        formControlName="is_default" id="is_default" autocomplete="off"> -->
+                
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['is_default'].hasError('required') &&pageForm.controls['is_default'].touched">
+                    Is Default is required</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Is SubMenu</label>
+                    <div class="styled-select">
+
+                        <select (change)="changeSubMenuSelect($event.target.value)" formControlName="is_sub_menu" [(ngModel)]="pageObj.is_sub_menu" id="is_sub_menu">
+                            <option value="undefined" selected disabled>Select</option>
+
+                            <option value=1>Yes</option>
+                            <option value=0>No</option>
+
+                            <!-- <option>973</option> -->
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+                
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['is_sub_menu'].hasError('required') && pageForm.controls['is_sub_menu'].touched">
+                    Is SubMenu is required</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="pageObj.is_sub_menu==1">
+                <div class="form-group">
+                    <label>Main Menu</label>
+                    <div class="styled-select">
+
+                        <select formControlName="ref_menu_id" [(ngModel)]="pageObj.ref_menu_id" id="is_active">
+                            <option value="undefined" selected disabled>Select Main Menu</option>
+                            <option *ngFor="let listPage of listPages; let i=index " value="{{listPage.menu_id}}">
+                                {{listPage.menu_label}}</option>
+
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+               
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['ref_menu_id'].hasError('required') && pageForm.controls['ref_menu_id'].touched">
+                    Main Menu is required</div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Status</label>
+                    <div class="styled-select">
+
+                        <select formControlName="is_active" [(ngModel)]="pageObj.is_active" id="is_active">
+                            <option value="undefined" selected disabled>Select is_active</option>
+
+                            <option value=1>Active</option>
+                            <option value=0>Deactive</option>
+                            <!-- <option>973</option> -->
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+                
+                <div class="error error-position"
+                    *ngIf="pageForm.controls['is_active'].hasError('required') && pageForm.controls['is_active'].touched">
+                    is_active is required</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="button-right">
+
+            <input *ngIf="isEdit" (click)=Save() type="submit" class="add-btn" value="Update" />
+            <input *ngIf="!isEdit" (click)=Save() type="submit" class="add-btn" value="Add" />
+         
+            <!-- <a href="#" class="add-btn">ADD</a> -->
+        </div>
+
+
+
+    </div>
+
+
+</form>

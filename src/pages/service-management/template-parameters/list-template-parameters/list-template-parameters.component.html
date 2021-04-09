@@ -1,0 +1,323 @@
+<div class="breadcrumb-div">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.TemplateParamters.Home' | translate}}</a></li>
+    <li class="breadcrumb-item active">{{role.menuLabel}}</li>
+  </ol>
+</div>
+<div class="inner-head">
+  <h2>{{role.menuLabel}}</h2>
+</div>
+
+
+<!-- <div class="col-sm-5 col-md-5 col-xs-12">
+      <div class="row" style="margin-bottom: 7px;">
+      <form [formGroup]="SelectForm"> 
+     
+        <label>Select Service</label>
+        <div class="styled-select">
+        <select class="form-control" [(ngModel)]="ServiceList.listServices" formControlName="listServices"
+          id="listServices" (change)="onChange($event.target.value)">
+          <option value="undefined" selected disabled> Select Service</option>
+          <option *ngFor="let listit of beforeListingTemplate; let i = index" value="{{listit.notiId}}">
+            {{listit.notiId}} - {{listit.notiDesc}}</option>
+        </select>
+        <span class="fa fa-sort-desc"></span>
+        </div>
+     
+      <div class="error error-position"
+        *ngIf="SelectForm.controls['listServices'].hasError('required') && SelectForm.controls['listServices'].touched">
+        Service is required
+      </div>
+    </form>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="status-filter">
+
+    <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+          <div class="form-group">
+              <label>Status</label>
+              <div class="styled-select">
+                  <select class="form-control" [(ngModel)]="reqObj.statusFilter" id="listServices" (change)="onChange($event.target.value)">
+        <option value="undefined" selected disabled> Select Service</option>
+        <option *ngFor="let status of status; let i = index" value="{{status.id}}">
+          {{status.statusDesc}}</option>
+        </select>
+                  <span class="fa fa-sort-desc"></span>
+              </div>
+          </div>
+      </div> -->
+    <div class="col-xs-12">
+      <div class="tablesearch-sort">
+        <div class="tablesearch-sort">
+          <div class="search-input">
+            <div class="searchexpand">
+              <input type="text" id="searchTextId" placeholder="{{'label.TemplateParamters.Search' | translate}}"
+                [(ngModel)]="SearchValue" />
+              <button type="submit"><i class="icon-search"></i></button>
+            </div>
+            <span class="icon-search"></span>
+            <span class="icon-close1 closesearch" (click)="resetSearch()"></span>
+          </div>
+
+          <div class="search-value" *ngIf=" reqObj.isStatusFilter || reqObj.isApprovalStatusFilter">
+            <p class="sortby-title">{{'label.TemplateParamters.Filteredby' | translate}}</p>
+
+            <!-- <p *ngIf="reqObj.isStatusFilter">Status <i (click)="clearStatus()" class="icon-close1"></i></p> -->
+            <p *ngIf="reqObj.isApprovalStatusFilter">{{'label.TemplateParamters.Status' | translate}} <i
+                (click)="clearApprovedStatus()" class="icon-close1"></i></p>
+            <p class="clearall" (click)="clearAllFilter()">{{'label.TemplateParamters.ClearAll' | translate}}</p>
+          </div>
+          <!-- <div class="search-value" *ngIf="reqObj.isCountryFilter || reqObj.isStatusFilter">
+                    <p class="sortby-title">Filtered by</p>
+                    <p *ngIf="reqObj.isCountryFilter">Branch <i (click)="clearBranch()" class="icon-close1"></i></p>
+                    <p *ngIf="reqObj.isStatusFilter">Status <i (click)="clearStatus()" class="icon-close1"></i></p>
+                    <p class="clearall" (click)="clearAllFilter()">Clear All</p>
+                  </div> -->
+        </div>
+      </div>
+      <!-- <div class="search-box visible-xs">
+              <div class="icon-search main-search search-remove"></div>
+              <div class="search-box1">
+                  <input type="text" placeholder="Search" [(ngModel)]="reqObj.searchText" (ngModelChange)="changeSearch()" />
+                  <div class="icon-search"></div>
+              </div>
+          </div> -->
+      <div class="button-orange margin-mt">
+        <a [class.disabled]="getAccessRole('isAdd')"
+          (click)="addTemplate()">{{'label.TemplateParamters.AddParameters' | translate}} <span
+            class="icon-plus"></span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="responsive-nt">
+  <table class="table  datatable table-visible">
+    <thead>
+      <tr>
+        <th scope="col">
+          {{'label.TemplateParamters.ServiceID' | translate}}
+          <!-- <span class="icon-sub-user-filter sorting"></span> -->
+        </th>
+        <th scope="col">
+          {{'label.TemplateParamters.APIType' | translate}}
+          <!-- <span class="icon-sub-user-filter sorting active"></span> -->
+        </th>
+        <th scope="col">
+          {{'label.TemplateParamters.APIName' | translate}}
+          <!-- <span class="icon-sub-user-filter sorting"></span> -->
+        </th>
+        <th scope="col">
+          {{'label.TemplateParamters.Integration' | translate}}
+          <!-- <span class="icon-sub-user-filter sorting"></span> -->
+        </th>
+        <th>
+          {{'label.TemplateParamters.Approval' | translate}}
+
+          <span class="icon-uniE90D user-arrow filter-open"></span>
+          <div class="table-checkfilter">
+            <div class="searchbox">
+              <input type="text" placeholder="{{'label.TemplateParamters.Search' | translate}}" />
+            </div>
+            <div class="tablesearch-content">
+              <ul>
+                <li>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="statusApproved"
+                        (change)="onApprovalStatusChange('Approved')" />
+                      <span class="cr"><i
+                          class="cr-icon fa fa-check"></i></span>{{'label.TemplateParamters.Approved' | translate}}
+                      &nbsp;&nbsp;</label>
+                  </div>
+                </li>
+                <li>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="statusDraft" (change)="onApprovalStatusChange('Draft')" />
+                      <span class="cr"><i
+                          class="cr-icon fa fa-check"></i></span>{{'label.TemplateParamters.Draft' | translate}}
+                      &nbsp;&nbsp;</label>
+                  </div>
+                </li>
+                <!-- <li>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" [(ngModel)]="statusPending" (change)="onApprovalStatusChange('Rejected')" />
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>{{'label.TemplateParamters.Rejected' | translate}}
+                                &nbsp;&nbsp;</label>
+                            </div>
+                          </li> -->
+
+                <li>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="statusReopen" (change)="onApprovalStatusChange('Reopen')" />
+                      <span class="cr"><i
+                          class="cr-icon fa fa-check"></i></span>{{'label.TemplateParamters.Reopen' | translate}}
+                      &nbsp;&nbsp;</label>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" [(ngModel)]="statusPendingForApproval"
+                        (change)="onApprovalStatusChange('Pending For Approval')" />
+                      <span class="cr"><i
+                          class="cr-icon fa fa-check"></i></span>{{'label.TemplateParamters.PendingForApproval' | translate}}
+                      &nbsp;&nbsp;</label>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </th>
+
+
+        <th scope="col" class="text-center">{{'label.TemplateParamters.Actions' | translate}}</th>
+        <!-- <th class="text-align" scope="col" *ngIf="reqObj.statusFilter=='2' || reqObj.statusFilter=='3'">Actions</th> -->
+      </tr>
+    </thead>
+    <!--   </table>
+       </div>
+      <div class="tablebody">
+          <table class="table datatable"> -->
+    <tbody>
+      <tr *ngFor="let params of listTemplate">
+        <td class="hover-hand " (click)="gotoParams(params)"><a>{{params.serviceId}}</a>
+        </td>
+        <td>{{params.apiType}}</td>
+        <td>{{params.apiName}}</td>
+        <td>{{params.dataModel}}</td>
+        <td data-th="Status">
+          <i class="icon-approve" *ngIf="params.status=='Approved' "></i>
+          <i class="icon-draft" *ngIf="params.status=='Draft'"></i>
+          <i class="icon-reject" *ngIf="params.status=='Rejected'"></i>
+          <i class="icon-reopen" *ngIf="params.status=='Reopen'"></i>
+          <i class="icon-pending" *ngIf="params.status=='Pending For Approval'"></i> {{params.status}}
+        </td>
+
+        <td data-th="Actions" class="text-align">
+          <div *ngIf=" params.status=='Approved'" [class.disabled]="getAccessRole('isDelete')" class="text-align">
+            <i class="icon-delete column6" (click)="showModal(params.id)" title="Delete" data-toggle="tooltip"
+              data-placement="left"></i>
+          </div>
+
+          <div *ngIf=" params.status=='Draft' && (user.userId == params.makerUserId)"
+            [class.disabled]="getAccessRole('isDelete')" class="text-align">
+            <i class="icon-delete column6" (click)="showModalDraft(params.wfId)" title="Delete" data-toggle="tooltip"
+              data-placement="left"></i>
+          </div>
+
+          <div *ngIf="params.status=='Pending For Approval' && (user.userId!=params.makerUserId||user.data.isAdminUser)"
+            [class.disabled]="getAccessRole('isChecker')">
+            <i class="icon-returnmaker"
+              *ngIf="params.status=='Pending For Approval' && (user.userId!=params.makerUserId||user.data.isAdminUser)"
+              title="Return to Maker" (click)="reopenTemplateParam(params)" data-toggle="tooltip"
+              data-placement="left"></i>
+            <div class="statuschange" *ngIf="params.status=='Pending For Approval'">
+              <i class="icon-status-change dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"></i>
+              <i class="icon-close1 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false"></i>
+              <div class="statuschange-list dropdown-menu dropdown-menu-right">
+                <p (click)="approveTemplateParam(params)"><i class="icon-approve"></i>
+                  {{'label.TemplateParamters.Approve' | translate}}
+                </p>
+                <p (click)="rejectTemplateParam(params)"><i class="icon-reject"></i>
+                  {{'label.TemplateParamters.Reject' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+
+<div class="modal fade" id="TemplateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog notify-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="icon-close1"></span>
+        </button>
+        <i class="icon-delete del-popup"></i>
+        <h4>{{'label.TemplateParamters.Alertmessage' | translate}}</h4>
+        <p>{{'label.TemplateParamters.Areyou' | translate}}</p>
+        <!-- <div class="text-areabox">
+                <label>Reason</label>
+                <textarea class="form-control"></textarea>
+                <span>(Max 500 Character Allowed)</span>      
+              </div>  -->
+        <a (click)="deleteTemplate()" class="add-btn">{{'label.TemplateParamters.Delete' | translate}}</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="draftModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog notify-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="icon-close1"></span>
+        </button>
+        <i class="icon-delete del-popup"></i>
+        <h4>{{'label.TemplateParamters.Alertmessage' | translate}}</h4>
+        <p>{{'label.TemplateParamters.Areyou' | translate}}</p>
+        <a (click)="deleteDraft()" class="add-btn"><span>{{'label.TemplateParamters.Delete' | translate}}</span></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog notify-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="icon-close1"></span>
+        </button>
+        <i class="fa fa-bell-o"></i>
+        <h4>{{selectedTemplateParameters.title}}</h4>
+        <p>{{selectedTemplateParameters.body}}</p>
+        <div *ngIf="this.tmpParamStatus != 2" class="text-areabox">
+          <label>{{'label.TemplateParamters.Reason' | translate}}</label>
+          <form [formGroup]="AppOrRejForm">
+            <textarea [(ngModel)]="selectedTemplateParameters.reason" formControlName="reason" class="form-control"
+              (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF/\s/g]","1","250","reason",selectedTemplateParameters.reason.length)'></textarea>
+            <span>{{'label.TemplateParamters.Max250' | translate}}</span>
+            <div *ngIf="errMsg" class="error error-position error-right">{{'error.TemplateParamters.Enter' | translate}}
+            </div>
+          </form>
+
+        </div>
+
+        <!-- <a (click)="send()" *ngIf="approve" class="add-btn"><span>Approve</span></a>
+        <a (click)="send()" *ngIf="!approve" class="cancel-bg cancel-btn"><span>Reject</span></a> -->
+
+        <a (click)="send()" *ngIf="this.tmpParamStatus == 2"
+          class="add-btn"><span>{{'label.TemplateParamters.Approve' | translate}}</span></a>
+        <!-- <a (click)="send()" *ngIf="this.tmpParamStatus == 4" class="add-btn"><span>{{'label.TemplateParamters.Reject' | translate}}</span></a> -->
+        <a (click)="send()" *ngIf="this.tmpParamStatus == 5"
+          class="add-btn"><span>{{'label.TemplateParamters.Return' | translate}}</span></a>
+      </div>
+
+    </div>
+  </div>
+</div>

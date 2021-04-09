@@ -1,0 +1,164 @@
+
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home</a></li>
+        <li  class="breadcrumb-item active">Application Status</li>
+    </ol>
+</div>
+
+<div class="inner-head display-head inner-head2">
+    <h2 >
+        <a href="javascript:void(0)" class="back-btn">
+            <span class="icon-back"></span></a>
+        <span class="serviceName" >Application Status </span>
+        </h2>
+        <!-- <div class="date-content">
+            <p (click)="refresh()">refresh</p>
+        </div> -->
+</div>
+<div class="col-md-12 status-dashboard padl0 padr0 px-0">
+    <div class="panel-group panelgroup-audit-log border-bottom-0" id="accordion">
+  
+     <div class="panel panel-default" id="panel1">
+     <div class="panel-heading">
+        <div class="date-content">
+            <p>SERVER - 1</p>
+        </div>
+            <h4 class="panel-title autilog-collapse">
+                Updated on {{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}
+                <div class="audit-response-icon">
+                    <a data-toggle="collapse" data-target="#collapseOne" class="collapsed">
+                        <i class="icon-down-arrow"></i>
+                        <i class="icon-close1"></i>
+                    </a>
+                </div>
+            </h4>
+        </div>
+    <div id="collapseOne" class="panel-collapse collapse">
+    <div class="panel-body">
+        <div class="responsive-nt" >
+        <table class="table dataTable display nowrap" style="width:100%">
+            <thead>
+                <tr>
+                  <th scope="col">Application</th>
+                    <th scope="col">Notification Server1</th>
+                    <th scope="col">Last Update</th>
+                    <th scope="col">Status</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-th="Application">DB </td>
+                    <td data-th="Notification Server1">{{applicationStatus.db.status}}</td>
+                    <td data-th="Last Update">{{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}</td>
+                    <td data-th="Status" class="runing" *ngIf="applicationStatus.db.status=='UP'">
+                        <i class="icon-approve" ></i>Running</td>
+                    <td data-th="Status" class="reject-ic" *ngIf="applicationStatus.db.status!='UP'"><i class="icon-reject"></i>Stopped</td>
+                </tr>
+                <tr>
+                    <td data-th="Application">MAIL </td>
+                    <td data-th="Notification Server1">{{applicationStatus.mail.status}}</td>
+                    <td data-th="Last Update">{{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}</td>
+                    <td data-th="Status" class="runing" *ngIf="applicationStatus.mail.status=='UP'">
+                        <i class="icon-approve" ></i>Running</td>
+                    <td data-th="Status" class="reject-ic" *ngIf="applicationStatus.mail.status!='UP'"><i class="icon-reject"></i>Stopped</td>
+                </tr>
+                <tr>
+                    <td data-th="Application">LDAP </td>
+                    <td data-th="Notification Server1">{{applicationStatus.ldap.status}}</td>
+                    <td data-th="Last Update">{{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}</td>
+                    <td data-th="Status" class="runing" *ngIf="applicationStatus.ldap.status=='UP'">
+                        <i class="icon-approve" ></i>Running</td>
+                    <td data-th="Status" class="reject-ic" *ngIf="applicationStatus.ldap.status!='UP'"><i class="icon-reject"></i>Stopped</td>
+                </tr>
+                <!-- <tr>
+                    <td data-th="Application">ActiveMQ </td>
+                    <td data-th="Notification Server1">{{applicationStatus.jms.status}}</td>
+                    <td data-th="Last Update">{{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}</td>
+                    <td data-th="Status" class="runing" *ngIf="applicationStatus.jms.status=='UP'">
+                        <i class="icon-approve" ></i>Running</td>
+                    <td data-th="Status" class="reject-ic" *ngIf="applicationStatus.jms.status!='UP'"><i class="icon-reject"></i>Stopped</td>
+                </tr> -->
+                <tr>
+                    <td data-th="Application">Alert Engine </td>
+                    <td data-th="Notification Server1">{{alertEngineStatus.details.jms.status}}</td>
+                    <td data-th="Last Update">{{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}</td>
+                    <td data-th="Status" class="runing" *ngIf="alertEngineStatus.details.jms.status=='UP'">
+                        <i class="icon-approve" ></i>Running</td>
+                    <td data-th="Status" class="reject-ic" *ngIf="alertEngineStatus.details.jms.status!='UP'"><i class="icon-reject"></i>Stopped</td>
+                </tr>
+                <tr>
+                    <td data-th="Application">ActiveMQ </td>
+                    <td data-th="Notification Server1">{{alertEngineStatus.details.jms.status}}</td>
+                    <td data-th="Last Update">{{updateTime.format("DD/MM/YYYY  h:mm:ss a")}}</td>
+                    <td data-th="Status" class="runing" *ngIf="alertEngineStatus.details.jms.status=='UP'">
+                        <i class="icon-approve" ></i>Running</td>
+                    <td data-th="Status" class="reject-ic" *ngIf="alertEngineStatus.details.jms.status!='UP'"><i class="icon-reject"></i>Stopped</td>
+                </tr>
+                
+            <!-- <tr>
+                <td data-th="Application">UI - Angular Component </td>
+                <td data-th="Notification Server1">5677567344</td>
+                <td data-th="Last Update">05 May 2020 10:25</td>
+                <td data-th="Status" class="reject-ic"><i class="icon-reject"></i>Stopped</td>
+            </tr> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- <div class="panel panel-default" id="panel2">
+    <div class="panel-heading">
+       <div class="date-content">
+           <p>SERVER - 2</p>
+       </div>
+           <h4 class="panel-title autilog-collapse">
+               Updated on 2020-9-10  10:19:23
+               <div class="audit-response-icon">
+                   <a data-toggle="collapse" data-target="#collapseTwo" class="collapsed">
+                       <i class="icon-down-arrow"></i>
+                       <i class="icon-close1"></i>
+                   </a>
+               </div>
+           </h4>
+       </div>
+   <div id="collapseTwo" class="panel-collapse collapse">
+   <div class="panel-body">
+       <div class="responsive-nt" >
+       <table class="table dataTable display nowrap" style="width:100%">
+           <thead>
+               <tr>
+                 <th scope="col">Application</th>
+                   <th scope="col">Notification Server1</th>
+                   <th scope="col">Last Update</th>
+                   <th scope="col">Status</th>
+                   
+               </tr>
+           </thead>
+           <tbody>
+            <tr>
+              <td data-th="Application">UI - Angular Component </td>
+              <td data-th="Notification Server1">5677567344</td>
+              <td data-th="Last Update">05 May 2020 10:25</td>
+              <td data-th="Status" class="runing"runing><i class="icon-approve"></i>Running</td>
+          </tr>
+          <tr>
+              <td data-th="Application">UI - Angular Component </td>
+              <td data-th="Notification Server1">5677567344</td>
+              <td data-th="Last Update">05 May 2020 10:25</td>
+              <td data-th="Status" class="reject-ic"><i class="icon-reject"></i>Stopped</td>
+          </tr>
+          </tbody>
+       </table>
+   </div>
+</div>
+</div>
+</div>       -->
+
+  </div>
+</div>
+
+

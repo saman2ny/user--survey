@@ -1,0 +1,297 @@
+<div class="breadcrumb-div">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.MessageStatistics.Home' | translate}}</a></li>
+    <li class="breadcrumb-item Approved">Message Statistics Details Report</li>
+  </ol>
+</div>
+<div class="inner-head display-head">
+  <!-- <h2>{{ role.menuLabel }}</h2> -->
+  <h2>Message Statistics Details Report</h2>
+  <!-- <div class="active-sec">
+    <button class="refresh-btn" data-toggle="tooltip" title="Refresh" (click)="refresh()">
+      <i class="icon-refresh"></i>
+    </button>
+  </div> -->
+</div>
+
+<div class="report-btn">
+  <div class="dropdown">
+    <button class="toggle-btn dropdown-toggle" type="button" data-toggle="dropdown">
+      {{'label.MessageStatistics.ExportAs' | translate}}
+    </button>
+    <ul class="dropdown-menu">
+      <li (click)="downloadReport('pdf')">
+        <a><img src="../../../assets/images/pdf.svg" /></a>
+      </li>
+      <li (click)="downloadReport('xlsx')">
+        <a><img src="../../../assets/images/xl.svg" /></a>
+      </li>
+    </ul>
+  </div>
+</div>
+<button class="toggle-btn" data-toggle="modal" data-target="#detailFilter">
+  <span class="icon-parameter1"></span> {{'label.MessageStatistics.Filters' | translate}}
+</button>
+<div class="tablesearch-sort tablesearch-sort12">
+  <div class="search-input">
+    <div class="searchexpand">
+      <input type="text" placeholder="{{'label.MessageStatistics.Search' | translate}}" id="searchTextId"
+        [(ngModel)]="SearchValue" />
+      <button type="submit"><i class="icon-search"></i></button>
+    </div>
+    <span class="icon-search"></span>
+    <span class="icon-close1 closesearch" (click)="resetSearch()"></span>
+  </div>
+  <div class="search-value" *ngIf="isFilterStatus">
+    <p class="sortby-title">{{'label.MessageStatistics.Filteredby' | translate}}</p>
+    <p>{{'label.MessageStatistics.Status' | translate}} <i class="icon-close1" (click)="clearTableFilter()"></i></p>
+    <p class="clearall" (click)="clearTableFilter()">{{'label.MessageStatistics.ClearAll' | translate}}</p>
+  </div>
+</div>
+
+<div class="responsive-nt">
+  <div class="parentId">
+    <div class="userarrow-sec userarrow-section_1">
+      <div class="table-checkfilter">
+        <div class="searchbox">
+          <input type="text" [(ngModel)]="tableFilter.searchTypeFilter"
+            placeholder="{{'label.MessageStatistics.Search' | translate}}" />
+        </div>
+        <div class="tablesearch-content">
+          <ul>
+            <li>
+              <div class="checkbox" *ngFor="
+                  let item of tableStatus
+                    | customeTableFilter: tableFilter.searchTypeFilter:'name'
+                ">
+                <label>
+                  <input type="checkbox" [(ngModel)]="item.isChecked" (change)="onStatusChange()" />
+                  <span class="cr"> <i class="cr-icon fa fa-check"></i></span>
+                  {{ item.name }}
+                  &nbsp;&nbsp;</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="userarrow-sec userarrow-section_2">
+      <div class="table-checkfilter">
+        <div class="searchbox">
+          <input type="text" placeholder="{{'label.MessageStatistics.Search' | translate}}" />
+        </div>
+        <div class="tablesearch-content">
+          <ul>
+            <li>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" />
+                  <span class="cr"><i
+                      class="cr-icon fa fa-check"></i></span>{{'label.MessageStatistics.SMS' | translate}}
+                  &nbsp;&nbsp;</label>
+              </div>
+            </li>
+            <li>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" />
+                  <span class="cr"><i
+                      class="cr-icon fa fa-check"></i></span>{{'label.MessageStatistics.Email' | translate}}
+                  &nbsp;&nbsp;</label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <table class="table datatable summaryDatatable display nowrap" style="width: 100%;">
+      <thead>
+        <tr>
+          <th scope="col">{{'label.MessageStatistics.Channel' | translate}}</th>
+          <th scope="col">{{'label.MessageStatistics.ChannelAddress' | translate}}</th>
+          <th data-val="1">
+            {{'label.MessageStatistics.Status' | translate}} <span class="icon-uniE90D user-arrow filter-open"></span>
+          </th>
+          <th scope="col">{{'label.MessageStatistics.ReceivedDate' | translate}}</th>
+          <th scope="col">{{'label.MessageStatistics.SentDate' | translate}}</th>
+          <th scope="col">{{'label.MessageStatistics.DeliveryDate' | translate}}</th>
+          <th scope="col" data-val="2">
+            {{'label.MessageStatistics.MessageText' | translate}}
+            <!-- <span class="icon-uniE90D user-arrow filter-open"></span> -->
+          </th>
+          <th scope="col">{{'label.MessageStatistics.FailureReason' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of summaryDetailsDummy">
+          <td data-th="Channel" class="hover-hand ellipsis">
+            <a title="{{ detail.channelName }}" data-toggle="tooltip">{{ detail.channelName }}</a></td>
+          <td data-th="Mobile Number" class="ellipsis">
+            <a title="{{ detail.channelAddress }}" data-toggle="tooltip">{{ detail.channelAddress }}</a></td>
+          <td data-th="Status" class="ellipsis">
+            <i class="icon-approve" *ngIf="detail.deliveryStatus == 1"></i><i *ngIf="detail.deliveryStatus != 1"
+              class="icon-reject"></i>
+            <span *ngIf="detail.deliveryStatus ==1">
+              {{'label.MessageStatistics.Success' | translate}}
+            </span>
+            <span *ngIf="detail.deliveryStatus ==2">
+              {{'label.MessageStatistics.Failure' | translate}}
+            </span>
+            <span *ngIf="detail.deliveryStatus ==3">
+              {{'label.MessageStatistics.Pending' | translate}}
+            </span>
+            <span *ngIf="detail.deliveryStatus ==4">
+              {{'label.MessageStatistics.Blocked' | translate}}
+            </span>
+            <span *ngIf="detail.deliveryStatus ==5">
+              {{'label.MessageStatistics.Expired' | translate}}
+            </span>
+            <span *ngIf="detail.deliveryStatus ==6">
+              {{'label.MessageStatistics.OPTOut' | translate}}
+            </span>
+
+          </td>
+          <td data-th="Received Date / Time" class="ellipsis">
+            <a title="{{ detail.receivedDate | showDate }}" data-toggle="tooltip">
+              {{ detail.receivedDate | showDate }}</a>
+          </td>
+          <td data-th="Sent Date / Time" class="ellipsis">
+            <a title="{{ detail.sentDate | showDate }}" data-toggle="tooltip"> {{ detail.sentDate | showDate }}</a></td>
+          <td data-th="Delivery Date / Time" class="ellipsis">
+            <a title="{{ detail.deliveryDate | showDate }}" data-toggle="tooltip">
+              {{ detail.deliveryDate | showDate }}</a>
+          </td>
+          <td class="column1 overlap-dsc ellipsis" data-th="Message Text">
+            <a title="{{
+              detail.msgText
+            }}" data-toggle="tooltip">{{
+              detail.msgText
+            }}</a>
+
+            <!-- <span *ngIf="detail.channelName == 'Email'"  [innerHTML]=" detail.msgText"></span> -->
+          </td>
+          <td data-th="Failure Reason" class="ellipsis">
+            <a title="{{ detail.reason }}" data-toggle="tooltip">{{ detail.reason }}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade right promolanguage-model" id="detailFilter" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <button type="button" class="close" (click)="close()" aria-label="Close">
+      <span class="icon-close"></span>
+    </button>
+    <div class="modal-content report-modal">
+      <div class="modal-heading">{{'label.MessageStatistics.Filters' | translate}}</div>
+      <div class="modal-body">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label>{{'label.MessageStatistics.Channel' | translate}}</label>
+            <div class="styled-select">
+              <select [(ngModel)]="filterDetailsObj.channelId">
+                <option value="">{{'label.MessageStatistics.All' | translate}}</option>
+
+                <option *ngFor="let item of channels" value="{{ item.channelId }}">
+                  {{ item.channelDesc }}
+                </option>
+              </select>
+              <span class="fa fa-sort-desc"></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label>{{'label.MessageStatistics.ChannelAddress' | translate}}</label>
+
+            <input type="text" [(ngModel)]="filterDetailsObj.channelAddress" class="form-control">
+
+            
+
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label>{{'label.MessageStatistics.DeliveryStatus' | translate}}</label>
+            <div class="styled-select">
+              <select [(ngModel)]="filterDetailsObj.deliveryStatus">
+                <option value="">{{'label.MessageStatistics.All' | translate}}</option>
+                <option value="1">{{'label.MessageStatistics.Success' | translate}}</option>
+                <option value="2">{{'label.MessageStatistics.Failure' | translate}}</option>
+
+                <option value="3">{{'label.MessageStatistics.Pending' | translate}}</option>
+                <option value="4">{{'label.MessageStatistics.Blocked' | translate}}</option>
+                <option value="5"> {{'label.MessageStatistics.Expired' | translate}}</option>
+                <option value="6">{{'label.MessageStatistics.OPTOut' | translate}}</option>
+
+
+
+              </select>
+              <span class="fa fa-sort-desc"></span>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-xs-12">
+          <div class="form-group">
+            <label>{{'label.MessageStatistics.ReceivedDate1' | translate}}</label>
+            <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [selectMode]="'range'" [max]="maxDate"
+              [(ngModel)]="filterDetailsObj.receivedDate" class="form-control"
+              placeholder="{{'label.MessageStatistics.DateTime' | translate}}" />
+            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+            <span class="icon-date div-date"></span>
+          </div>
+        </div> -->
+        <!-- <div class="col-xs-12">
+          <div class="form-group">
+            <label>{{'label.MessageStatistics.SentDate1' | translate}}</label>
+            <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [selectMode]="'range'" [max]="maxDate"
+              [(ngModel)]="filterDetailsObj.sentDate" class="form-control"
+              placeholder="{{'label.MessageStatistics.DateTime' | translate}}" />
+            <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+            <span class="icon-date div-date"></span>
+          </div>
+        </div> -->
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label>{{'label.MessageStatistics.DeliveryDate1' | translate}}</label>
+            <input [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" [selectMode]="'range'" [max]="maxDate"
+              [(ngModel)]="filterDetailsObj.deliveryDate" class="form-control"
+              placeholder="{{'label.MessageStatistics.DateTime' | translate}}" />
+            <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+            <span class="icon-date div-date"></span>
+          </div>
+        </div>
+        <!-- <div class="col-xs-12">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              Include Message Text
+            </label>
+          </div>
+        </div>
+
+        <div class="col-xs-12">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+              Include Failure Reason
+            </label>
+          </div>
+        </div>
+      </div> -->
+        <div class="modal-footer">
+          <div class="button-right">
+            <button class="cancel-btn" (click)="clear()">{{'label.MessageStatistics.ClearAll' | translate}}</button>
+            <button class="add-btn" (click)="filter()">
+              <span>{{'label.MessageStatistics.Apply' | translate}}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,149 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.MaskTypeList.Home' | translate}}</a></li>
+        <li class="breadcrumb-item active">{{'label.MaskTypeList.MaskTypes' | translate}}</li>
+    </ol>
+</div>
+<div class="inner-head">
+    <h2>{{'label.MaskTypeList.MaskTypes' | translate}}</h2>
+    
+</div>
+
+<div class="row">
+    <div class="status-filter">
+
+       
+        <div class="col-xs-12">
+            <div class="tablesearch-sort">
+                <div class="tablesearch-sort">
+                    <div class="search-input">
+                      <div class="searchexpand">
+                        <input type="text" id="searchTextId" placeholder="{{'label.MaskTypeList.Search' | translate}}" />
+                        <button type="submit"><i class="icon-search"></i></button>
+                      </div>
+                      <span class="icon-search"></span>
+                      <span class="icon-close1 closesearch" (click)="clearAllFilter()"></span>
+                    </div>
+                    <div class="search-value" *ngIf=" reqObj.isStatusFilter">
+                      <p class="sortby-title">{{'label.MaskTypeList.Filteredby' | translate}}</p>
+                      
+                      <p *ngIf="reqObj.isStatusFilter">
+                        {{'label.MaskTypeList.Status' | translate}} <i (click)="clearStatus()" class="icon-close1"></i></p>
+                      
+                      <p class="clearall" (click)="clearAllFilter()">
+                        {{'label.MaskTypeList.ClearAll' | translate}}</p>
+                    </div>
+                  </div>
+            </div>
+            
+            <div class="button-orange">
+                <a  (click)="addMask()">{{'label.MaskTypeList.AddMaskType' | translate}} <span class="icon-plus"></span></a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="20">
+    <div class="no-record" *ngIf="!listMasks.length" style="display:none;">
+        {{'label.MaskTypeList.No' | translate}}  
+    </div>
+</div>
+<div class="responsive-nt">
+    <table class="table  datatable table-visible">
+        <thead>
+            <tr>
+                <th scope="col">
+                    {{'label.MaskTypeList.MaskName' | translate}}  
+                   
+                </th>
+                <th scope="col">
+                    {{'label.MaskTypeList.MaskType' | translate}}
+                  
+                </th>
+              
+               
+                <th scope="col">
+                    Status
+                    <span class="icon-uniE90D user-arrow filter-open"></span>
+                    <div class="table-checkfilter">
+                      <div class="searchbox">
+                        <input type="text" placeholder="{{'label.MaskTypeList.Search' | translate}}" />
+                      </div>
+                      <div class="tablesearch-content">
+                        <ul>
+                          <li>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" [(ngModel)]="statusActive" (change)="onStatusChange('true')" />
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                {{'label.MaskTypeList.Active' | translate}}
+                                &nbsp;&nbsp;</label>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" [(ngModel)]="statusInActive" (change)="onStatusChange('false')" />
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                {{'label.MaskTypeList.Inactive' | translate}}
+                                &nbsp;&nbsp;</label>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                                </th>
+                
+
+                <th scope="col" class="text-align">{{'label.MaskTypeList.Actions' | translate}}</th>
+                
+            </tr>
+        </thead>
+       
+        <tbody>
+            <tr *ngFor="let masks of listMasks">
+                <td class="hover-hand " (click)="gotoMaskEdit(masks)"><a>{{masks.maskName}}</a>
+                </td>
+                <td>{{getMaskName(masks.maskType)}}</td>
+                
+                <td data-th="Status">
+                    <p *ngIf="masks.isActive=='true'"><i class="fa fa-check"></i>{{'label.MaskTypeList.Active' | translate}} </p>
+                    <p *ngIf="masks.isActive=='false'"><i class="fa fa-times"></i>{{'label.MaskTypeList.Inactive' | translate}} </p>
+                </td>
+             
+                <td data-th="Actions" class="text-align">
+                    <div class="text-align">
+                        <i class="icon-delete column6" (click)="showModal(masks)" title="Delete"
+                            data-toggle="tooltip" data-placement="left"></i>
+                    </div>                
+                  
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<div class="modal fade" id="deleteMaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="icon-close1"></span>
+                </button>
+                <i class="icon-delete del-popup"></i>
+                <h4>{{'label.MaskTypeList.Alertmessage' | translate}}</h4>
+                <p>{{'label.MaskTypeList.Areyou' | translate}}</p>
+                <a (click)="deleteMask()" class="add-btn"><span>{{'label.MaskTypeList.Delete' | translate}}</span></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,1511 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a
+                routerLink="/home/dashboard/">{{'label.AddTemplateParameters.Home' | translate}}</a></li>
+        <!-- <li *ngIf="!Edit && !isApprove" class="breadcrumb-item active">Add {{role.menuLabel}}</li>
+    <li *ngIf="Edit" class="breadcrumb-item active">Edit {{role.menuLabel}}</li>
+    <li *ngIf="isApprove" class="breadcrumb-item active">{{role.menuLabel}}</li> -->
+        <li class="breadcrumb-item active">{{role.menuLabel}}</li>
+    </ol>
+</div>
+<div class="inner-head newparam-head">
+    <h2><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>
+        <span *ngIf="temp.status=='edit'"> {{'label.AddTemplateParameters.Edit' | translate}} {{role.menuLabel}}</span>
+        <span *ngIf="temp.status=='new'">{{'label.AddTemplateParameters.Add' | translate}} {{role.menuLabel}}</span>
+        <span *ngIf="temp.status=='approveOrReject'">{{role.menuLabel}}</span>
+    </h2>
+</div>
+<div class="form-list">
+    <form [formGroup]="TemplateForm" [class.disabled]="isEditOrUpdate()">
+
+        <div class="service-bg templateparam-bg">
+            <div class="col-sm-7 col-md-7 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.AddTemplateParameters.ServiceId' | translate}}</label>
+                    <!-- <label>Operator First Name</label> -->
+                    <div class="styled-select">
+                        <select class="form-control" [(ngModel)]="templateObj.serviceId" formControlName="serviceId"
+                            id="serviceId" (change)="validateParam($event.target.value)" autocomplete="off">
+                            <option value="undefined" selected>
+                                {{'label.AddTemplateParameters.SelectService' | translate}}</option>
+                            <option *ngFor="let services of listServices; let i=index " value="{{services.notiId}}">
+                                {{services.notiId}} - {{services.notiDesc}}</option>
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+                    <div class="error error-position"
+                        *ngIf="TemplateForm.controls['serviceId'].hasError('required') && TemplateForm.controls['serviceId'].touched">
+                        {{'error.AddTemplateParameters.Serviceid' | translate}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="addparam-main">
+            <div class="row">
+                <div class="col-sm-6 col-md-5 col-xs-12">
+                    <div class="form-group">
+                        <label>{{'label.AddTemplateParameters.APIType' | translate}}</label>
+                        <div class="styled-select">
+                            <select class="form-control" (change)="apiType($event)" [(ngModel)]="templateObj.apiType"
+                                formControlName="apiType">
+                                <option value="undefined" selected>
+                                    {{'label.AddTemplateParameters.SelectAPIType' | translate}}</option>
+                                <option *ngFor="let apiTypes of api; let i=index " value="{{apiTypes.apiType}}">
+                                    {{apiTypes.apiType}}</option>
+                            </select>
+                            <span class="fa fa-sort-desc"></span>
+                        </div>
+
+                        <div class="error error-position"
+                            *ngIf="TemplateForm.controls['apiType'].hasError('required') && TemplateForm.controls['apiType'].touched">
+                            {{'error.AddTemplateParameters.APIType' | translate}} </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-xs-12">
+                    <div class="form-group">
+                        <label>{{'label.AddTemplateParameters.APIName' | translate}}</label>
+                        <div class="styled-select">
+                            <select class="form-control" [(ngModel)]="templateObj.apiName" formControlName="apiName"
+                                id="apiName">
+                                <option value="undefined" selected>
+                                    {{'label.AddTemplateParameters.SelectAPIName' | translate}}</option>
+                                <!-- <option>{{'label.AddTemplateParameters.PushSMS' | translate}}</option>
+                                <option>{{'label.AddTemplateParameters.PushBulkSMS' | translate}}</option> -->
+                                <option *ngFor="let apiNames of apiName; let i=index " value="{{apiNames.apiName}}">
+                                    {{apiNames.apiName}}</option>
+                            </select>
+                            <span class="fa fa-sort-desc"></span>
+                        </div>
+                        <div class="error error-position"
+                            *ngIf="TemplateForm.controls['apiName'].hasError('required') && TemplateForm.controls['apiName'].touched">
+                            {{'error.AddTemplateParameters.APIName' | translate}} </div>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="templateObj.isDelimeter">
+                    <div class="form-group">
+                        <label>{{'label.AddTemplateParameters.Delimeter' | translate}}</label>
+                        <input type="text" class="form-control" id="fieldPosition" maxlength="1"
+                            formControlName="delimeter" name="delimeter" [(ngModel)]="templateObj.delimeter"
+                            #fieldPosition />
+                        <div class="error error-position"
+                            *ngIf="TemplateForm.controls['delimeter'].hasError('required') && TemplateForm.controls['delimeter'].touched">
+                            {{'error.AddTemplateParameters.Delimeter' | translate}} </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <div class="integratedata-model row">
+        <div class="col-sm-12 col-md-10 col-xs-12">
+            <h3>{{'label.AddTemplateParameters.Integration' | translate}}</h3>
+            <div class="addparam-accordion panel-group" id="accordion">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" [class.disabled]="textFieldDataModelForm.disabled">
+                        <h4 class="panel-title">
+                            <a id="back" (click)="showAccordion('text', temp.status)" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseone"><span class="radiobutton" id="roundButton">
+                                </span>{{'label.AddTemplateParameters.Text' | translate}}</a>
+                        </h4>
+                    </div>
+                    <div id="collapseone" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <!-- <form [formGroup]="TemplateForm"> -->
+
+
+                            <div class="paramboxborder" *ngFor="let textField of textFieldDataModel;  let i = index">
+                                <div class="filledcontent">
+                                    <div class="firstcolumn">
+                                        <span class="listno">{{i+1}}</span>
+                                        <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                        <p>{{textField.fieldName}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.FieldPosition' | translate}}</label>
+                                        <p>{{textField.fieldPosition}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.StartPosition' | translate}}</label>
+                                        <p> {{textField.startPosition}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.EndPosition' | translate}}</label>
+                                        <p>{{textField.endPosition}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                        <p>{{textField.dataType}}</p>
+                                    </div>
+                                    <div class="lastcolumn">
+                                        <i *ngIf="!textField.isEdit" (click)=editTextFieldDataModel(textField)
+                                            title="upperField" data-toggle="tooltip" data-placement="left"
+                                            class="icon-edit-new"></i>
+                                        <i *ngIf="!textField.isEdit" (click)="deleteTextFieldDataModel(textField)"
+                                            title="Delete" data-toggle="tooltip" data-placement="left"
+                                            class="icon-delete"></i>
+                                    </div>
+                                </div>
+                                <form *ngIf="textField.isEdit" [formGroup]="textFieldDataModelForm"
+                                    [class.disabled]="getAccessRole('isEdit')">
+                                    <div class="paramboxborder emptybox">
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.FieldName1' | translate}}</label>
+                                                <input type="text" class="form-control" id="fieldName"
+                                                    formControlName="fieldName"
+                                                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                    #fieldName />
+                                                <div class="error error-position"
+                                                    *ngIf="textFieldDataModelForm.controls['fieldName'].hasError('required') && textFieldDataModelForm.controls['fieldName'].touched">
+                                                    {{'error.AddTemplateParameters.FieldName1' | translate}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.FieldPosition1' | translate}}</label>
+                                                <input type="text" class="form-control" id="fieldPosition"
+                                                    formControlName="fieldPosition"
+                                                    (input)='changeField($event,"[^0-9]","1","20","fieldPosition")'
+                                                    #fieldPosition />
+                                                <div class="error error-position"
+                                                    *ngIf="textFieldDataModelForm.controls['fieldPosition'].hasError('required') && textFieldDataModelForm.controls['fieldPosition'].touched">
+                                                    {{'error.AddTemplateParameters.FieldPosition' | translate}} </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="dataType" #dataType
+                                                        formControlName="dataType">
+                                                        <option value="" disabled selected>
+                                                            {{'label.AddTemplateParameters.Select' | translate}}
+                                                        </option>
+
+                                                        <option value="Text">
+                                                            {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                        <option value="Number">
+                                                            {{'label.AddTemplateParameters.Number' | translate}}
+                                                        </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+                                                <div class="error error-position"
+                                                    *ngIf="textFieldDataModelForm.controls['dataType'].hasError('required') && textFieldDataModelForm.controls['dataType'].touched">
+                                                    {{'error.AddTemplateParameters.DataType' | translate}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="maskType"
+                                                        (change)="getMaskTypes($event, 1)" #maskTypeField
+                                                        formControlName="maskType">
+                                                        <option value="" selected>
+                                                            {{'label.AddTemplateParameters.Select1' | translate}}
+                                                        </option>
+                                                        <!-- <option value="Mask Type1">{{'label.AddTemplateParameters.MaskType1' | translate}}</option>
+                            <option value="Mask Type2">{{'label.AddTemplateParameters.MaskType2' | translate}}</option> -->
+                                                        <option
+                                                            *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                            value="{{MaskTypeMasterList.id}}">
+                                                            {{MaskTypeMasterList.maskName}} -
+                                                            {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <span *ngIf="!isMaxtextFieldDataModelForm">
+                                            <div class="col-sm-6 col-md-6 col-xs-12">
+                                                <div class="form-group">
+                                                    <label>{{'label.AddTemplateParameters.StartPosition1' | translate}}</label>
+                                                    <input type="text" class="form-control" id="startPosition"
+                                                        formControlName="startPosition"
+                                                        (input)='changeField($event,"[^0-9]","1","20","startPosition")'
+                                                        #startPosition />
+
+                                                    <div class="error error-position"
+                                                        *ngIf="textFieldDataModelForm.controls['startPosition'].hasError('required') && textFieldDataModelForm.controls['startPosition'].touched">
+                                                        {{'error.AddTemplateParameters.StartPosition' | translate}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxtextFieldDataModelFormSecond">
+                                                <div class="form-group">
+                                                    <label>{{'label.AddTemplateParameters.EndPosition1' | translate}}</label>
+                                                    <input type="text" class="form-control" id="endPosition"
+                                                        formControlName="endPosition"
+                                                        (input)='changeField($event,"[^0-9]","1","20","endPosition")'
+                                                        #endPosition />
+
+                                                    <div class="error error-position"
+                                                        *ngIf="textFieldDataModelForm.controls['endPosition'].hasError('required') && textFieldDataModelForm.controls['endPosition'].touched">
+                                                        {{'error.AddTemplateParameters.EndPosition' | translate}} </div>
+                                                    <div class="error error-position"
+                                                        *ngIf="textFieldDataModelForm.controls['maxLength'].hasError('alreadyExist') && textFieldDataModelForm.controls['maxLength'].touched">
+                                                        Maximum Length Allowed is {{maskLength}} </div>
+                                                </div>
+                                            </div>
+
+                                        </span>
+
+                                        <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                            <input type="submit" class="add-btn"
+                                                value="{{'label.AddTemplateParameters.update' | translate}}"
+                                                (click)=updateTextFieldForm(textField) />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <form *ngIf="showTextFieldForm" [formGroup]="textFieldDataModelForm"
+                                [class.disabled]="getAccessRole('isEdit')">
+                                <div class="paramboxborder emptybox">
+
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.FieldName2' | translate}}</label>
+                                            <input type="text" class="form-control" id="fieldName"
+                                                formControlName="fieldName"
+                                                (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                #fieldName />
+                                            <div class="error error-position"
+                                                *ngIf="textFieldDataModelForm.controls['fieldName'].hasError('required') && textFieldDataModelForm.controls['fieldName'].touched">
+                                                {{'error.AddTemplateParameters.FieldName1' | translate}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.FieldPosition2' | translate}}</label>
+                                            <input type="text" class="form-control" id="fieldPosition"
+                                                formControlName="fieldPosition"
+                                                (input)='changeField($event,"[^0-9]","1","20","fieldPosition")'
+                                                #fieldPosition />
+                                            <div class="error error-position"
+                                                *ngIf="textFieldDataModelForm.controls['fieldPosition'].hasError('required') && textFieldDataModelForm.controls['fieldPosition'].touched">
+                                                {{'error.AddTemplateParameters.FieldPosition1' | translate}} </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.DataType1' | translate}} </label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="dataType" #dataType
+                                                    formControlName="dataType">
+                                                    <option value="" disabled selected>
+                                                        {{'label.AddTemplateParameters.Select2' | translate}}</option>
+
+                                                    <option value="Text">
+                                                        {{'label.AddTemplateParameters.Text2' | translate}}</option>
+                                                    <option value="Number">
+                                                        {{'label.AddTemplateParameters.Number1' | translate}}</option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                            <div class="error error-position"
+                                                *ngIf="textFieldDataModelForm.controls['dataType'].hasError('required') && textFieldDataModelForm.controls['dataType'].touched">
+                                                {{'error.AddTemplateParameters.DataType1' | translate}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaskTypes' | translate}}</label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="maskType"
+                                                    (change)="getMaskTypes($event, 1)" #maskTypeField
+                                                    formControlName="maskType">
+                                                    <option value="0" selected>
+                                                        {{'label.AddTemplateParameters.Select3' | translate}}</option>
+                                                    <!-- <option value="Mask Type1">{{'label.AddTemplateParameters.MaskType3' | translate}}</option>
+                          <option value="Mask Type2">{{'label.AddTemplateParameters.MaskType4' | translate}}</option> -->
+                                                    <option
+                                                        *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                        value="{{MaskTypeMasterList.id}}">
+                                                        {{MaskTypeMasterList.maskName}} -
+                                                        {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="!isMaxtextFieldDataModelForm">
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.StartPosition2' | translate}}
+                                                    1</label>
+                                                <input type="text" class="form-control" id="startPosition"
+                                                    formControlName="startPosition" (focusout)="startPositione($event)"
+                                                    (input)='changeField($event,"[^0-9]","1","20","startPosition")'
+                                                    #startPosition />
+
+                                                <div class="error error-position"
+                                                    *ngIf="textFieldDataModelForm.controls['startPosition'].hasError('required') && textFieldDataModelForm.controls['startPosition'].touched">
+                                                    {{'error.AddTemplateParameters.StartPosition1' | translate}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12"
+                                            *ngIf="!isMaxtextFieldDataModelFormSecond">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.EndPosition3' | translate}}
+                                                    2</label>
+                                                <input type="text" class="form-control" id="endPosition"
+                                                    (focusout)="endPositione($event)" formControlName="endPosition"
+                                                    (input)='changeField($event,"[^0-9]","1","20","endPosition")'
+                                                    #endPosition />
+
+                                                <div class="error error-position"
+                                                    *ngIf="textFieldDataModelForm.controls['endPosition'].hasError('required') && textFieldDataModelForm.controls['endPosition'].touched">
+                                                    {{'error.AddTemplateParameters.EndPosition1' | translate}} </div>
+                                                <div class="error error-position"
+                                                    *ngIf="textFieldDataModelForm.controls['endPosition'].hasError('alreadyExist') && textFieldDataModelForm.controls['endPosition'].touched">
+                                                    Maximum Length Allowed is {{maskLength}}</div>
+                                            </div>
+                                        </div>
+
+                                    </span>
+                                    <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                        <input type="submit" class="add-btn"
+                                            value="{{'label.AddTemplateParameters.Add1' | translate}}"
+                                            (click)="addTextFieldForm('0')" />
+                                    </div>
+                                </div>
+                            </form>
+
+                            <p class="addnew-button" (click)="addTextFieldForm('1')"> <span><i class="icon-plus"></i>
+                                    {{'label.AddTemplateParameters.AddNew' | translate}} </span></p>
+
+                            <!-- </form> -->
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" [class.disabled]="textDelimiterDataForm.disabled">
+                        <h4 class="panel-title">
+                            <a id="back2" (click)="showAccordion('delimeter', temp.status)" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapsetwo" class="collapsed"><span class="radiobutton"
+                                    id="roundButton2">
+                                </span>{{'label.AddTemplateParameters.Text3' | translate}} </a>
+                        </h4>
+                    </div>
+                    <div id="collapsetwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <div class="paramboxborder"
+                                *ngFor="let textField of textDelimiterDataModel;  let i = index">
+                                <div class="filledcontent">
+                                    <div class="firstcolumn">
+                                        <span class="listno">{{i+1}}</span>
+                                        <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                        <p>{{textField.fieldName}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.FieldPosition' | translate}}</label>
+                                        <p>{{textField.fieldPosition}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.MaxLength' | translate}}</label>
+                                        <p> {{textField.maxLength}}</p>
+                                    </div>
+
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                        <p> {{textField.dataType}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                        <p> {{textField.maskType}}</p>
+                                    </div>
+                                    <div class="lastcolumn">
+                                        <i *ngIf="!textField.isEdit" (click)=editDelimeterDataModel(textField)
+                                            title="upperField" data-toggle="tooltip" data-placement="left"
+                                            class="icon-edit-new"></i>
+                                        <i *ngIf="!textField.isEdit" (click)="deleteDelimeterDataModel(textField)"
+                                            title="Delete" data-toggle="tooltip" data-placement="left"
+                                            class="icon-delete"></i>
+                                    </div>
+                                </div>
+                                <form *ngIf="textField.isEdit" [formGroup]="textDelimiterDataForm"
+                                    [class.disabled]="getAccessRole('isEdit')">
+                                    <div class="paramboxborder emptybox">
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                                <input type="text" class="form-control" id="fieldName"
+                                                    formControlName="fieldName"
+                                                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                    #fieldName />
+                                                <div class="error error-position"
+                                                    *ngIf="textDelimiterDataForm.controls['fieldName'].hasError('required') && textDelimiterDataForm.controls['fieldName'].touched">
+                                                    {{'error.AddTemplateParameters.FieldName' | translate}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.FieldPosition' | translate}}
+                                                </label>
+                                                <input type="text" class="form-control" id="fieldPosition"
+                                                    formControlName="fieldPosition"
+                                                    (input)='changeField($event,"[^0-9]","1","20","fieldPosition")'
+                                                    #fieldPosition />
+                                                <div class="error error-position"
+                                                    *ngIf="textDelimiterDataForm.controls['fieldPosition'].hasError('required') && textDelimiterDataForm.controls['fieldPosition'].touched">
+                                                    {{'error.AddTemplateParameters.FieldPosition' | translate}} </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="dataType" #dataType
+                                                        formControlName="dataType">
+                                                        <option value="" disabled selected>
+                                                            {{'label.AddTemplateParameters.Select' | translate}}
+                                                        </option>
+
+                                                        <option value="Text">
+                                                            {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                        <option value="Number">
+                                                            {{'label.AddTemplateParameters.Number' | translate}}
+                                                        </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+                                                <div class="error error-position"
+                                                    *ngIf="textDelimiterDataForm.controls['dataType'].hasError('required') && textDelimiterDataForm.controls['dataType'].touched">
+                                                    {{'error.AddTemplateParameters.DataType' | translate}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="maskType"
+                                                        (change)="getMaskTypes($event, 2)" #maskTypeField
+                                                        formControlName="maskType">
+
+                                                        <option value="0" selected disabled>{{'label.AddTemplateParameters.Select' | translate}}</option>
+
+                                                        <option
+                                                            *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                            value="{{MaskTypeMasterList.id}}">
+                                                            {{MaskTypeMasterList.maskName}} -
+                                                            {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxDelimiterDataForm">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaxLength' | translate}} </label>
+                                                <input type="text" class="form-control" id="maxLength"
+                                                    (focusout)="getMaskLengthDelimiter($event)"
+                                                    formControlName="maxLength"
+                                                    (input)='changeField($event,"[^0-9]","1","20","maxLength")'
+                                                    #startPosition />
+
+                                                <div class="error error-position"
+                                                    *ngIf="textDelimiterDataForm.controls['maxLength'].hasError('required') && textDelimiterDataForm.controls['maxLength'].touched">
+                                                    {{'error.AddTemplateParameters.MaxLength' | translate}} </div>
+                                                <div class="error error-position"
+                                                    *ngIf="textDelimiterDataForm.controls['maxLength'].hasError('alreadyExist') && textDelimiterDataForm.controls['maxLength'].touched">
+                                                    Maximum Length Allowed is {{displayLength}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                            <input type="submit" class="add-btn"
+                                                value="{{'label.AddTemplateParameters.update' | translate}}"
+                                                (click)=updateDelimeterForm(textField) />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <form *ngIf="showTextDelimiter" [formGroup]="textDelimiterDataForm"
+                                [class.disabled]="getAccessRole('isEdit')">
+                                <div class="paramboxborder emptybox">
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                            <input type="text" class="form-control" id="fieldName"
+                                                (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                formControlName="fieldName" #fieldName />
+                                            <div class="error error-position"
+                                                *ngIf="textDelimiterDataForm.controls['fieldName'].hasError('required') && textDelimiterDataForm.controls['fieldName'].touched">
+                                                {{'error.AddTemplateParameters.FieldName' | translate}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.FieldPosition' | translate}}</label>
+                                            <input type="text" class="form-control" id="fieldPosition"
+                                                (input)='changeField($event,"[^0-9]","1","20","fieldPosition")'
+                                                formControlName="fieldPosition" #fieldPosition />
+                                            <div class="error error-position"
+                                                *ngIf="textDelimiterDataForm.controls['fieldPosition'].hasError('required') && textDelimiterDataForm.controls['fieldPosition'].touched">
+                                                {{'error.AddTemplateParameters.FieldPosition' | translate}} </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="dataType" #dataType
+                                                    formControlName="dataType">
+                                                    <option value="" disabled selected>
+                                                        {{'label.AddTemplateParameters.Select' | translate}}</option>
+
+                                                    <option value="Text">
+                                                        {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                    <option value="Number">
+                                                        {{'label.AddTemplateParameters.Number' | translate}}</option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                            <div class="error error-position"
+                                                *ngIf="textDelimiterDataForm.controls['dataType'].hasError('required') && textDelimiterDataForm.controls['dataType'].touched">
+                                                {{'error.AddTemplateParameters.DataType' | translate}} </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                            <div class="styled-select">
+                                                <select class="form-controleeeeee" id="maskType"
+                                                    (change)="getMaskTypes($event, 2)" #maskTypeField
+                                                    formControlName="maskType">
+                                                    <option value="0" selected disabled>{{'label.AddTemplateParameters.Select' | translate}}</option>
+                                                    <option
+                                                        *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                        value="{{MaskTypeMasterList.id}}">
+                                                        {{MaskTypeMasterList.maskName}} -
+                                                        {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxDelimiterDataForm">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaxLength' | translate}} </label>
+                                            <input type="text" class="form-control" id="maxLength"
+                                                (focusout)="getMaskLengthDelimiter($event)" formControlName="maxLength"
+                                                (input)='changeField($event,"[^0-9]","1","20","maxLength")'
+                                                #startPosition />
+
+                                            <div class="error error-position"
+                                                *ngIf="textDelimiterDataForm.controls['maxLength'].hasError('required') && textDelimiterDataForm.controls['maxLength'].touched">
+                                                {{'error.AddTemplateParameters.MaxLength' | translate}}</div>
+
+                                            <div class="error error-position"
+                                                *ngIf="textDelimiterDataForm.controls['maxLength'].hasError('alreadyExist') && textDelimiterDataForm.controls['maxLength'].touched">
+                                                Maximum Length Allowed is {{displayLength}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                        <input type="submit" class="add-btn"
+                                            value="{{'label.AddTemplateParameters.Add' | translate}}"
+                                            (click)="addDelimeterForm('0')" />
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="addnew-button" (click)="addDelimeterForm('1')"><span><i class="icon-plus"></i>
+                                    {{'label.AddTemplateParameters.AddNew' | translate}} </span></p>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" [class.disabled]="xmlDataForm.disabled">
+                        <h4 class="panel-title">
+                            <a id="back3" (click)="showAccordion('xml', temp.status)" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapsethree" class="collapsed"><span
+                                    class="radiobutton" id="roundButton3">
+                                </span>{{'label.AddTemplateParameters.XML' | translate}} </a>
+                        </h4>
+                    </div>
+                    <div id="collapsethree" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <div class="paramboxborder" *ngFor="let textField of xmlDataModel;  let i = index">
+                                <div class="filledcontent">
+                                    <div class="firstcolumn">
+                                        <span class="listno">{{i+1}}</span>
+                                        <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                        <p>{{textField.fieldName}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.TagName' | translate}}</label>
+                                        <p>{{textField.tagName}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.MaxLength' | translate}}</label>
+                                        <p> {{textField.maxLength}}</p>
+                                    </div>
+
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                        <p> {{textField.dataType}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                        <p> {{textField.maskType}}</p>
+                                    </div>
+                                    <div class="lastcolumn">
+                                        <i *ngIf="!textField.isEdit" (click)=editXMLModel(textField) title="upperField"
+                                            data-toggle="tooltip" data-placement="left" class="icon-edit-new"></i>
+                                        <i *ngIf="!textField.isEdit" (click)="updateXMLForm(textField)" title="Delete"
+                                            data-toggle="tooltip" data-placement="left" class="icon-delete"></i>
+                                    </div>
+                                </div>
+                                <form *ngIf="textField.isEdit" [formGroup]="xmlDataForm"
+                                    [class.disabled]="getAccessRole('isEdit')">
+                                    <div class="paramboxborder emptybox">
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                                <input type="text" class="form-control" id="fieldName"
+                                                    formControlName="fieldName"
+                                                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                    #fieldName />
+                                                <div class="error error-position"
+                                                    *ngIf="xmlDataForm.controls['fieldName'].hasError('required') && xmlDataForm.controls['fieldName'].touched">
+                                                    {{'error.AddTemplateParameters.FieldName' | translate}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.TagName' | translate}}</label>
+                                                <input type="text" class="form-control" id="tagName"
+                                                    formControlName="tagName"
+                                                    (input)='changeField($event,"[^0-9a-zA-Z\u0600-\u06FF]","1","20","tagName")'
+                                                    #fieldPosition />
+                                                <div class="error error-position"
+                                                    *ngIf="xmlDataForm.controls['tagName'].hasError('required') && xmlDataForm.controls['tagName'].touched">
+                                                    {{'error.AddTemplateParameters.TagName' | translate}} </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>End Position</label>
+                        <input type="text" class="form-control" id="endPosition" formControlName="endPosition"
+                          (input)='changeField($event,"[^0-9]","1","20","endPosition")' #endPosition />
+
+                        <div class="error error-position"
+                          *ngIf="xmlDataForm.controls['endPosition'].hasError('required') && xmlDataForm.controls['endPosition'].touched">
+                          End Position is required</div>
+                      </div>
+                    </div> -->
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="dataType" #dataType
+                                                        formControlName="dataType">
+                                                        <option value="" disabled selected>
+                                                            {{'label.AddTemplateParameters.Select' | translate}}
+                                                        </option>
+
+                                                        <option value="Text">
+                                                            {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                        <option value="Number">
+                                                            {{'label.AddTemplateParameters.DataNumberType' | translate}}
+                                                        </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+                                                <div class="error error-position"
+                                                    *ngIf="xmlDataForm.controls['dataType'].hasError('required') && xmlDataForm.controls['dataType'].touched">
+                                                    {{'error.AddTemplateParameters.DataType' | translate}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="maskType"
+                                                        (change)="getMaskTypes($event, 3)" #maskTypeField
+                                                        formControlName="maskType">
+                                                        <option value="" selected>
+                                                            {{'label.AddTemplateParameters.Select' | translate}}
+                                                        </option>
+                                                        <option
+                                                            *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                            value="{{MaskTypeMasterList.id}}">
+                                                            {{MaskTypeMasterList.maskName}} -
+                                                            {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxxmlDataForm">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaxLength' | translate}}</label>
+                                                <input type="text" class="form-control" id="maxLength"
+                                                    (focusout)="getMaskLengthXml($event)" formControlName="maxLength"
+                                                    (input)='changeField($event,"[^0-9]","1","20","maxLength")'
+                                                    #startPosition />
+
+                                                <div class="error error-position"
+                                                    *ngIf="xmlDataForm.controls['maxLength'].hasError('required') && xmlDataForm.controls['maxLength'].touched">
+                                                    {{'error.AddTemplateParameters.MaxLength' | translate}} </div>
+
+                                                <div class="error error-position"
+                                                    *ngIf="xmlDataForm.controls['maxLength'].hasError('alreadyExist') && xmlDataForm.controls['maxLength'].touched">
+                                                    Maximum Length Allowed is {{displayLength}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                            <input type="submit" class="add-btn"
+                                                value="{{'label.AddTemplateParameters.update' | translate}}"
+                                                (click)=updateXMLForm(textField) />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <form *ngIf="showTextxml" [formGroup]="xmlDataForm"
+                                [class.disabled]="getAccessRole('isEdit')">
+                                <div class="paramboxborder emptybox">
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                            <input type="text" class="form-control" id="fieldName"
+                                                formControlName="fieldName"
+                                                (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                #fieldName />
+                                            <div class="error error-position"
+                                                *ngIf="xmlDataForm.controls['fieldName'].hasError('required') && xmlDataForm.controls['fieldName'].touched">
+                                                {{'error.AddTemplateParameters.FieldName' | translate}} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.TagName' | translate}}</label>
+                                            <input type="text" class="form-control" id="tagName"
+                                                formControlName="tagName"
+                                                (input)='changeField($event,"[^0-9a-zA-Z\u0600-\u06FF]","1","20","tagName")'
+                                                #fieldPosition />
+                                            <div class="error error-position"
+                                                *ngIf="xmlDataForm.controls['tagName'].hasError('required') && xmlDataForm.controls['tagName'].touched">
+                                                {{'error.AddTemplateParameters.TagName' | translate}} </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-sm-6 col-md-6 col-xs-12">
+                    <div class="form-group">
+                      <label>End Position</label>
+                      <input type="text" class="form-control" id="endPosition" formControlName="endPosition"
+                        (input)='changeField($event,"[^0-9]","1","20","endPosition")' #endPosition />
+
+                      <div class="error error-position"
+                        *ngIf="xmlDataForm.controls['endPosition'].hasError('required') && xmlDataForm.controls['endPosition'].touched">
+                        End Position is required</div>
+                    </div>
+                  </div> -->
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.DataType' | translate}} </label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="dataType" #dataType
+                                                    formControlName="dataType">
+                                                    <option value="" disabled selected>
+                                                        {{'label.AddTemplateParameters.Select' | translate}}</option>
+
+                                                    <option value="Text">
+                                                        {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                    <option value="Number">
+                                                        {{'label.AddTemplateParameters.Number' | translate}}</option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                            <div class="error error-position"
+                                                *ngIf="xmlDataForm.controls['dataType'].hasError('required') && xmlDataForm.controls['dataType'].touched">
+                                                {{'error.AddTemplateParameters.DataType' | translate}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="maskType"
+                                                    (change)="getMaskTypes($event, 3)" #maskTypeField
+                                                    formControlName="maskType">
+                                                    <option value="" selected>
+                                                        {{'label.AddTemplateParameters.Select' | translate}}</option>
+                                                    <option
+                                                        *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                        value="{{MaskTypeMasterList.id}}">
+                                                        {{MaskTypeMasterList.maskName}} -
+                                                        {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxxmlDataForm">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaxLength' | translate}}</label>
+                                            <input type="text" class="form-control" id="maxLength"
+                                                (focusout)="getMaskLengthXml($event)" formControlName="maxLength"
+                                                (input)='changeField($event,"[^0-9]","1","20","maxLength")'
+                                                #startPosition />
+
+                                            <div class="error error-position"
+                                                *ngIf="xmlDataForm.controls['maxLength'].hasError('required') && xmlDataForm.controls['maxLength'].touched">
+                                                {{'error.AddTemplateParameters.MaxLength' | translate}} </div>
+
+                                            <div class="error error-position"
+                                                *ngIf="xmlDataForm.controls['maxLength'].hasError('alreadyExist') && xmlDataForm.controls['maxLength'].touched">
+                                                Maximum Length Allowed is {{displayLength}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                        <input type="submit" class="add-btn"
+                                            value="{{'label.AddTemplateParameters.Add' | translate}}"
+                                            (click)="addXMLForm('0')" />
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="addnew-button" (click)="addXMLForm('1')"><span><i class="icon-plus"></i>
+                                    {{'label.AddTemplateParameters.AddNew' | translate}}</span></p>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" [class.disabled]="JSONDataForm.disabled">
+                        <h4 class="panel-title">
+                            <a id="back4" (click)="showAccordion('json', temp.status)" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseFour" class="collapsed"><span
+                                    class="radiobutton" id="roundButton4">
+                                </span>{{'label.AddTemplateParameters.JSON' | translate}} </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <div class="paramboxborder" *ngFor="let textField of JSONDataModel;  let i = index">
+                                <div class="filledcontent">
+                                    <div class="firstcolumn">
+                                        <span class="listno">{{i+1}}</span>
+                                        <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                        <p>{{textField.fieldName}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.KeyName' | translate}}</label>
+                                        <p>{{textField.keyName}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.MaxLength' | translate}}</label>
+                                        <p> {{textField.maxLength}}</p>
+                                    </div>
+
+                                    <div class="commoncolumn">
+                                        <label>Data Type</label>
+                                        <p> {{textField.dataType}}</p>
+                                    </div>
+                                    <div class="commoncolumn">
+                                        <label>{{'label.AddTemplateParameters.MaxLength' | translate}}Mask Type</label>
+                                        <p> {{textField.maskType}}</p>
+                                    </div>
+                                    <div class="lastcolumn">
+                                        <i *ngIf="!textField.isEdit" (click)=editJSONModel(textField) title="upperField"
+                                            data-toggle="tooltip" data-placement="left" class="icon-edit-new"></i>
+                                        <i *ngIf="!textField.isEdit" (click)="deleteJSONModel(textField)" title="Delete"
+                                            data-toggle="tooltip" data-placement="left" class="icon-delete"></i>
+                                    </div>
+                                </div>
+                                <form *ngIf="textField.isEdit" [formGroup]="JSONDataForm"
+                                    [class.disabled]="getAccessRole('isEdit')">
+                                    <div class="paramboxborder emptybox">
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                                <input type="text" class="form-control" id="fieldName"
+                                                    formControlName="fieldName"
+                                                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                    #fieldName />
+                                                <div class="error error-position"
+                                                    *ngIf="JSONDataForm.controls['fieldName'].hasError('required') && JSONDataForm.controls['fieldName'].touched">
+                                                    {{'error.AddTemplateParameters.FieldName' | translate}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.KeyName' | translate}}</label>
+                                                <input type="text" class="form-control" id="keyName"
+                                                    formControlName="keyName"
+                                                    (input)='changeField($event,"[^0-9a-zA-Z\u0600-\u06FF]","1","20","keyName")'
+                                                    #fieldPosition />
+                                                <div class="error error-position"
+                                                    *ngIf="JSONDataForm.controls['keyName'].hasError('required') && JSONDataForm.controls['keyName'].touched">
+                                                    {{'error.AddTemplateParameters.KeyName' | translate}} </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="dataType" #dataType
+                                                        formControlName="dataType">
+                                                        <option value="" disabled selected>
+                                                            {{'label.AddTemplateParameters.Select' | translate}}
+                                                        </option>
+
+                                                        <option value="Text">
+                                                            {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                        <option value="Number">
+                                                            {{'label.AddTemplateParameters.Number' | translate}}
+                                                        </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+                                                <div class="error error-position"
+                                                    *ngIf="JSONDataForm.controls['dataType'].hasError('required') && JSONDataForm.controls['dataType'].touched">
+                                                    {{'error.AddTemplateParameters.DataType' | translate}} </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                                <div class="styled-select">
+                                                    <select class="form-control" id="maskType"
+                                                        (change)="getMaskTypes($event, 4)" #maskTypeField
+                                                        formControlName="maskType">
+                                                        <option value="" selected>
+                                                            {{'label.AddTemplateParameters.Select' | translate}}
+                                                        </option>
+                                                        <option
+                                                            *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                            value="{{MaskTypeMasterList.id}}">
+                                                            {{MaskTypeMasterList.maskName}} -
+                                                            {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                    </select>
+                                                    <span class="fa fa-sort-desc"></span>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxJSONDataForm">
+                                            <div class="form-group">
+                                                <label>{{'label.AddTemplateParameters.MaxLength' | translate}} </label>
+                                                <input type="text" class="form-control" id="maxLength"
+                                                    (focusout)="getMaskLengthJson($event)" formControlName="maxLength"
+                                                    (input)='changeField($event,"[^0-9]","1","20","maxLength")'
+                                                    #startPosition />
+
+                                                <div class="error error-position"
+                                                    *ngIf="JSONDataForm.controls['maxLength'].hasError('required') && JSONDataForm.controls['maxLength'].touched">
+                                                    {{'error.AddTemplateParameters.MaxLength' | translate}}</div>
+                                                <div class="error error-position"
+                                                    *ngIf="JSONDataForm.controls['maxLength'].hasError('alreadyExist') && JSONDataForm.controls['maxLength'].touched">
+                                                    Maximum Length Allowed is {{displayLength}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                            <input type="submit" class="add-btn"
+                                                value="{{'label.AddTemplateParameters.Update' | translate}}"
+                                                (click)=updateJSONForm(textField) />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <form *ngIf="showTextJSON" [formGroup]="JSONDataForm"
+                                [class.disabled]="getAccessRole('isEdit')">
+                                <div class="paramboxborder emptybox">
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.FieldName' | translate}}</label>
+                                            <input type="text" class="form-control" id="fieldName"
+                                                formControlName="fieldName"
+                                                (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                                                #fieldName />
+                                            <div class="error error-position"
+                                                *ngIf="JSONDataForm.controls['fieldName'].hasError('required') && JSONDataForm.controls['fieldName'].touched">
+                                                {{'error.AddTemplateParameters.FieldName' | translate}} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.KeyName' | translate}}</label>
+                                            <input type="text" class="form-control" id="keyName"
+                                                formControlName="keyName"
+                                                (input)='changeField($event,"[^0-9a-zA-Z\u0600-\u06FF]","1","20","keyName")'
+                                                #fieldPosition />
+                                            <div class="error error-position"
+                                                *ngIf="JSONDataForm.controls['keyName'].hasError('required') && JSONDataForm.controls['keyName'].touched">
+                                                {{'error.AddTemplateParameters.KeyName' | translate}} </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.DataType' | translate}}</label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="dataType" #dataType
+                                                    formControlName="dataType">
+                                                    <option value="" disabled selected>
+                                                        {{'label.AddTemplateParameters.Select' | translate}}</option>
+
+                                                    <option value="Text">
+                                                        {{'label.AddTemplateParameters.Text' | translate}}</option>
+                                                    <option value="Number">
+                                                        {{'label.AddTemplateParameters.Number' | translate}}</option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                            <div class="error error-position"
+                                                *ngIf="JSONDataForm.controls['dataType'].hasError('required') && JSONDataForm.controls['dataType'].touched">
+                                                {{'error.AddTemplateParameters.DataType' | translate}} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaskType' | translate}}</label>
+                                            <div class="styled-select">
+                                                <select class="form-control" id="maskType"
+                                                    (change)="getMaskTypes($event, 4)" #maskTypeField
+                                                    formControlName="maskType">
+                                                    <option value="" selected>
+                                                        {{'label.AddTemplateParameters.Select' | translate}}</option>
+                                                    <option
+                                                        *ngFor="let MaskTypeMasterList of MaskTypeMasterList; let i=index "
+                                                        value="{{MaskTypeMasterList.id}}">
+                                                        {{MaskTypeMasterList.maskName}} -
+                                                        {{getMaskName(MaskTypeMasterList.maskType)}} </option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-xs-12" *ngIf="!isMaxJSONDataForm">
+                                        <div class="form-group">
+                                            <label>{{'label.AddTemplateParameters.MaxLength' | translate}}</label>
+                                            <input type="text" class="form-control" id="maxLength"
+                                                (focusout)="getMaskLengthJson($event)" formControlName="maxLength"
+                                                (input)='changeField($event,"[^0-9]","1","20","maxLength")'
+                                                #startPosition />
+
+                                            <div class="error error-position"
+                                                *ngIf="JSONDataForm.controls['maxLength'].hasError('required') && JSONDataForm.controls['maxLength'].touched">
+                                                {{'error.AddTemplateParameters.MaxLength' | translate}} </div>
+                                            <div class="error error-position"
+                                                *ngIf="JSONDataForm.controls['maxLength'].hasError('alreadyExist') && JSONDataForm.controls['maxLength'].touched">
+                                                Maximum Length Allowed is {{displayLength}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                                        <input type="submit" class="add-btn"
+                                            value="{{'label.AddTemplateParameters.Add' | translate}}"
+                                            (click)="addJSONForm('0')" />
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="addnew-button" (click)="addJSONForm('1')"><span><i class="icon-plus"></i>
+                                    {{'label.AddTemplateParameters.AddNew' | translate}} </span></p>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+                <!--
+        <div class="panel panel-default" *ngIf="XML">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a (click)="deleteThirdLength()" data-toggle="collapse" data-parent="#accordion" href="#collapsethree"
+                class="collapsed"><span class="radiobutton">
+                </span>XML</a>
+            </h4>
+          </div>
+          <div id="collapsethree" class="panel-collapse collapse">
+            <div class="panel-body">
+              <span>
+                <span *ngFor="let xmlFieldLists of TemplateForm['controls'].xmlData['controls']; let i = index"
+                  formGroupName="{{i}}">
+
+                  <div class="paramboxborder">
+                    <div class="filledcontent">
+                      <div class="firstcolumn">
+                        <span class="listno">{{i+1}}</span>
+                        <label>Field Name</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="fieldName" formControlName="fieldName"
+                            #fieldName />
+                        </span>
+
+                      </div>
+                      <div class="commoncolumn">
+                        <label>Tag Name</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="tagName" formControlName="tagName"
+                            #tagName />
+                        </span>
+                      </div>
+                      <div class="commoncolumn">
+                        <label>Max Length</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="maxLength" formControlName="maxLength"
+                            #maxLength />
+                        </span>
+                      </div>
+
+                      <div class="commoncolumn">
+                        <label>Data Type</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="dataType" formControlName="dataType"
+                            #dataType />
+                        </span>
+                      </div>
+                      <div class="lastcolumn">
+                        <i title="Edit" data-toggle="tooltip" data-placement="left" class="icon-edit-new"></i>  
+                        <i (click)="deleteXmlFields(i)" title="Delete" data-toggle="tooltip" data-placement="left"
+                          class="icon-delete"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="paramboxborder emptybox">
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Field Name</label>
+                        <input type="text" class="form-control" id="fieldName"
+                          (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                          formControlName="fieldName" #fieldName />
+                        <div class="error error-position"
+                          *ngIf="xmlFieldLists.controls['fieldName'].hasError('required') && xmlFieldLists.controls['fieldName'].touched">
+                          Field Name is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Tag Name</label>
+                        <input type="text" class="form-control" id="tagName"
+                          (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","tagName")'
+                          formControlName="tagName" #tagName />
+                        <div class="error error-position"
+                          *ngIf="xmlFieldLists.controls['tagName'].hasError('required') && xmlFieldLists.controls['tagName'].touched">
+                          Tag Name is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Max Length</label>
+                        <input type="text" class="form-control" id="maxLength"
+                          (input)='changeField($event,"[^0-9]","1","20","maxLength")' formControlName="maxLength"
+                          #maxLength />
+                        <div class="error error-position"
+                          *ngIf="xmlFieldLists.controls['maxLength'].hasError('required') && xmlFieldLists.controls['maxLength'].touched">
+                          Max Length is required</div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Data Type</label>
+                        <div class="styled-select">
+                          <select class="form-control" id="dataType" formControlName="dataType" #dataType>
+                            <option value="undefined" selected>Select</option>
+                            <option>Text</option>
+                            <option>Number</option>
+                          </select>
+                          <span class="fa fa-sort-desc"></span>
+                          <div class="error error-position"
+                            *ngIf="xmlFieldLists.controls['dataType'].hasError('required') && xmlFieldLists.controls['dataType'].touched">
+                            Data Type is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Mask Type</label>
+                        <div class="styled-select">
+                          <select class="form-control" id="maskType" formControlName="maskType" #maskType>
+                            <option value="undefined" selected>Select</option>
+                            <option>Mask Type1</option>
+                            <option>Mask Type2</option>
+                          </select>
+                          <span class="fa fa-sort-desc"></span>
+                          <div class="error error-position"
+                            *ngIf="xmlFieldLists.controls['maskType'].hasError('required') && xmlFieldLists.controls['maskType'].touched">
+                            Mask Type is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                              <input type="submit" class="add-btn" value="Add" />
+                            </div>
+                  </div>
+                </span>
+              </span>
+              <p *ngIf="Edit" class="addnew-button" (click)=addXmlLength()><span><i class="icon-plus"></i> Add
+                  New</span></p>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+
+        <div class="panel panel-default" *ngIf="JSON">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a (click)="deleteFourthLength()" data-toggle="collapse" data-parent="#accordion" href="#collapsefour"
+                class="collapsed"><span class="radiobutton">
+                </span>JSON</a>
+            </h4>
+          </div>
+          <div id="collapsefour" class="panel-collapse collapse">
+
+            <div class="panel-body">
+              <span>
+                <span *ngFor="let jsonFieldLists of TemplateForm['controls'].jsonData['controls']; let i = index"
+                  formGroupName="{{i}}">
+
+                  <div class="paramboxborder">
+                    <div class="filledcontent">
+                      <div class="firstcolumn">
+                        <span class="listno">{{i+1}}</span>
+                        <label>Field Name</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="fieldName" formControlName="fieldName"
+                            #fieldName />
+                        </span>
+
+                      </div>
+                      <div class="commoncolumn">
+                        <label>Key Name</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="keyName" formControlName="keyName"
+                            #keyName />
+                        </span>
+                      </div>
+                      <div class="commoncolumn">
+                        <label>Max Length</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="maxLength" formControlName="maxLength"
+                            #maxLength />
+                        </span>
+                      </div>
+
+                      <div class="commoncolumn">
+                        <label>Data Type</label>
+                        <span>
+                          <input type="text" disabled class="form-control" id="dataType" formControlName="dataType"
+                            #dataType />
+                        </span>
+                      </div>
+                      <div class="lastcolumn">
+                        <i title="Edit" data-toggle="tooltip" data-placement="left" class="icon-edit-new"></i>  
+                        <i (click)="deleteJsonFields(i)" title="Delete" data-toggle="tooltip" data-placement="left"
+                          class="icon-delete"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="paramboxborder emptybox">
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Field Name</label>
+                        <input type="text" class="form-control" id="fieldName"
+                          (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fieldName")'
+                          formControlName="fieldName" #fieldName />
+                        <div class="error error-position"
+                          *ngIf="jsonFieldLists.controls['fieldName'].hasError('required') && jsonFieldLists.controls['fieldName'].touched">
+                          Field Name is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Key Name</label>
+                        <input type="text" class="form-control" id="keyName"
+                          (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","keyName")'
+                          formControlName="keyName" #keyName />
+                        <div class="error error-position"
+                          *ngIf="jsonFieldLists.controls['keyName'].hasError('required') && jsonFieldLists.controls['keyName'].touched">
+                          Key Name is required</div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Max Length</label>
+                        <input type="text" class="form-control" id="maxLength"
+                          (input)='changeField($event,"[^0-9]","1","20","maxLength")' formControlName="maxLength"
+                          #maxLength />
+                        <div class="error error-position"
+                          *ngIf="jsonFieldLists.controls['maxLength'].hasError('required') && jsonFieldLists.controls['maxLength'].touched">
+                          Max Length is required</div>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Data Type</label>
+                        <div class="styled-select">
+                          <select class="form-control" id="dataType" formControlName="dataType" #dataType>
+                            <option value="undefined" selected>Select</option>
+                            <option>Text</option>
+                            <option>Number</option>
+                          </select>
+                          <span class="fa fa-sort-desc"></span>
+                          <div class="error error-position"
+                            *ngIf="jsonFieldLists.controls['dataType'].hasError('required') && jsonFieldLists.controls['dataType'].touched">
+                            Data Type is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-12">
+                      <div class="form-group">
+                        <label>Mask Type</label>
+                        <div class="styled-select">
+                          <select class="form-control" id="maskType" formControlName="maskType" #maskType>
+                            <option value="undefined" selected>Select</option>
+                            <option>Mask Type1</option>
+                            <option>Mask Type2</option>
+                          </select>
+                          <span class="fa fa-sort-desc"></span>
+                          <div class="error error-position"
+                            *ngIf="jsonFieldLists.controls['maskType'].hasError('required') && jsonFieldLists.controls['maskType'].touched">
+                            Mask Type is required</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="button-right col-md-12 col-sm-12 col-xs-12">
+                              <input type="submit" class="add-btn" value="Add" />
+                            </div>
+                  </div>
+                </span>
+              </span>
+              <p *ngIf="Edit" class="addnew-button" (click)=addJsonLength()><span><i class="icon-plus"></i> Add
+                  New</span></p>
+
+            </div>
+
+          </div>
+        </div>
+
+         -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="form-list" *ngIf="temp.status=='approveOrReject'">
+    <div class="row">
+        <div class="col-sm-6 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label>{{'label.AddTemplateParameters.Reason' | translate}}</label>
+                <textarea placeholder="Enter Reason" type="text" class="form-control" [(ngModel)]="templateObj.reason"
+                    id="reason" autocomplete="off"
+                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","500","reason")'></textarea>
+                <div class="error error-position" *ngIf="errReasonMsg">
+                    {{'error.AddTemplateParameters.Enter' | translate}}</div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="button-right">
+
+    <input [class.disabled]="getAccessRole('isEdit')" *ngIf="temp.status=='edit'" (click)=Update() type="submit"
+        class="add-btn" value="{{'label.AddTemplateParameters.Update' | translate}}" />
+    <input [class.disabled]="getAccessRole('isAdd')"
+        *ngIf="temp.status=='new' || temp.status=='draft'||temp.status=='reopen'" (click)=Submit() type="submit"
+        class="add-btn" value="{{'label.AddTemplateParameters.Submit' | translate}}" />
+    <input [class.disabled]="getAccessRole('isAdd')"
+        *ngIf="temp.status=='new'|| temp.status=='draft'||temp.status=='reopen'" (click)=Draft() type="submit"
+        class="add-btn" value="{{'label.AddTemplateParameters.Save' | translate}}" />
+    <input *ngIf="temp.status=='new'|| temp.status=='draft'||temp.status=='reopen'|| temp.status=='edit'
+    || temp.status=='approveOrReject'" (click)=back() type="submit" class="cancel-btn" value="Cancel" />
+    <input *ngIf="temp.status=='approveOrReject' &&(user.userId!=templateObj.createdBy||user.data.isAdminUser)"
+        (click)="approve('approve')" type="submit" class="add-btn"
+        value="{{'label.AddTemplateParameters.Approve' | translate}}" />
+    <input *ngIf="temp.status=='approveOrReject' &&(user.userId!=templateObj.createdBy||user.data.isAdminUser)"
+        (click)="approve('reject')" type="submit" class="cancel-btn"
+        value="{{'label.AddTemplateParameters.Reject' | translate}}" />
+    <input *ngIf="temp.status=='approveOrReject' &&(user.userId!=templateObj.createdBy||user.data.isAdminUser)"
+        (click)="approve('reopen')" type="submit" class="cancel-btn"
+        value="{{'label.AddTemplateParameters.Return' | translate}} " />
+</div>

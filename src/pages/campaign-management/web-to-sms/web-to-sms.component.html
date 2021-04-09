@@ -1,0 +1,447 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/"> {{'label.SendNotification.Home' | translate}}</a></li>
+        <li class="breadcrumb-item active">{{role.menuLabel}}</li>
+
+    </ol>
+</div>
+<div class="inner-head">
+    <h2><a (click)=back() href="javascript:void(0)" class="back-btn"><span
+                class="icon-back"></span></a>{{role.menuLabel}}</h2>
+    <!-- <a (click)=back() href="javascript:void(0)" class="cancel-btn cancel-bg">Back</a> -->
+</div>
+<form [formGroup]="compaingForm" [class.disabled]="getAccessRole('isEdit')">
+    <div class="form-list">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Channel' | translate}}</label>
+                    <div class="radio-group pushpull-radiogroup">
+                        <div class="radio-btn" *ngFor="let stat of listChannelId let i=index;">
+                            <input formControlName="channelId" id="radio-{{i}}" type="radio"
+                                [(ngModel)]="compaignObj.channelId" (change)='campaginChange($event)'
+                                value="{{stat.channelId}}" />
+                            <label class="radio-label" for="radio-{{i}}">{{stat.channelDesc}}</label>
+                        </div>
+                        <!-- <div class="radio-btn">
+                            <input type="radio" name="channel" value="Email" id="channel2" />
+                            <label class="radio-label" for="channel2">Email</label>
+                        </div>
+                        <div class="radio-btn">
+                            <input type="radio" name="channel" value="Push Notification" id="channel3" />
+                            <label class="radio-label" for="channel3">Push Notification</label>
+                        </div> -->
+                    </div>
+                    <!-- <div class="radio-group">
+                        <div class="radio-btn" *ngFor="let stat of listChannelId let i=index;">
+                            <input formControlName="channelId" id="radio-{{i}}" type="radio"
+                                [(ngModel)]="compaignObj.channelId" (change)='campaginChange($event)'
+                                value="{{stat.channelId}}" />
+                            <label for="radio-{{i}}" class="radio-label"
+                                style="color:black">{{stat.channelDesc}}</label>
+                        </div>
+
+                    </div> -->
+
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['channelId'].hasError('required') && compaingForm.controls['channelId'].touched">
+                        {{'error.SendNotification.Channel' | translate}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Department' | translate}}<span>{{'label.SendNotification.Optional' | translate}}</span></label>
+                    <div class="styled-select">
+
+                        <select [(ngModel)]="compaignObj.departmentId" formControlName="departmentId" id="departmentId">
+                            <option value="undefined" selected disabled>{{'label.SendNotification.SelectDepartment' | translate}} </option>
+                            <option *ngFor="let listDepartments of listDepartments; let i=index "
+                                value="{{listDepartments.departmentId}}">{{listDepartments.departmentName}}</option>
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+
+                        <div class="error error-position"
+                            *ngIf="compaingForm.controls['departmentId'].hasError('required') && compaingForm.controls['departmentId'].touched">
+                            {{'error.SendNotification.Department' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="!compaignObj.isEmail">
+                <div class="form-group phone-mumber">
+                    <label>{{'label.SendNotification.PhoneNumber' | translate}} </label>
+
+                    <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="compaignObj.ph"
+                        (ngModelChange)="checkNumber()" [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [onlyCountries]="CountryISO"  [maxLength]="15"
+                        [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode" name="phone"
+                        formControlName="opPreMobileNo">
+                    </ngx-intl-tel-input>
+
+                    
+                    <!-- <div class="styled-select">
+                        <select formControlName="opPreMobileNo" [(ngModel)]="compaignObj.opPreMobileNo"
+                            id="opPreMobileNo" (change)='prePhoneNoFouctOut()'>
+                            <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                value="{{countryCodes.countryCode}}">
+                                {{countryCodes.countryCode}}
+                            </option>
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+
+                    </div> -->
+                    <!-- <input type="text" class="form-control" [(ngModel)]="compaignObj.opPostMobileNo"
+                        formControlName="opPostMobileNo" id="opPostMobileNo" (focusout)="postPhoneNoFouctOut()"
+                        (input)='changeField($event,"[^0-9]","1","15","opPostMobileNo",compaignObj.opPostMobileNo.length)'> -->
+
+                    <!-- <div class="error error-position"
+                        *ngIf="(compaingForm.controls['opPreMobileNo'].hasError('required') || compaingForm.controls['opPreMobileNo'].hasError('required')) && compaingForm.controls['opPostMobileNo'].touched">
+                        Phone Number is required</div> -->
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['opPreMobileNo'].hasError('required') && compaingForm.controls['opPreMobileNo'].touched">
+                        {{'error.SendNotification.PhoneNumber' | translate}}  </div>
+                        <div class="error error-position" *ngIf="!compaingForm.controls['opPreMobileNo'].hasError('required') && compaingForm.controls['opPreMobileNo'].hasError('validatePhoneNumber') && compaingForm.controls['opPreMobileNo'].touched">
+                            {{'error.SendNotification.Invalidphone' | translate}} </div>
+                    <div class="error error-position" style="text-align: left;"
+                        *ngIf="!compaingForm.controls['opPreMobileNo'].hasError('required') && compaingForm.controls['opPreMobileNo'].hasError('existContent')&& compaingForm.controls['opPreMobileNo'].touched">
+                        {{messageError.opPreMobileNo}}</div>
+                    <div class="error error-position"
+                        *ngIf="!compaingForm.controls['opPreMobileNo'].hasError('required') && compaingForm.controls['opPostMobileNo'].hasError('existContent')&& compaingForm.controls['opPostMobileNo'].touched">
+                        {{messageError.opPostMobileNo}} </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="compaignObj.isEmail">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Email' | translate}}  </label>
+                    <input type="text" class="form-control" [(ngModel)]="compaignObj.emailId" formControlName="emailId"
+                        (focusout)="emailFocusout()" id="emailId" autocomplete="off">
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['emailId'].hasError('required') && compaingForm.controls['emailId'].touched">
+                        {{'error.SendNotification.Emailrequired' | translate}} </div>
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['emailId'].hasError('email') && compaingForm.controls['emailId'].touched">
+                        {{'error.SendNotification.ValidEmail' | translate}} </div>
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['emailId'].hasError('existContent')&& compaingForm.controls['emailId'].touched">
+                        {{messageError.emailId}}</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="compaignObj.isEmail">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Subject' | translate}} </label>
+                    <input type="text" class="form-control" [(ngModel)]="compaignObj.subject" formControlName="subject"
+                        (input)='changeField($event,"[^0-9 a-zA-Z]","1","100","subject",compaignObj.subject.length)'
+                        id="subject" autocomplete="off">
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['subject'].hasError('required') && compaingForm.controls['subject'].touched">
+                        {{'error.SendNotification.Subject' | translate}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="Clearfix"></div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-5 col-xs-12" *ngIf="compaignObj.istwitter">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Twitter' | translate}} </label>
+                    <input type="text" class="form-control" [(ngModel)]="compaignObj.twitterId"
+                        formControlName="twitterSender" id="twitterSender" autocomplete="off">
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['twitterSender'].hasError('required') && compaingForm.controls['twitterSender'].touched">
+                        {{'error.SendNotification.Sender' | translate}}   </div>
+
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-5 col-xs-12" *ngIf="compaignObj.istwitter">
+                <label>{{'label.SendNotification.MessageText' | translate}}</label>
+
+                <div class="form-group">
+                    <ckeditor [editor]="Editor" [config]="config" (ready)="onReady($event)" id="twitterText"
+                        data="<p>Enter Message Text</p>" [(ngModel)]="compaignObj.twitterText" id="reason"
+                        formControlName="twitterText"></ckeditor>
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['twitterText'].hasError('required') && compaingForm.controls['twitterText'].touched">
+                        {{'error.SendNotification.MessageText' | translate}}   </div>
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['twitterText'].hasError('existContent')&& compaingForm.controls['twitterText'].touched">
+                        {{messageError.twitterText}}</div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="Clearfix"></div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Language' | translate}}</label>
+                    <div class="styled-select">
+
+                        <select (change)="changeLanguage($event)" formControlName="languageId"
+                            [(ngModel)]="compaignObj.languageId" id="languageId">
+                            <option value="undefined" selected disabled>{{'label.SendNotification.Language' | translate}}</option>
+
+                            <option *ngFor="let listLanguageId of listLanguageId; let i=index "
+                                value="{{listLanguageId.langId}}">{{listLanguageId.langDesc}}</option>
+
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['languageId'].hasError('required') && compaingForm.controls['languageId'].touched">
+                        {{'error.SendNotification.Language' | translate}}</div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.PriorityLevel' | translate}}</label>
+                    <div class="styled-select">
+
+                        <select formControlName="priorityLevel" [(ngModel)]="compaignObj.prioritylvl"
+                            id="priorityLevel">
+                            <option value="undefined" selected disabled>{{'label.SendNotification.SelectPriorityLevel' | translate}}</option>
+
+                            <option *ngFor="let listPriorityId of listPriorityId; let i=index "
+                                value="{{listPriorityId.Id}}">{{listPriorityId.priorityNumber}} -
+                                {{listPriorityId.description}}</option>
+
+                            <!-- <option>973</option> -->
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['priorityLevel'].hasError('required') && compaingForm.controls['priorityLevel'].touched">
+                        {{'error.SendNotification.Priority' | translate}}   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="compaignObj.isSms">
+            <div class="col-sm-6 col-md-5 col-xs-12" >
+                <div class="form-group">
+                    <label>{{'label.SendNotification.SenderId' | translate}}</label>
+                    <div class="styled-select">
+
+                        <select [(ngModel)]="compaignObj.senderId" formControlName="senderId" id="senderId">
+                            <option value="undefined" selected disabled> {{'label.SendNotification.SelectSenderId' | translate}}</option>
+                            <option *ngFor="let listSenderId of listSenderId; let i=index "
+                                value="{{listSenderId.senderId}}">{{listSenderId.senderDesc}}</option>
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['senderId'].hasError('required') && compaingForm.controls['senderId'].touched">
+                        {{'error.SendNotification.Sender' | translate}}</div>
+                </div>
+
+            </div>
+            <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label> Message Type</label>
+                    <div class="styled-select">
+
+                        <select formControlName="messageType" [(ngModel)]="compaignObj.messageType" id="messageType">
+                            <option value="undefined" selected disabled>Select Message Type</option>
+
+                            <option>Flash Message</option>
+                            <option>Text Message</option>
+                            
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['messageType'].hasError('required') && compaingForm.controls['messageType'].touched">
+                        Message Type is required</div>
+                </div>
+
+            </div> -->
+
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.SendNotification.Operator' | translate}} </label>
+                    <div class="styled-select">
+
+                        <select formControlName="operator" [(ngModel)]="compaignObj.operator" id="operator">
+                            <option value="undefined" selected disabled>{{'label.SendNotification.SelectOperator' | translate}}</option>
+                            <option *ngFor="let listOperatorId of listOperatorId; let i=index "
+                                value="{{listOperatorId.operatorId}}">{{listOperatorId.operatorDesc}}</option>
+                            <!-- <option>973</option> -->
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+
+                    <div class="error error-position"
+                        *ngIf="compaingForm.controls['operator'].hasError('required') && compaingForm.controls['operator'].touched">
+                        {{'error.SendNotification.Operator' | translate}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" *ngIf="compaignObj.isPushNotification">
+        <div class="col-sm-6 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label>{{'label.SendNotification.Title' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="compaignObj.title" formControlName="title"
+                    id="title" autocomplete="off">
+
+                <div class="error error-position"
+                    *ngIf="compaingForm.controls['title'].hasError('required') && compaingForm.controls['title'].touched">
+                    {{'error.SendNotification.Title' | translate}} </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="compaignObj.isPushNotification">
+            <div class="form-group">
+                <label>{{'label.SendNotification.AppName' | translate}} </label>
+                <div class="styled-select">
+
+                    <select formControlName="appName" [(ngModel)]="compaignObj.appName" id="appName">
+                        <option value="undefined" selected disabled>{{'label.SendNotification.SelectAppName' | translate}}</option>
+                        <option *ngFor="let app of appName; let i=index " value="{{app.mobileId}}">
+                            {{app.mobileName}}</option>
+                        <!-- <option>973</option> -->
+                    </select>
+                    <span class="fa fa-sort-desc"></span>
+                </div>
+
+                <div class="error error-position"
+                    *ngIf="compaingForm.controls['appName'].hasError('required') && compaingForm.controls['appName'].touched">
+                    {{'error.SendNotification.SelectAppName' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="compaignObj.isPushNotification">
+            <div class="form-group">
+                <label>{{'label.SendNotification.DeviceToken' | translate}} </label>
+                <input type="text" class="form-control" formControlName="deviceToken" [(ngModel)]="compaignObj.deviceToken"  id="deviceToken"
+                autocomplete="off">
+
+                <div class="error error-position"
+                    *ngIf="compaingForm.controls['deviceToken'].hasError('required') && compaingForm.controls['deviceToken'].touched">
+                    {{'error.SendNotification.deviceTokenRequired' | translate}}
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label> Body</label>
+                <input type="text" class="form-control" [(ngModel)]="compaignObj.body" formControlName="body" id="body"
+                    autocomplete="off">
+                <div class="error error-position"
+                    *ngIf="compaingForm.controls['body'].hasError('required') && compaingForm.controls['body'].touched">
+                    Body is required</div>
+            </div>
+
+        </div> -->
+    </div>
+    <!-- <label formArrayName="opGroup" *ngFor="let order of compaingForm.controls['opGroup'].controls; let i = index">
+        <input type="checkbox" [formControlName]="i">
+        {{order.groupId}}
+      </label> -->
+    <div class="table-list">
+        <h2>{{'label.SendNotification.MessageProperties' | translate}}</h2>
+        <div class="form-list">
+            <div class="row">
+                <div class="col-sm-12 col-md-10 col-xs-12" *ngIf="!compaignObj.isEmail">
+                    <div class="form-group">
+                        <label>{{'label.SendNotification.MessageText' | translate}}</label>
+                        <textarea formControlName="messageText" placeholder="Enter Message Text" type="text"
+                            class="form-control" [(ngModel)]="compaignObj.messageText" id="text0"
+                            (focusout)="messageTextfoucsOut()" autocomplete="off"  (focus)="focusBody()"
+                            (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1",this.messageTextLength,"reason",compaignObj.messageText.length)'></textarea>
+
+
+                            <button (click)="activateSpeechSearchMovie(getLangid2)">Give Voice </button>
+                            <button (click)="stopSpeech(getLangid2)">Stop Voice</button>
+
+                            <button (click)="kealuVoice(getLangid2)">Listen Voice</button>
+                            <button (click)="stopVoice(getLangid2)">Stop Listening</button>
+
+
+                        <small class="form-text text-muted"
+                            *ngIf="(messageTextLength - compaignObj.messageText.length)>=1"><code>{{messageTextLength - compaignObj.messageText.length}}</code>
+                            {{'label.SendNotification.of' | translate}} 
+                            <code>{{messageTextLength}}</code>{{'label.SendNotification.charactersleft' | translate}} </small>
+                        <small class="form-text text-muted"
+                            *ngIf="(messageTextLength - compaignObj.messageText.length)<=0"><code>0</code>{{'label.SendNotification.of' | translate}} 
+                            <code>{{messageTextLength}}</code> {{'label.SendNotification.charactersleft' | translate}}</small>
+                        <div class="error error-position"
+                            *ngIf="compaingForm.controls['messageText'].hasError('required') && compaingForm.controls['messageText'].touched">
+                            {{'error.SendNotification.MessageText' | translate}}</div>
+                        <div class="error error-position"
+                            *ngIf="compaingForm.controls['messageText'].hasError('existContent')&& compaingForm.controls['messageText'].touched">
+                            {{messageError.messageText}}</div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-10 col-xs-12" *ngIf="compaignObj.isEmail">
+                    <label>{{'label.SendNotification.MessageText' | translate}}</label>
+
+                    <div class="form-group">
+                        <ckeditor [editor]="Editor" [config]="config" (ready)="onReady($event)" id="emailEditor"
+                            (focusout)="messageEmailTextfoucsOut()" data="<p>Enter Message Text</p>"
+                            [(ngModel)]="compaignObj.messageText" id="reason" formControlName="messageText"></ckeditor>
+
+                        <div class="error error-position"
+                            *ngIf="compaingForm.controls['messageText'].hasError('required') && compaingForm.controls['messageText'].touched">
+                            {{'error.SendNotification.MessageText' | translate}}</div>
+                        <div class="error error-position"
+                            *ngIf="compaingForm.controls['messageText'].hasError('existContent')&& compaingForm.controls['messageText'].touched">
+                            {{messageError.messageText}}</div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="compaignObj.isEmail">
+                    <div class="custom-upload">
+                        <label for="imageUpload">{{'label.SendNotification.WithImage' | translate}}</label>
+                        <input type="file" formControlName="attachmentFile" value=""
+                            [(ngModel)]="compaignObj.attachmentFile" accept="image/*"
+                            (change)="onAttachmentFileChange($event)" class="file" />
+                        <div class="input-group">
+                            <input type="text" readonly class="form-control" formControlName="attachmentFileName"
+                                [(ngModel)]="compaignObj.attach" placeholder="" />
+                            <span class="input-group-btn input-group-sm">
+                                <button type="button" class="btn btn-fab btn-fab-mini">{{'label.SendNotification.ChooseAttachment' | translate}}</button>
+                            </span>
+                        </div>
+
+                        <!-- <div class="error error-position"
+                            *ngIf="compaingForm.controls['file'].hasError('required') && compaingForm.controls['file'].touched">
+                            File is required</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="button-right">
+
+    <input (click)=save() type="submit" class="add-btn" value="{{'label.SendNotification.Send' | translate}}" />
+
+    <!-- <a href="#" class="add-btn">ADD</a> -->
+</div>

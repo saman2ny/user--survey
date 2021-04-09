@@ -1,0 +1,240 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home</a></li>
+        <li class="breadcrumb-item active">Notifications</li>
+    </ol>
+</div>
+<div class="inner-head">
+    <h2>Notifications</h2>
+
+    <div class="col-xs-12">
+        <div class="tablesearch-sort">
+            <div class="tablesearch-sort">
+                <div class="search-input">
+                  <div class="searchexpand">
+                    <input type="text" id="searchTextId" placeholder="Search" />
+                    <button type="submit"><i class="icon-search"></i></button>
+                  </div>
+                  <span class="icon-search"></span>
+                  <span class="icon-close1 closesearch" (click)="clearAllFilter()"></span>
+                </div>
+              
+              </div>
+        </div>
+    </div>
+
+<div class="responsive-nt">
+    <table class="table  datatable table-visible">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Title
+                  
+                </th>
+                <th scope="col">
+                    Type
+                   
+                </th>
+                <th scope="col">
+                    Description
+                   
+                </th>
+                <th scope="col">
+                    Recieved On
+                   
+                </th>           
+
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+      
+        <tbody>
+            <tr *ngFor="let noti of listNotis">
+                <td class="hover-hand" ><a>{{noti.title}}</a>
+                </td>
+                <td>{{noti.type}}</td>
+                <td>{{noti.description}}</td>
+                <td>{{noti.receivedOn | showDate}}</td>
+
+                <td data-th="Actions" class="text-align">
+                    <div  class="text-align">
+                        <i class="icon-delete column6" (click)="showModal(noti)" title="Delete" data-toggle="tooltip" data-placement="left"></i>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+<div class="modal fade" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span class="icon-close1"></span>
+                </button>
+                <i class="icon-delete del-popup"></i>
+                <h4>Alert message</h4>
+                <p>Are you sure you want to delete the selected Notification</p>
+                <a (click)="deleteNotification()" class="add-btn"><span>Delete</span></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="responsive-nt">
+    <div class="tablemain tablemain-notification">
+        <div class="tableheader">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="column1">Title</th>
+                        <th scope="col" class="column2">Type
+                            <span class="icon-sub-user-filter sorting"></span>
+                            <span class="icon-uniE90D user-arrow"></span>
+                            <div class="table-checkfilter">
+                                <div class="searchbox">
+                                    <input type="text" placeholder="Search" />
+                                </div>
+                                <div class="tablesearch-content">
+                                    <ul>
+                                        <li>
+                                            <div class="checkbox">
+                                                <label>
+                                            <input type="checkbox" />
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>Search Content1
+                                            &nbsp;&nbsp;</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="checkbox">
+                                                <label>
+                                            <input type="checkbox" />
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>Search Content2
+                                            &nbsp;&nbsp;</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="checkbox">
+                                                <label>
+                                            <input type="checkbox" />
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>Search Content3
+                                            &nbsp;&nbsp;</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="checkbox">
+                                                <label>
+                                            <input type="checkbox" />
+                                            <span class="cr"><i class="cr-icon fa fa-check"></i></span>Search Content4
+                                            &nbsp;&nbsp;</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col" class="column3">Description </th>
+                        <th scope="col" class="column4">Recieved On </th>
+                        <th scope="col" class="column5">Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tablebody">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Test123 design</a> </td>
+                        <td class="column2" data-th="Type">SMS Pull</td>
+                        <td class="column3" data-th="Description">Lorem Inpsum....</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Campaign Approver</a> </td>
+                        <td class="column2" data-th="Type">Event Based</td>
+                        <td class="column3" data-th="Description">Industry's Standard</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Checker</a> </td>
+                        <td class="column2" data-th="Type">SMS Push</td>
+                        <td class="column3" data-th="Description">Ipsum hasbeen...</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Test123 design</a> </td>
+                        <td class="column2" data-th="Type">SMS Pull</td>
+                        <td class="column3" data-th="Description">Lorem Inpsum....</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Campaign Approver</a> </td>
+                        <td class="column2" data-th="Type">Event Based</td>
+                        <td class="column3" data-th="Description">Industry's Standard</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Checker</a> </td>
+                        <td class="column2" data-th="Type">SMS Push</td>
+                        <td class="column3" data-th="Description">Ipsum hasbeen...</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Test123 design</a> </td>
+                        <td class="column2" data-th="Type">SMS Pull</td>
+                        <td class="column3" data-th="Description">Lorem Inpsum....</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Campaign Approver</a> </td>
+                        <td class="column2" data-th="Type">Event Based</td>
+                        <td class="column3" data-th="Description">Industry's Standard</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="hover-hand column1" data-th="Title"> <a>Checker</a> </td>
+                        <td class="column2" data-th="Type">SMS Push</td>
+                        <td class="column3" data-th="Description">Ipsum hasbeen...</td>
+                        <td class="column4" data-th="Recieved On">03 Apr 2020 05:30 AM</td>
+                        <td class="column5" data-th="Actions">
+                            <i title="" data-toggle="tooltip" data-placement="left" class="icon-delete" data-original-title="Delete"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div> -->

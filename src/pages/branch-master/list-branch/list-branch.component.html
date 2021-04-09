@@ -1,0 +1,159 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.ManageBranch.Home' | translate}}</a></li>
+        <!-- <li class="breadcrumb-item active">{{role.menuLabel}}</li> -->
+        <li class="breadcrumb-item active">{{'label.ManageBranch.BranchList' | translate}}</li>
+    </ol>
+</div>
+<div class="inner-head">
+    <h2>{{'label.ManageBranch.BranchList' | translate}}</h2>
+    <!-- <h2>{{role.menuLabel}}</h2> -->
+</div>
+
+<div class="row">
+    <div class="status-filter">
+
+        <div class="col-xs-12">
+            <div class="tablesearch-sort">
+                <div class="tablesearch-sort">
+                    <div class="search-input">
+                      <div class="searchexpand">
+                        <input type="text" id="searchTextId" placeholder="{{'label.ManageBranch.Search' | translate}}"  [(ngModel)]="SearchValue" />
+                        <button type="submit"><i class="icon-search" (click)="clearAllFilter()"></i></button>
+                      </div>
+                      <span class="icon-search"></span>
+                      <span class="icon-close1 closesearch" (click)="resetSearch()"></span>
+                    </div>
+                    <div class="search-value" *ngIf="reqObj.isCountryFilter || reqObj.isStatusFilter">
+                      <p class="sortby-title">{{'label.ManageBranch.Filteredby' | translate}}</p>
+                      <p *ngIf="reqObj.isCountryFilter">{{'label.ManageBranch.Country' | translate}} <i (click)="clearCountry()" class="icon-close1"></i></p>
+                      <p *ngIf="reqObj.isStatusFilter">{{'label.ManageBranch.Status' | translate}} <i (click)="clearStatus()" class="icon-close1"></i></p>
+                      <p class="clearall" (click)="clearAllFilter()">{{'label.ManageBranch.ClearAll' | translate}}</p>
+                    </div>
+                  </div>
+            </div>
+            <!-- <div class="search-box visible-xs">
+                <div class="icon-search main-search search-remove"></div>
+                <div class="search-box1">
+                    <input type="text" placeholder="Search" [(ngModel)]="reqObj.searchText" (ngModelChange)="changeSearch()" />
+                    <div class="icon-search"></div>
+                </div>
+            </div> -->
+            <div class="button-orange">
+                <!-- <a (click)="addBranch()">Add Branch <span class="icon-plus"></span></a> -->
+                <a [class.disabled]="getAccessRole('isAdd')" (click)="addBranch()">{{'label.ManageBranch.AddBranch' | translate}}<span class="icon-plus"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="responsive-nt">
+    <table class="table  datatable">
+        <thead>
+            <tr>
+                <th scope="col">
+                  {{'label.ManageBranch.BranchName' | translate}}  
+                </th>
+                <th scope="col">
+                  {{'label.ManageBranch.BranchCode' | translate}}  
+                </th>
+                <!-- <th scope="col">
+                    Contact Name
+                </th> -->
+                <th scope="col">
+                  {{'label.ManageBranch.Phone' | translate}}  
+                </th>
+                <th scope="col">
+                  {{'label.ManageBranch.Country1' | translate}}   
+                    <span class="icon-uniE90D user-arrow filter-open"></span>
+                    <div class="table-checkfilter table-checkfilter1">
+                      <div class="searchbox">
+                        <input type="text" placeholder="{{'label.ManageBranch.Search' | translate}} " />
+                      </div>
+                      <div class="tablesearch-content">
+                        <ul>
+                          <li *ngFor="let item of tableBranch">
+                            <div class="checkbox">
+                              <label>
+                                <input (change)="countryChange()" type="checkbox" [(ngModel)]="item.isChecked" />
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>{{item.name}}
+                                &nbsp;&nbsp;</label>
+                            </div>
+                          </li>
+      
+                        </ul>
+                      </div>
+                    </div>
+                </th>
+                <th scope="col">
+                  {{'label.ManageBranch.Status1' | translate}}     
+                    <!-- <span class="icon-uniE90D user-arrow filter-open"></span>
+                    <div class="table-checkfilter">
+                      <div class="searchbox">
+                        <input type="text" placeholder="Search" />
+                      </div>
+                      <div class="tablesearch-content">
+                        <ul>
+                          <li>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" [(ngModel)]="statusActive" (change)="onStatusChange('Active')" />
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>Active
+                                &nbsp;&nbsp;</label>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" [(ngModel)]="statusInActive" (change)="onStatusChange('Inactive')" />
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>Deactive
+                                &nbsp;&nbsp;</label>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div> -->
+                </th>
+
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let branch of listBranch">
+                <td class="hover-hand ellipsis" (click)="gotoDefaultBranch(branch)">
+                  <a title="{{branch.branchName}}"  data-toggle="tooltip" >{{branch.branchName}}</a>
+                </td>
+                <td class="ellipsis"><a title="{{branch.branchCode}}" data-toggle="tooltip" >{{branch.branchCode}}</a></td>
+                <td>{{branch.mobileNo}}</td>
+                <td class="ellipsis" >
+                  <a title="{{branch.country}}" data-toggle="tooltip">{{branch.country}}</a></td>
+                <td data-th="Status">
+                    <p *ngIf="branch.isActive=='1'"><i class="fa fa-check"></i>{{'label.ManageBranch.Active' | translate}}     </p>
+                    <p *ngIf="branch.isActive=='0'"><i class="fa fa-times"></i>{{'label.ManageBranch.Inactive' | translate}}  </p>                   
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+<div class="modal fade" id="deleteBranchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span class="icon-close1"></span>
+                </button>
+                <i class="icon-delete del-popup"></i>
+                <h4>{{'label.ManageBranch.Alertmessage' | translate}}</h4>
+                <p>{{'label.ManageBranch.Areyou' | translate}}</p>
+                <a (click)="deleteBranch()" class="add-btn"><span>{{'label.ManageBranch.Delete' | translate}}</span></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+

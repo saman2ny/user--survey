@@ -1,0 +1,390 @@
+
+
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.AddCampaignMessageTemplate.Home' | translate}}</a></li>
+        <li *ngIf="!Edit && !isApprove" class="breadcrumb-item active">
+            {{'label.AddCampaignMessageTemplate.Add' | translate}} {{role.menuLabel}}</li>
+        <li *ngIf="Edit" class="breadcrumb-item active">
+            {{'label.AddCampaignMessageTemplate.Edit' | translate}} {{role.menuLabel}}</li>
+        <li *ngIf="isApprove" class="breadcrumb-item active">{{role.menuLabel}}</li>
+    </ol>
+</div>
+<div class="inner-head display-head">
+    <h2><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>{{role.menuLabel}}
+        
+    </h2>
+    <div class="active-sec active-sec2">
+
+        <span *ngIf="statusHideInAdd">
+          <span *ngIf="defaultTrue">
+              <div class="active-sec">
+                  <div class="active-btn">
+                    {{'label.AddCampaignMessageTemplate.Active' | translate}} <span class="icon-edit-new" data-toggle="modal" (click)= openModal() ></span>
+    </div>
+</div>
+</span>
+<span *ngIf="!defaultTrue">
+              <div class="active-sec">
+                  <div class="active-btn active-btn-red"> {{'label.AddCampaignMessageTemplate.Inactive' | translate}} <span class="icon-edit-new" data-toggle="modal" (click)= openModal()></span>
+</div>
+</div>
+</span>
+</span>
+</div>
+
+
+</div>
+
+
+<form [formGroup]="TemplateForm" [class.disabled]="isEditOrUpdate()">
+    <div class="form-list promoform-list">
+
+        <div class="col-sm-12 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label>{{'label.AddCampaignMessageTemplate.TemplateName' | translate}}</label>
+                <input type="text" class="form-control" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","50","templateName",templateObj.templateName.length)' [(ngModel)]="templateObj.templateName" formControlName="templateName" id="templateName" autocomplete="off">
+                <div class="error error-position" *ngIf="TemplateForm.controls['templateName'].hasError('required') && TemplateForm.controls['templateName'].touched">
+                    {{'error.AddCampaignMessageTemplate.TemplateName' | translate}}  </div>
+
+            </div>
+        </div>
+        
+
+
+
+
+
+        <div class="col-sm-12 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label style="opacity: 0;">{{'label.AddCampaignMessageTemplate.SelectedChannel' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="selectedChannel.channelName" formControlName="selectedChannel">
+                <input type="hidden" class="form-control" [(ngModel)]="selectedChannel.channelId" formControlName="selectedChannelId">
+                
+
+
+
+
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 col-md-10 col-xs-12">
+            <div class="row">
+
+                <div class="service-bg message-temp">
+                    <div class="row">
+                       
+                    </div>
+                    <div [class.disabled]="temp.status == 'reject' || temp.status == 'approveOrReject'" formArrayName="selectedLanguage" *ngFor="let lang of TemplateForm['controls'].selectedLanguage['controls']; let i=index ">
+                        <div class="form-group text-areab" *ngIf="showCk">
+                            
+                                <div class="col-sm-12 col-md-12 col-xs-12" formGroupName="{{i}}">
+                                  
+                                        <label style="width: 100%;margin: 7px 0;"> {{getLanguagedescription(i)}} 
+                                            {{'label.AddCampaignMessageTemplate.TextMessage' | translate}}</label>
+
+                                        <ckeditor [editor]="Editor" [config]="config" id="text{{i}}"
+                                        (ready)="onReady($event)" data="<p>Enter Message Text</p>" formControlName="lang" id="reason"></ckeditor>
+                                    </div>
+                               
+                                    <div class="error error-position" *ngIf="getLangForm(i).controls['lang'].hasError('required') && getLangForm(i).controls['lang'].touched">
+                                        {{'error.AddCampaignMessageTemplate.TextMessage' | translate}}
+                                   
+                            </div>
+                        </div>
+                            
+
+                       
+                        <div class="col-sm-12 col-md-12 col-xs-12">
+                            <div class="form-group text-areab" formGroupName="{{i}}" *ngIf="showSMSText"  style="width: calc(100% - 30px);" >
+                                <label class="enablebtn-label"> {{getLanguagedescription(i)}} {{'label.AddCampaignMessageTemplate.TextMessage' | translate}} 
+                   
+                            </label>
+                            <div *ngIf="Showtextarea1">
+                                <ckeditor [editor]="Editor" [config]="config"  (ready)="onReady($event)" id="text{{i}}"
+                                (input)="changeMessageField($event,i)" data="<p>Enter Message Text</p>" formControlName="lang" ></ckeditor>
+                            </div>
+                            <div *ngIf="!Showtextarea">
+                               <!-- SMS -->
+
+                                <textarea class="form-control vkey " formControlName="lang" value={{value}}
+                                (input)='changeMessageField($event,i)' (focus)="focusBody('Msgbody', i)" id="text{{i}}" #text+{{i}}  
+                                    #lang></textarea>
+
+
+                                    <button (click)="activateSpeechSearchMovie(i, getLangid2)">Give Voice </button>
+                                    <button (click)="ngOnDestroy(i, getLangid2)">Stop Voice</button>
+    
+                                    <button (click)="kealuVoice(i, getLangid2)">Listen Voice</button>
+                                    <button (click)="stopVoice(i, getLangid2)">Stop Listening</button>
+
+
+
+
+
+                                           <small class="form-text text-muted"><code>{{500 - lang.value.length}}</code> {{'label.AddCampaignMessageTemplate.of' | translate}}
+                      <code>{{maxIncidentDescriptionLength}}</code> {{'label.AddCampaignMessageTemplate.charactersleft' | translate}}</small>
+
+                               
+                                
+                        </div>
+                            <div *ngIf="Showtextarea">
+                            <!-- //Pushhhhhhhhhhh -->
+
+                            <textarea class="form-control vkey" formControlName="lang" value={{value}}
+                                (input)='changeMessageField($event,i)' (focus)="focusBody('Msgbody', i)" id="text{{i}}" #text+{{i}}  
+                                    #lang></textarea>
+
+
+
+
+
+
+
+
+                                    <button (click)="activateSpeechSearchMovie(i, getLangid2)">Give Voice </button>
+                                    <button (click)="ngOnDestroy(i, getLangid2)">Stop Voice</button>
+    
+                                    <button (click)="kealuVoice(i, getLangid2)">Listen Voice</button>
+                                    <button (click)="stopVoice(i, getLangid2)">Stop Listening</button>
+
+
+
+
+
+
+
+
+                                    
+                                    <small class="form-text text-muted"><code>{{500 - lang.value.length}}</code> {{'label.AddCampaignMessageTemplate.of' | translate}}
+                                        <code>{{maxIncidentDescriptionLength}}</code> {{'label.AddCampaignMessageTemplate.charactersleft' | translate}}</small>
+
+                        </div>
+                            <span id="virtualkeyboard{{i}}" class="virtualkeyboard"><i class="icon-key" (click)="AddKeyborad(i,lang.value.lang)"></i></span>
+                            <div class="error error-position" *ngIf="getLangForm(i).controls['lang'].hasError('required') && getLangForm(i).controls['lang'].touched">
+                                {{'error.AddCampaignMessageTemplate.TextMessage' | translate}} 
+                            </div>
+                            <div class="error error-position" *ngIf="getLangForm(i).controls['lang'].hasError('maxlength') && getLangForm(i).controls['lang'].touched">
+                                {{'error.AddCampaignMessageTemplate.ReachedMax' | translate}}  
+                            </div>
+                      
+
+                        </div>
+                    </div>
+                    
+
+                    
+
+
+                    <div formGroupName="{{i}}">
+
+
+                        <div class="button-right">
+                           
+
+                            <a class="add-btn test-sms" data-toggle="modal" data-target="#preview-modal" (click)="preview(i)"><img src="../../../assets/images/text-sms.png">
+                                {{'label.AddCampaignMessageTemplate.PreviewText' | translate}}</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                
+
+
+            </div>
+            
+        </div>
+    </div>
+
+
+    </div>
+    <div *ngIf="Showtextarea">
+    <div class="col-sm-6 col-md-5 col-xs-12">
+        <div class="custom-upload newimageupload">
+            <label for="imageUpload">{{'label.AddCampaignMessageTemplate.WithImage' | translate}}</label>
+            <input type="file" formControlName="attachmentFile" value=""
+                [(ngModel)]="templateObj.attachmentFile" accept="image/*"
+                (change)="onAttachmentFileChange($event)" class="file" />
+            <div class="input-group">
+                <input type="text" readonly class="form-control" formControlName="attachmentFileName"
+                    [(ngModel)]="templateObj.attachmentFileName" placeholder="Upload Files" />
+                <span class="input-group-btn input-group-sm">
+                    <button type="button" class="btn btn-fab btn-fab-mini">
+                        {{'label.AddCampaignMessageTemplate.ChooseAttachment' | translate}}</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+
+
+<div class="form-list" *ngIf="temp.status=='approveOrReject'">
+    <div class="row">
+        <div class="col-sm-6 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label>                                {{'label.AddCampaignMessageTemplate.Reason' | translate}}</label>
+                <textarea placeholder="Enter Reason" type="text" class="form-control" [(ngModel)]="templateObj.reason" id="reason" autocomplete="off" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","500","reason",templateObj.reason.length)'></textarea>
+                <div class="error error-position" *ngIf="errReasonMsg">
+                    {{'error.AddCampaignMessageTemplate.Enter' | translate}}</div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="button-right">
+    <input [class.disabled]="getAccessRole('isEdit')" *ngIf="temp.status=='edit'" (click)=Update() type="submit" class="add-btn" value="{{'label.AddCampaignMessageTemplate.Update' | translate}}" />
+    <input [class.disabled]="getAccessRole('isAdd')" *ngIf="temp.status=='new' || temp.status=='draft'||temp.status=='reopen'" (click)=Submit() type="submit" class="add-btn" value="{{'label.AddCampaignMessageTemplate.Submit' | translate}}" />
+    <input [class.disabled]="getAccessRole('isAdd')" *ngIf="temp.status=='new'|| temp.status=='draft'||temp.status=='reopen'" (click)=Draft() type="submit" class="add-btn" value="{{'label.AddCampaignMessageTemplate.Save' | translate}}" />
+    <input *ngIf="temp.status=='approveOrReject' &&(user.userId!=templateObj.createdBy||user.data.isAdminUser)" (click)="approve('approve')" type="submit" class="add-btn" value="{{'label.AddCampaignMessageTemplate.Approve' | translate}}" />
+    <input *ngIf="temp.status=='approveOrReject' &&(user.userId!=templateObj.createdBy||user.data.isAdminUser)" (click)="approve('reject')" type="submit" class="cancel-btn" value="{{'label.AddCampaignMessageTemplate.Reject' | translate}}" />
+    <input *ngIf="temp.status=='approveOrReject' &&(user.userId!=templateObj.createdBy||user.data.isAdminUser)" (click)="approve('reopen')" type="submit" class="cancel-btn" value="{{'label.AddCampaignMessageTemplate.Return' | translate}}" />
+    <a (click)=back() class="cancel-btn">{{'label.AddCampaignMessageTemplate.cancel' | translate}}</a>
+
+</div>
+
+
+
+
+
+
+<div class="modal fade left-alignmodal" id="preview-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.AddCampaignMessageTemplate.Preview' | translate}}</div>
+            
+            <div class="modal-body" *ngIf ="Showtextarea1" >
+                <div class="previewmodel-body" *ngFor="let previews of previewText">
+                    
+                    <pre style="background-color: transparent;border:none" [innerHtml]="previews.lang | safe" ></pre>
+     
+
+                </div>
+                <a class="add-btn" (click)="okPreview()">{{'label.AddCampaignMessageTemplate.Ok' | translate}}</a>
+            </div>
+            <div class="modal-body" *ngIf ="!Showtextarea1">
+                <div class="previewmodel-body">
+                   
+                    <pre style="background-color: transparent;border:none">{{previewText}}</pre>
+                   
+
+                </div>
+                <a class="add-btn" (click)="okPreview()">{{'label.AddCampaignMessageTemplate.Ok' | translate}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div [class.disabled]="temp.status == 'reject' || temp.status == 'approveOrReject'" data-toggle="modal" data-target="#sidemodal" rel="tooltip" data-placement="left" data-original-title="Language List" class="side-button languageicon"></div>
+
+<div class="modal fade right promolanguage-model" id="sidemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+            <span class="icon-close"></span>
+          </button>
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.AddCampaignMessageTemplate.LanguageList' | translate}}
+                <button type="button" class="add-rightside" (click)="MoveTo()" data-dismiss="modal" aria-label="Close">
+                <span class="icon-plus"></span>
+                <div class="addrole-info">{{'label.AddCampaignMessageTemplate.AddLanguage' | translate}}</div>
+              </button>
+
+            </div>
+            <div class="modal-body">
+                <div class="search-list">
+                    <input class="form-control" type="text" [(ngModel)]="templateObj.searchText" />
+                    <span class="icon-search"></span>
+                </div>
+
+
+                <div class="role-list">
+                    <form [formGroup]="languageForm">
+                        <div class="languagelist">
+                            <ul>
+                                <li *ngFor="let listLanguage of listLanguage | customeTableFilter:templateObj.searchText:'langDesc'; let i=index" formArrayName="language">
+                                    <div class="checkbox">
+                                        <label>
+                            <input type="checkbox" [(ngModel)]="listLanguage.check" [formControlName]="i"
+                              (change)="languageSelect($event,i)" />
+                            <span class="cr"><i class="cr-icon fa fa-check"></i></span> 
+                            
+                            {{listLanguage.langDesc}}
+                          </label>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </form>
+                    <input type="submit" class="add-btn" value="{{'label.AddCampaignMessageTemplate.Save' | translate}}" (click)="addActiveLanguage()" />
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="simple-keyboard"></div>
+
+<div class="modal fade left-alignmodal" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.AddCampaignMessageTemplate.EditStatus' | translate}}
+                <button type="button" class="close close12" data-dismiss="modal" aria-label="Close">
+                        <span class="icon-close1"></span>
+                      </button>
+            </div>
+            <form [formGroup]="isActiveForm">
+
+                <div class="modal-body">
+                    <div class="status-list">
+                        <div class="status-toggle">
+                            <p>{{'label.AddCampaignMessageTemplate.Status' | translate}}</p>
+                            <div class="tgl-group" let i="index">
+                                <input class='tgl tgl-light' type='checkbox' id='display-isActiveTop' formControlName="isActive" [(ngModel)]="templateObj.isActive">
+                                <label class='tgl-btn' for="display-isActiveTop"></label>
+                                
+                                <span *ngIf="active">{{'label.AddCampaignMessageTemplate.Active' | translate}}</span>
+                                <span *ngIf="!active">{{'label.AddCampaignMessageTemplate.Inactive' | translate}}</span>
+                            </div>
+                        </div>
+
+                        <div class="text-areabox">
+                            <label>{{'label.AddCampaignMessageTemplate.Reason' | translate}}</label>
+                            <textarea class="form-control" [(ngModel)]="templateObj.reasons" formControlName="reasons" id="reasons"></textarea>
+
+                            <div class="error error-position" *ngIf="isActiveForm.controls['reasons'].hasError('required') && isActiveForm.controls['reasons'].touched">
+                                {{'error.AddCampaignMessageTemplate.Reason' | translate}}</div>
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <a [class.disabled]="getAccessRole('isEdit')" class="add-btn" (click)=ActiveUpdate() [class.disabled]="temp.topButton == 'new' " type="submit"><span>Update</span></a>
+                    <a class="cancel-btn" (click)=closeModal()><span>{{'label.AddCampaignMessageTemplate.Cancel' | translate}}</span></a>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

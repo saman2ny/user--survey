@@ -1,0 +1,20 @@
+{
+    "error": {
+        "login": {
+            "userNameRequired": "Username ar is required",
+            "passwordRequired": "Password ar is required"
+        }
+    },
+    "label": {
+        "login": {
+            "userName": "USER NAME ar",
+            "password": "PASSWORD ar",
+            "loginBtn": "Login ar",
+            "forgotPassword": "Forgot password? ar",
+            "whatIsNotisify": "What is notisify? ar",
+            "knowMore": "Know More ar"
+
+        }
+    }
+
+}

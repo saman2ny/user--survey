@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'ProximaNova-Regular';
+  src: url('../fonts/ProximaNova-Regular.eot');
+  src: url('../fonts/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/ProximaNova-Regular.svg#ProximaNova-Regular') format('svg'),
+       url('../fonts/ProximaNova-Regular.ttf') format('truetype'),
+       url('../fonts/ProximaNova-Regular.woff') format('woff'),
+       url('../fonts/ProximaNova-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNovaA-Light';
+  src: url('../fonts/ProximaNovaA-Light.eot');
+  src: url('../fonts/ProximaNovaA-Light.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/ProximaNovaA-Light.svg#ProximaNovaA-Light') format('svg'),
+       url('../fonts/ProximaNovaA-Light.ttf') format('truetype'),
+       url('../fonts/ProximaNovaA-Light.woff') format('woff'),
+       url('../fonts/ProximaNovaA-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNova-Black';
+  src: url('../fonts/ProximaNova-Black.eot');
+  src: url('../fonts/ProximaNova-Black.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/ProximaNova-Black.svg#ProximaNova-Black') format('svg'),
+       url('../fonts/ProximaNova-Black.ttf') format('truetype'),
+       url('../fonts/ProximaNova-Black.woff') format('woff'),
+       url('../fonts/ProximaNova-Black.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNova-Bold';
+  src: url('../fonts/ProximaNova-Bold.eot');
+  src: url('../fonts/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/ProximaNova-Bold.svg#ProximaNova-Bold') format('svg'),
+       url('../fonts/ProximaNova-Bold.ttf') format('truetype'),
+       url('../fonts/ProximaNova-Bold.woff') format('woff'),
+       url('../fonts/ProximaNova-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ProximaNovaT-Thin';
+  src: url('../fonts/ProximaNovaT-Thin.eot');
+  src: url('../fonts/ProximaNovaT-Thin.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/ProximaNovaT-Thin.svg#ProximaNovaT-Thin') format('svg'),
+       url('../fonts/ProximaNovaT-Thin.ttf') format('truetype'),
+       url('../fonts/ProximaNovaT-Thin.woff') format('woff'),
+       url('../fonts/ProximaNovaT-Thin.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Muli-Regular';
+  src: url('../fonts/Muli-Regular.eot');
+  src: url('../fonts/Muli-Regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Muli-Regular.svg#Muli-Regular') format('svg'),
+       url('../fonts/Muli-Regular.ttf') format('truetype'),
+       url('../fonts/Muli-Regular.woff') format('woff'),
+       url('../fonts/Muli-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Muli-SemiBold';
+  src: url('../fonts/Muli-SemiBold.eot');
+  src: url('../fonts/Muli-SemiBold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Muli-SemiBold.svg#Muli-SemiBold') format('svg'),
+       url('../fonts/Muli-SemiBold.ttf') format('truetype'),
+       url('../fonts/Muli-SemiBold.woff') format('woff'),
+       url('../fonts/Muli-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Muli-Light';
+  src: url('../fonts/Muli-Light.eot');
+  src: url('../fonts/Muli-Light.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Muli-Light.svg#Muli-Light') format('svg'),
+       url('../fonts/Muli-Light.ttf') format('truetype'),
+       url('../fonts/Muli-Light.woff') format('woff'),
+       url('../fonts/Muli-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Muli-Bold';
+  src: url('../fonts/Muli-Bold.eot');
+  src: url('../fonts/Muli-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Muli-Bold.svg#Muli-Bold') format('svg'),
+       url('../fonts/Muli-Bold.ttf') format('truetype'),
+       url('../fonts/Muli-Bold.woff') format('woff'),
+       url('../fonts/Muli-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

@@ -1,0 +1,125 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.AddCategory.Home' | translate}}</a></li>
+        <li class="breadcrumb-item active">{{'label.AddCategory.CampaignCategory' | translate}}</li>
+        <!-- <li *ngIf="Edit" class="breadcrumb-item active">Edit {{role.menuLabel}}</li>
+        <li *ngIf="isApprove" class="breadcrumb-item active">Approve User</li> class="edit-service" -->
+    </ol>
+</div>
+<div class="inner-head display-head">
+    <h2 *ngIf="newCategory"><a (click)="back()" href="javascript:void(0)" class="back-btn"><span
+                class="icon-back"></span></a>{{'label.AddCategory.AddCampaignCategory' | translate}} <button class="edit-toggle"></button>
+    </h2>
+    <h2 *ngIf="!newCategory"><a (click)="back()" href="javascript:void(0)" class="back-btn"><span
+                class="icon-back"></span></a> {{categoryObj.categoryName}} <button class="edit-toggle"></button>
+    </h2>
+    <div class="active-sec" *ngIf="!newCategory" [class.disabled]="getAccessRole('isEdit')">
+        <div *ngIf="categoryObj.status=='1'" class="active-btn">{{'label.AddCategory.Active' | translate}} <span class="icon-edit-new" data-toggle="modal"
+                data-target="#statusModal" (click)="openStatus()"></span></div>
+        <div *ngIf="categoryObj.status=='0'" class="active-btn active-btn-red">{{'label.AddCategory.Inactive' | translate}} <span class="icon-edit-new"
+                data-toggle="modal" data-target="#statusModal" (click)="openStatus()"></span></div>
+
+    </div>
+    <!-- <h2 class="edit-service" *ngIf="!newCategory"><a (click)="back()" href="javascript:void(0)" class="back-btn"><span
+                class="icon-back"></span></a>{{categoryNameOrg}} <button (click)="edit()" class="edit-toggle"><span
+                class="icon-edit-new"></span></button>
+    </h2> -->
+
+    <!-- <h2 *ngIf="!Edit  && !isApprove"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Add {{role.menuLabel}}</h2>
+  <h2 *ngIf="Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Edit {{role.menuLabel}}</h2>
+  <h2 *ngIf="isApprove"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Approve User</h2> -->
+</div>
+<form [formGroup]="categoryForm">
+    <!-- <div class="service-bg show-editdiv show-editdiv2" *ngIf="editCategoryName"> -->
+
+
+
+    <!-- form-list2 -->
+    <div class="form-list ">
+        <div class="col-md-10 px-0">
+            <div class="form-group">
+                <label>{{'label.AddCategory.CategoryName' | translate}}</label>
+                <!-- <label>Operator First Name</label> -->
+                <input type="text" class="form-control" placeholder="Category Name" formControlName="categoryName"
+                    [(ngModel)]="categoryName"
+                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF/\s/g]","1","25","categoryName",categoryName.length)'>
+                <div class="error error-position"
+                    *ngIf="categoryForm.controls['categoryName'].hasError('required') && categoryForm.controls['categoryName'].touched">
+                    {{'error.AddCategory.CategoryName' | translate}} 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 px-0">
+            <div class="form-group">
+                <label>{{'label.AddCategory.Description' | translate}}</label>
+                <!-- <label>Operator First Name</label> -->
+                <textarea type="text" name="description" class="form-control" placeholder="{{'label.AddCategory.Categorydescription' | translate}}"
+                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF/\s/g]","1","250","description",description.length)'
+                    formControlName="description" [(ngModel)]="description"></textarea>
+                <div class="error error-position"
+                    *ngIf="categoryForm.controls['description'].hasError('required') && categoryForm.controls['description'].touched">
+                    {{'error.AddCategory.Categorydescription' | translate}} 
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</form>
+
+
+
+
+
+<div class="button-right button-right2">
+    <a class="add-btn" (click)="onSubmit()" *ngIf="newCategory">{{'label.AddCategory.Add' | translate}}</a>
+    <a class="add-btn" (click)="update()" [class.disabled]="getAccessRole('isEdit')" *ngIf="!newCategory">{{'label.AddCategory.Update' | translate}}</a>
+    <a class="cancel-btn" (click)="back()"><span>{{'label.AddCategory.Cancel' | translate}}</span></a>
+</div>
+
+<div class="modal fade left-alignmodal" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.AddCategory.EditStatus' | translate}}
+                <button type="button" class="close close12" data-dismiss="modal" aria-label="Close">
+                    <span class="icon-close1"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="status-list">
+                    <div class="status-toggle">
+                        <p>{{'label.AddCategory.Status' | translate}}</p>
+                        <div class="tgl-group">
+
+
+                            <input [(ngModel)]="categoryObj.changeStatus" class='tgl tgl-light' id='display-creditLimit'
+                                type='checkbox'>
+                            <label class='tgl-btn' for='display-creditLimit'></label><span>
+                                <span *ngIf="categoryObj.changeStatus==1">{{'label.AddCategory.Active' | translate}}</span>
+                                <span *ngIf="categoryObj.changeStatus==0">{{'label.AddCategory.Inactive' | translate}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-areabox">
+                        <label>{{'label.AddCategory.Reason' | translate}}</label>
+                        <textarea class="form-control" [(ngModel)]="categoryObj.changeReason"></textarea>
+                    </div>
+                   
+                </div>
+                <br />
+                
+                   
+          
+                    
+                  
+                <a class="add-btn" (click)="updateStatus()"><span>{{'label.AddCategory.Update' | translate}}</span></a>
+                <a class="cancel-btn" data-dismiss="modal"><span>{{'label.AddCategory.Cancel' | translate}}</span></a>
+
+            </div>
+
+        </div>
+    </div>
+</div>

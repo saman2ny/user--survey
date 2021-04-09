@@ -1,0 +1,446 @@
+<div class="breadcrumb-div">
+        <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home</a></li>
+                <li *ngIf="!Edit" class="breadcrumb-item active">Add Corporate</li>
+                <li *ngIf="Edit" class="breadcrumb-item active">Edit Corporate</li>
+        </ol>
+</div>
+<div class="inner-head">
+        <h2 *ngIf="!Edit">Add Corporate</h2>
+        <h2 *ngIf="Edit">Edit Corporate</h2>
+        <a (click)="cancel()" href="javascript:void(0)" class="cancel-btn cancel-bg"><span
+                        class="icon-back"></span>Back</a>
+</div>
+
+
+
+<div class="addmaster-company">
+
+        <div class="form-list">
+                <form [formGroup]="CorporateForm">
+
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Corporate Name</label>
+                                                <input type="text" class="form-control"
+                                                        [(ngModel)]="corporateObj.corporateName"
+                                                        formControlName="corporateName" id="corporateName"
+                                                        autocomplete="off"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","16","corporateName",corporateObj.corporateName.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['corporateName'].hasError('required') &&CorporateForm.controls['corporateName'].touched">
+                                                        Corporate Name is required</div>
+                                        </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Corporate Code</label>
+                                                <input type="text" class="form-control"
+                                                        [(ngModel)]="corporateObj.corporateCode"
+                                                        formControlName="corporateCode" id="corporateCode"
+                                                        autocomplete="off"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","16","corporateCode",corporateObj.corporateCode.length)'>
+
+
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['corporateCode'].hasError('required') && CorporateForm.controls['corporateCode'].touched">
+                                                        Corporate code required</div>
+                                        </div>
+
+
+                                </div>
+                        </div>
+
+                        <div class="page-title">
+                                <h2>Contact Information</h2>
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Email Address </label>
+                                                <input type="email" class="form-control"  
+                                                        [(ngModel)]="corporateObj.email" formControlName="email"
+                                                        id="email" autocomplete="off">
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['email'].hasError('required') && CorporateForm.controls['email'].touched">
+                                                        Email Address is required</div>
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['email'].hasError('email') && CorporateForm.controls['email'].touched">
+                                                        Enter a valid email address</div>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['email'].hasError('alreadyExist')&& ContactForm.controls['email'].touched">
+                                                        Email id already exists in our database</div>
+                                        </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group phone-mumber">
+                                                <label>Phone </label>
+                                                <!-- <div class="styled-select">
+                                                        <select formControlName="CorpPreMobileNo"
+                                                                [(ngModel)]="corporateObj.CorpPreMobileNo"
+                                                                id="CorpPreMobileNo">
+                                                                <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                        value="{{countryCodes.countryCode}}">
+                                                                        {{countryCodes.countryCode}}
+                                                                </option>
+                                                        </select>
+                                                        <span class="fa fa-sort-desc"></span></div>
+                                                <input type="text" class="form-control" [(ngModel)]="corporateObj.phone"
+                                                        formControlName="phone" id="phone"
+                                                        (input)='changeField($event,"[^0-9]","1","16","phone",corporateObj.phone.length)'> -->
+
+
+                                                <ngx-intl-tel-input [cssClass]="'custom'"
+                                                        [(ngModel)]="corporateObj.opPostMobileNo"
+                                                        [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                        [selectedCountryISO]="selectedPhoneCountry" [maxLength]="15"
+                                                        [tooltipField]="TooltipLabel.Name"
+                                                        [separateDialCode]="separateDialCode" name="phone"
+                                                        formControlName="phone">
+                                                </ngx-intl-tel-input>
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['phone'].hasError('required') && CorporateForm.controls['phone'].touched">
+                                                        Mobile no is required</div>
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['phone'].hasError('validatePhoneNumber') && CorporateForm.controls['phone'].touched">
+                                                        Invalid phone number </div>
+
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Fax <span>(Optional)</span></label>
+                                                <input type="text" class="form-control" [(ngModel)]="corporateObj.fax"
+                                                        formControlName="fax" id="fax"
+                                                        (input)='changeField($event,"[^0-9]","1","15","fax",corporateObj.fax.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['fax'].hasError('required') && CorporateForm.controls['fax'].touched">
+                                                        Fax is required</div>
+                                        </div>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Website URL <span>(Optional)</span></label>
+                                                <input type="text" class="form-control"
+                                                        [(ngModel)]="corporateObj.websiteURL"
+                                                        formControlName="websiteURL" id="websiteURL" autocomplete="off">
+
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['websiteURL'].hasError('required') && CorporateForm.controls['websiteURL'].touched">
+                                                        Website URL is required</div>
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['websiteURL'].hasError('pattern') && CorporateForm.controls['websiteURL'].touched">
+                                                        Website URL is Must be a valid site </div>
+                                        </div>
+                                </div>
+                        </div>
+
+
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>City/Town </label>
+                                                <input type="text" class="form-control" [(ngModel)]="corporateObj.city"
+                                                        formControlName="city" id="city" autocomplete="off">
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['city'].hasError('required') && CorporateForm.controls['city'].touched">
+                                                        City is required</div>
+                                        </div>
+
+                                </div>
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>State/Province </label>
+                                                <input type="text" class="form-control" [(ngModel)]="corporateObj.state"
+                                                        formControlName="state" id="state"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","35","state",corporateObj.state.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['state'].hasError('required') && CorporateForm.controls['state'].touched">
+                                                        State is required</div>
+                                        </div>
+                                </div>
+
+                        </div>
+                        <div class="row">
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Zip/Postal Code </label>
+                                                <input type="text" class="form-control"
+                                                        [(ngModel)]="corporateObj.pinCode" formControlName="pinCode"
+                                                        id="pinCode"
+                                                        (input)='changeField($event,"[^0-9]","1","15","pinCode", corporateObj.pinCode.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['pinCode'].hasError('required') && CorporateForm.controls['pinCode'].touched">
+                                                        PinCode is required</div>
+                                        </div>
+                                </div>
+
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Country </label>
+                                                <div class="styled-select">
+                                                        <select formControlName="country"
+                                                                [(ngModel)]="corporateObj.country" id="country">
+                                                                <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                        value="{{countryCodes.countryDesc}}">
+                                                                        {{countryCodes.countryDesc}}
+                                                                </option>
+                                                        </select>
+
+                                                        <span class="fa fa-sort-desc"></span>
+
+                                                </div>
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['country'].hasError('required') && CorporateForm.controls['country'].touched">
+                                                        Country is required</div>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                                        <div class="form-group">
+                                                <label>Address</label>
+                                                <textarea class="form-control" formControlName="address1" id="address1"
+                                                        [(ngModel)]="corporateObj.address1"
+                                                        (input)='changeField($event,"/^[ A-Za-z0-9_@./#&+-]*$/","1","250","address1",corporateObj.address1.length)'></textarea>
+
+                                                <div class="error error-position"
+                                                        *ngIf="CorporateForm.controls['address1'].hasError('required') && CorporateForm.controls['address1'].touched">
+                                                        Address is required</div>
+                                        </div>
+                                </div>
+
+                        </div>
+                </form>
+                <form [formGroup]="ContactForm">
+                        <div class="page-title">
+                                <h2>Primary Information</h2>
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Contact Name </label>
+                                                <input type="text" class="form-control" formControlName="contactName"
+                                                        [(ngModel)]="corpContObj.contactName" id="contactName"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","16","contactName",corpContObj.contactName.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['contactName'].hasError('required') && ContactForm.controls['contactName'].touched">
+                                                        Contact Name is required</div>
+                                        </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Designation </label>
+                                                <input type="text" class="form-control" formControlName="designation"
+                                                        [(ngModel)]="corpContObj.designation" id="designation"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","50","designation",corpContObj.designation.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['designation'].hasError('required') && ContactForm.controls['designation'].touched">
+                                                        Designation is required</div>
+                                        </div>
+                                </div>
+
+
+                        </div>
+                        <div class="row">
+                                <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>User Id </label>
+                                                <input type="text" class="form-control" formControlName="userId"
+                                                        (change)="focusOutUserId($event)" 
+                                                        [(ngModel)]="corpContObj.userId" id="userId"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","16","userId",corpContObj.userId.length)'>
+
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['userId'].hasError('required') && ContactForm.controls['userId'].touched">
+                                                        User Id is required</div>
+
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['userId'].hasError('alreadyExist')&& ContactForm.controls['userId'].touched">
+                                                        This User Id already exists in our database</div>
+                                        </div>
+                                </div> -->
+
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>E-Mail Address </label>
+                                                <input type="email" class="form-control" formControlName="email" (change)="focusOutUserId($event)" 
+                                                        [(ngModel)]="corpContObj.email" id="email">
+
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['email'].hasError('required') && ContactForm.controls['email'].touched">
+                                                        Email is required</div>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['email'].hasError('email') && ContactForm.controls['email'].touched">
+                                                        Enter a valid email address</div>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['email'].hasError('alreadyExist')&& ContactForm.controls['email'].touched">
+                                                        This Email already exists in our database</div>
+                                        </div>
+                                </div>
+
+
+                        </div>
+                        <div class="row">
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group phone-mumber">
+                                                <label>Phone Number</label>
+                                                <!-- <div class="styled-select">
+                                                        <select formControlName="CorpPreMobileNo"
+                                                                [(ngModel)]="corpContObj.CorpPreMobileNo"
+                                                                id="CorpPreMobileNo">
+                                                                <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                        value="{{countryCodes.countryCode}}">
+                                                                        {{countryCodes.countryCode}}
+                                                                </option>
+                                                        </select>
+                                                        <span class="fa fa-sort-desc"></span></div>
+                                                <input type="text" class="form-control"
+                                                        [(ngModel)]="corpContObj.mobilePhone"
+                                                        formControlName="mobilePhone" id="mobilePhone"
+                                                        (input)='changeField($event,"[^0-9]","1","15","mobilePhone",corpContObj.mobilePhone.length)'> -->
+
+                                                <ngx-intl-tel-input [cssClass]="'custom'"
+                                                        [(ngModel)]="corpContObj.opPostMobileNo"
+                                                        [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                                        [selectedCountryISO]="selectedMobilePhoneCountry"
+                                                        [maxLength]="15" [tooltipField]="TooltipLabel.Name"
+                                                        [separateDialCode]="separateDialCode" name="mobilePhone"
+                                                        [enableAutoCountrySelect]="true" formControlName="mobilePhone">
+                                                </ngx-intl-tel-input>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['mobilePhone'].hasError('required') && ContactForm.controls['mobilePhone'].touched">
+                                                        Phone number is required</div>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['mobilePhone'].hasError('validatePhoneNumber') && ContactForm.controls['mobilePhone'].touched">
+                                                        Invalid phone number </div>
+
+                                        </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-5 col-xs-12">
+                                        <div class="form-group">
+                                                <label>Fax <span>(Optional)</span></label>
+                                                <input type="text" formControlName="fax" class="form-control"
+                                                        [(ngModel)]="corpContObj.fax"
+                                                        (input)='changeField($event,"[^0-9]","1","15","fax",corpContObj.fax.length)'>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['fax'].hasError('required') && ContactForm.controls['fax'].touched">
+                                                        Fax is required</div>
+                                        </div>
+                                </div>
+
+                                <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+                                <div class="form-group phone-mumber">
+                                        <label>Work Phone <span>(Optional)</span></label>
+                                        <div class="styled-select">
+                                                <select formControlName="CorpPreWorkMobileNo"
+                                                        [(ngModel)]="corpContObj.CorpPreWorkMobileNo"
+                                                        id="CorpPreWorkMobileNo">
+                                                        <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                value="{{countryCodes.countryCode}}">
+                                                                {{countryCodes.countryCode}}
+                                                        </option>
+                                                </select>
+                                                <span class="fa fa-sort-desc"></span></div>
+                                        <input type="text" class="form-control"
+                                                [(ngModel)]="corpContObj.workPhone"
+                                                formControlName="workPhone" id="workPhone"   (input)='changeField($event,"[^0-9]","1","15","workPhone",corpContObj.workPhone.length)'>
+                                        <div class="error error-position"
+                                                *ngIf="ContactForm.controls['workPhone'].hasError('required') && ContactForm.controls['workPhone'].touched">
+                                                Work Phone is required</div>
+                                </div>
+                        </div> -->
+
+                        </div>
+                        <div class="row">
+
+
+
+                                <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                                        <div class="form-group">
+                                                <label>Address</label>
+                                                <textarea class="form-control" formControlName="address"
+                                                        [(ngModel)]="corpContObj.address" id="address"
+                                                        value="{{corpContObj.address}}"
+                                                        (input)='changeField($event,"/^[ A-Za-z0-9_@./#&+-]*$/","1","250","address",corpContObj.address.length)'></textarea>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['address'].hasError('required') && ContactForm.controls['address'].touched">
+                                                        Address is required</div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="row hidden">
+                                <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                                        <div class="form-group">
+                                                <label>Primary Contact</label>
+                                                <textarea class="form-control" formControlName="isPrimaryContact"
+                                                        [(ngModel)]="corpContObj.isPrimaryContact" id="isPrimaryContact"
+                                                        value="{{corpContObj.isPrimaryContact}}"
+                                                        (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","150","isPrimaryContact",corpContObj.isPrimaryContact.length)'></textarea>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['isPrimaryContact'].hasError('required') && ContactForm.controls['isPrimaryContact'].touched">
+                                                        Primary Contact is required</div>
+                                        </div>
+                                </div>
+                        </div>
+
+                </form>
+        </div>
+
+
+        <div class="button-right">
+                <!-- <a (click)='detailsSubmit()' class="add-btn"><span>Next</span></a> -->
+
+                <a *ngIf="!Edit" href="javascript:void(0)" class="add-btn"
+                        (click)="CorpSubmit('submit')"><span>Add</span></a>
+                <a *ngIf="Edit" href="javascript:void(0)" class="add-btn"
+                        (click)="CorpSubmit('update')"><span>Update</span></a>
+
+                <!-- <a  *ngIf="!Edit" class="add-btn"(click)="Save()"><span>Submit</span></a>
+                                      <a  *ngIf="Edit" class="add-btn"(click)="Update()"><span>Submit</span></a> -->
+        </div>
+
+
+
+
+
+        <!-- Contact Form -->
+
+
+
+        <!-- <div class="button-right">
+                          <a href="javascript:void(0)" (click)="cancel()" class="cancel-btn">cancel</a>
+                          <a href="javascript:void(0)" class="cancel-btn cancel-border"
+                                  (click)="previous()">Previous</a>
+                          <a *ngIf="!Edit" href="javascript:void(0)" class="add-btn"
+                                  (click)="ThemeValidate('submit')"><span>Submit</span></a>
+                          <a *ngIf="Edit" href="javascript:void(0)" class="add-btn"
+                                  (click)="ThemeValidate('update')"><span>Update</span></a>
+                  </div> -->
+
+</div>

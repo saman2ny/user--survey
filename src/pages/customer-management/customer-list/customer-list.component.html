@@ -1,0 +1,1062 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.RegisterCustomer.Home' | translate}}</a></li>
+        <li *ngIf="!isEdit && !isApprove" class="breadcrumb-item active">{{role.menuLabel}}</li>
+        <li *ngIf="isApprove" class="breadcrumb-item active">{{'label.RegisterCustomer.ApproveCustomer' | translate}}</li>
+    </ol>
+</div>
+<div class="inner-head display-head inner-head2">
+    <h2 class="edit-service">
+        <a (click)="backToList()" *ngIf="!isApprove" href="javascript:void(0)" class="back-btn">
+            <span class="icon-back"></span></a>
+            <a (click)="backToApproveList()" *ngIf="isApprove" href="javascript:void(0)" class="back-btn">
+                <span class="icon-back"></span></a>
+        <span *ngIf="!showNames || isApprove">{{firstName}}</span>
+        <span class="serviceName" *ngIf="!showAdd">{{'label.RegisterCustomer.CustomerRegistration' | translate}}</span>
+
+        <button (click)=topEdite() class="edit-toggle"><span *ngIf="!showNames" class="icon-edit"></span></button>
+      
+        <!-- <span *ngIf="isApprove" class="icon-checkout-previous eror-active"></span> -->
+        <!-- <span > -->
+                <span class="icon-checkout-previous  eror-active" *ngIf="editFirstName" >
+                    <div class="popup-previous">
+                        <div class="updated">
+                            <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                            <h6>{{updatefirstName}}</h6>
+                        </div>
+                        <div class="previous">
+                            <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                            <h6>{{prefirstName}}</h6>
+                        </div>
+                    </div>
+                </span>
+        <!-- </span> -->
+
+    </h2>
+    <div class="active-sec active-sec2" >
+        <span *ngIf="logsHideDetails">
+
+        <div (click)="openauditModal()" *ngIf="!isApprove" >
+            <span class="adt-logs" style="margin-left: 0;"> <i class="icon-audit-logs" ></i>
+                {{'label.RegisterCustomer.AuditLogs' | translate}} </span>
+        </div>
+    </span>
+        <span *ngIf="!defaultTrue">
+            <div class="active-btn "> {{'label.RegisterCustomer.ACTIVE' | translate}}<span class="icon-edit" data-toggle="modal" data-target="#activeModal">  
+                
+            </span>       
+    <span  *ngIf="isActivveDeactive" >
+        <span class="icon-checkout-previous eror-active">
+            <div class="popup-previous">
+                <div class="updated">
+                    <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                    <h6>{{updateActive}}</h6>
+                </div>
+                <div class="previous">
+                    <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                    <h6>{{preActive}}</h6>
+                </div>
+            </div>
+        </span>
+    </span>
+</div>
+       </span>
+    <span *ngIf="defaultTrue">
+            <div class="active-btn active-btn-red">{{'label.RegisterCustomer.INACTIVE' | translate}} <span class="icon-edit" data-toggle="modal" data-target="#activeModal">
+            </span>
+            
+            <span  *ngIf="isActivveDeactive" >
+                <span class="icon-checkout-previous eror-active">
+                    <div class="popup-previous">
+                        <div class="updated">
+                            <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                            <h6>{{updateActive}}</h6>
+                        </div>
+                        <div class="previous">
+                            <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                            <h6>{{preActive}}</h6>
+                        </div>
+                    </div>
+                </span>
+          
+            </span>
+
+  </div> 
+           
+        </span>
+
+
+        <span *ngIf="!defaultTrue2">
+
+            <div class="active-btn active-border active-none">
+                {{'label.RegisterCustomer.SUBSCRIBE' | translate}}<span class="icon-edit" data-toggle="modal" data-target="#subModal"></span> 
+                <!-- <span  *ngIf="isApprove" class="icon-checkout-previous eror-active"></span> -->
+                <span  *ngIf="isSubUnsub" >
+                    <span class="icon-checkout-previous eror-active">
+                        <div class="popup-previous">
+                            <div class="updated">
+                                <p> {{'label.RegisterCustomer.Updated' | translate}}</p>
+                                <h6>{{updatesubUnSub}}</h6>
+                            </div>
+                            <div class="previous">
+                                <p> {{'label.RegisterCustomer.Previous' | translate}}</p>
+                                <h6>{{presubUnSub}}</h6>
+                            </div>
+                        </div>
+                    </span>
+            </span>
+            </div>
+    </span>
+
+        <span *ngIf="defaultTrue2">
+
+        <div class="active-btn active-btn-red">
+            {{'label.RegisterCustomer.UNSUBSCRIBE' | translate}}<span class="icon-edit" data-toggle="modal" data-target="#subModal"></span> 
+            <!-- <span  *ngIf="isApprove" class="icon-checkout-previous eror-active"></span> -->
+            <span  *ngIf="isSubUnsub" >
+                <span class="icon-checkout-previous eror-active">
+                    <div class="popup-previous">
+                        <div class="updated">
+                            <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                            <h6>{{updatesubUnSub}}</h6>
+                        </div>
+                        <div class="previous">
+                            <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                            <h6>{{presubUnSub}}</h6>
+                        </div>
+                    </div>
+                </span>
+        </span>
+        </div>
+</span>
+
+
+    </div>
+    <!-- <h2 *ngIf="!isEdit && !isApprove">{{role.menuLabel}}</h2> -->
+    <!-- <h2 *ngIf="isApprove">Approve Customer</h2> -->
+    <!-- <a *ngIf="showDetails" (click)=back() href="javascript:void(0)" class="cancel-btn cancel-bg"><span class="icon-back"></span>Back</a> -->
+
+
+
+</div>
+
+<form [formGroup]="CustomerTopForm">
+
+    <div class="service-bg show-editdiv show-editdiv2">
+        <div class="col-sm-5 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label>{{'label.RegisterCustomer.CustomerName' | translate}}</label>
+                <input class="form-control" [(ngModel)]="customerObjs.firstName" formControlName="firstName">
+
+                <div class="error error-position" *ngIf="CustomerTopForm.controls['firstName'].hasError('required') && CustomerTopForm.controls['firstName'].touched">
+                    {{'error.RegisterCustomer.CustomerName' | translate}}   </div>
+            </div>
+            <!-- <div class="edit-btntoggle">
+                <a class="add-btn" (click)=topEditSave()> Save</a>
+                <a class="cancel-btn toggle-cancel">cancel</a>
+            </div> -->
+
+        </div>
+
+    </div>
+
+</form>
+
+<div class="side-button side-btn-search" data-toggle="modal"(click)="openSearchModal()" *ngIf="temp.status == 'new'">
+    <i data-toggle="tooltip" data-placement="left" data-original-title="Search Customer" class="icon-search srch-rtat" aria-hidden="true"></i>
+</div>
+
+<form [formGroup]="CustomerFormGrid">
+    <div class="form-list form-list2">
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.RegisterCustomer.CustomerNumber' | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="customerObj.customerNumber" formControlName="customerNumber" id="customerNumber" autocomplete="off" 
+                    (input)='changeField($event,"[^0-9]","1","20","customerNumber",customerObj.customerNumber.length)'>
+
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['customerNumber'].hasError('required') && CustomerFormGrid.controls['customerNumber'].touched">
+                        {{'error.RegisterCustomer.CustomerNumber' | translate}} </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="!notiDesc">
+                <div class="form-group">
+                    <label>{{'label.RegisterCustomer.CustomerName' | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="customerObj.firstName" formControlName="firstName" id="firstName" autocomplete="off"
+                    (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF/\s/g]","1","50","firstName",customerObj.firstName.length)'>
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['firstName'].hasError('required') && CustomerFormGrid.controls['firstName'].touched">
+                        {{'error.RegisterCustomer.CustomerName' | translate}} </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>{{'label.RegisterCustomer.NationalId' | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="customerObj.nationalID" formControlName="nationalID" id="nationalID" autocomplete="off">
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['nationalID'].hasError('required') && CustomerFormGrid.controls['nationalID'].touched">
+                        {{'error.RegisterCustomer.NationalId' | translate}}</div>
+                </div>
+               
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group phone-mumber">
+                    <span  *ngIf="mobileMode" >
+                    <label class="eror-active">{{'label.RegisterCustomer.MobileNumber' | translate}}
+                        <span class="icon-checkout-previous">
+                            <div class="popup-previous">
+                                <div class="updated">
+                                    <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                                    <h6>{{updatemobileNo}}</h6>
+                                </div>
+                                <div class="previous">
+                                    <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                                    <h6>{{premobileNo}}</h6>
+                                </div>
+                            </div>
+                        </span>
+                    </label>
+                </span>
+
+                    <label *ngIf="!mobileMode">{{'label.RegisterCustomer.MobileNumber' | translate}}
+    
+                    </label>
+                    <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="customerObj.mobileNo" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode"
+                    [onlyCountries]="CountryISO"  name="phone" formControlName="mobileNo" (change)="focusOutMobile()" >
+                    </ngx-intl-tel-input>
+
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['mobileNo'].hasError('required') && CustomerFormGrid.controls['mobileNo'].touched">
+                        {{'error.RegisterCustomer.Mobilenumber' | translate}} </div>
+
+                        <span *ngIf="pluginVali">
+
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['mobileNo'].hasError('validatePhoneNumber') && CustomerFormGrid.controls['mobileNo'].touched">
+                        {{'error.RegisterCustomer.InvalidMobile' | translate}}   </div>
+                        </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <span  *ngIf="emailMode" >
+
+                    <label class="eror-active">{{'label.RegisterCustomer.Email' | translate}} 
+                        <span class="icon-checkout-previous">
+                            <div class="popup-previous left-popup">
+                                <div class="updated">
+                                    <p>{{'label.RegisterCustomer.Email' | translate}}Updated</p>
+                                    <h6>{{updateEmail}}</h6>
+                                </div>
+                                <div class="previous">
+                                    <p>{{'label.RegisterCustomer.Email' | translate}}Previous</p>
+                                    <h6>{{preVEmail}}</h6>
+                                </div>
+                            </div>
+                        </span>
+                    </label>
+                </span>
+
+                <label *ngIf="!emailMode">{{'label.RegisterCustomer.Email' | translate}}
+                </label>
+                    <input type="text" class="form-control" [(ngModel)]="customerObj.emailID"
+                     formControlName="emailID" id="emailID" autocomplete="off" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$">
+
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['emailID'].hasError('required') && CustomerFormGrid.controls['emailID'].touched">
+                        {{'error.RegisterCustomer.Emailrequired' | translate}}</div>
+                    <!-- <div class="error error-position" *ngIf="CustomerFormGrid.controls['emailID'].hasError('email') && CustomerFormGrid.controls['emailID'].touched">
+                        {{'error.RegisterCustomer.ValidEmail' | translate}} </div> -->
+                        <div class="error error-position" *ngIf="CustomerFormGrid.get('emailID').invalid && CustomerFormGrid.get('emailID').touched
+                        && !CustomerFormGrid.controls['emailID'].hasError('required') && CustomerFormGrid.controls['emailID'].touched">
+                            {{'error.RegisterCustomer.ValidEmail' | translate}} </div>
+                        
+                </div>
+
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <span  *ngIf="langMode" >
+                        <label class="eror-active">{{'label.RegisterCustomer.SendMessagesIn' | translate}}
+                            <span class="icon-checkout-previous">
+                                <div class="popup-previous">
+                                    <div class="updated">
+                                        <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                                        <h6>{{updateLang}}</h6>
+                                    </div>
+                                    <div class="previous">
+                                        <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                                        <h6>{{preLang}}</h6>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </span>
+    
+                        <label *ngIf="!langMode">{{'label.RegisterCustomer.SendMessagesIn' | translate}}
+        
+                        </label>
+                    
+                    <div class="styled-select">
+                        <select formControlName="messageLanguageID" [(ngModel)]="customerObj.messageLanguageID" id="messageLanguageID">
+                    <option value="undefined" selected disabled>{{'label.RegisterCustomer.Language' | translate}}</option>      
+                    <option *ngFor="let listLanguage of listLanguageId; let i=index " value="{{listLanguage.langId}}">
+                      {{listLanguage.langDesc}}</option>      
+                  </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['messageLanguageID'].hasError('required') && CustomerFormGrid.controls['messageLanguageID'].touched">
+                        {{'error.RegisterCustomer.Language' | translate}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <!-- <div class="form-group">
+                    <label>Class Code</label>
+                    <input type="text" class="form-control" [(ngModel)]="customerObj.classCode" formControlName="classCode" id="classCode" autocomplete="off" placeholder="-1">
+                </div> -->
+                <div class="form-group">
+                    <label>{{'label.RegisterCustomer.ClassCode' | translate}}</label>
+                    <div class="styled-select">          
+                      <select formControlName="classCode" [(ngModel)]="customerObj.classCode" id="classCode">
+                        <option value="undefined" selected disabled>{{'label.RegisterCustomer.SelectClassCode' | translate}}</option>          
+                        <option *ngFor="let code of listClasscode; let i=index " value="{{code.classCode}}">
+                          {{code.classCode}} - {{code.codeDescription}}</option>          
+                      </select>
+                      <span class="fa fa-sort-desc"></span>
+                    </div>                  
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['classCode'].hasError('required') && CustomerFormGrid.controls['classCode'].touched">
+                        {{'error.RegisterCustomer.ClassCode' | translate}}  </div>
+                </div>                
+            </div>
+
+            <div class="col-sm-6 col-md-5 col-xs-12" *ngIf="!showBranche" >
+                <div class="form-group">
+                    <span  *ngIf="branchMode" >
+
+                        <label class="eror-active">{{'label.RegisterCustomer.Branch' | translate}} 
+                            <span class="icon-checkout-previous">
+                                <div class="popup-previous left-popup">
+                                    <div class="updated">
+                                        <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                                        <h6>{{getBranchName(updateBranchId)}}</h6>
+                                    </div>
+                                    <div class="previous">
+                                        <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                                        <h6>{{getBranchName(preBranchId)}}</h6>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </span>
+    
+                    <label *ngIf="!branchMode">{{'label.RegisterCustomer.Branch' | translate}}
+                    </label>
+                    
+                    <div class="styled-select">          
+                      <select formControlName="branchId" [(ngModel)]="customerObj.branchId" id="branchId">
+                        <!-- <option value="0" selected disabled>Select Branch</option> -->
+                        <option value="0" >{{'label.RegisterCustomer.HomeBranch' | translate}}</option>
+                        <option *ngFor="let branchs of listBranchs; let i=index " value="{{branchs.branchId}}">
+                          {{branchs.branchName}}</option>          
+                      </select>
+                      <span class="fa fa-sort-desc"></span>
+                    </div>                  
+                    <!-- <input type="text" class="form-control" [(ngModel)]="customerObj.branchId" formControlName="branchId" id="branchId" autocomplete="off"> -->
+                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['branchId'].hasError('required') && CustomerFormGrid.controls['branchId'].touched">
+                        {{'error.RegisterCustomer.Branch' | translate}}  </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="row frm-time-to">
+                    <div class="col-xs-12">
+                        
+                        <span  *ngIf="timeMode" >
+                            <label class="eror-active">{{'label.RegisterCustomer.DoNotSendMessagesBetween' | translate}}
+                                <span class="icon-checkout-previous">
+                                    <div class="popup-previous">
+                                        <div class="updated">
+                                            <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                                            <h6>{{updatecreatedTime}} - {{updatecreatedTime2}}</h6>
+                                        </div>
+                                        <div class="previous">
+                                            <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                                            <h6>{{precreatedTime}} - {{precreatedTime2}}</h6>
+                                        </div>
+                                    </div>
+                                </span>
+                            </label>
+                        </span>
+        
+                            <label *ngIf="!timeMode">{{'label.RegisterCustomer.DoNotSendMessagesBetween' | translate}}
+            
+                            </label>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-6 padr0">
+                        <div class="form-group form-inline">
+                            <label for="">
+                                {{'label.RegisterCustomer.From' | translate}}  
+                                <input  [owlDateTime]="dt1" class="form-control" [owlDateTimeTrigger]="dt1" placeholder="12:00AM"
+                                [(ngModel)]="customerObj.noMsgStartTime" formControlName="noMsgStartTime">
+                            <owl-date-time #dt1 [pickerType]="'timer'"></owl-date-time>
+                            </label>
+
+                            <div class="error error-position" style="padding-right:25px;" *ngIf="CustomerFormGrid.controls['noMsgStartTime'].hasError('required') && CustomerFormGrid.controls['noMsgStartTime'].touched">
+                                {{'error.RegisterCustomer.StartTime' | translate}}  </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-xs-6 padl0">
+                        <div class="form-group form-inline">
+                            <label>
+                                {{'label.RegisterCustomer.To' | translate}}  
+                                    <input  [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2" placeholder="12:00AM"
+                                    formControlName="noMsgEndTime" [(ngModel)]="customerObj.noMsgEndTime">
+                                <owl-date-time #dt2 [pickerType]="'timer'"></owl-date-time>
+                                </label>
+
+                            <div class="error error-position" style="padding-right: 40px;" *ngIf="CustomerFormGrid.controls['noMsgEndTime'].hasError('required') && CustomerFormGrid.controls['noMsgEndTime'].touched">
+                                {{'error.RegisterCustomer.EndTime' | translate}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row padd-x-15">
+
+            <div class="col-md-10 padl0 padr0 px-0">
+                <div class="asst-number">
+                    <span  *ngIf="beastMode" >
+                        <label class="eror-active">{{'label.RegisterCustomer.AssociateMobileNumber' | translate}}
+                            <span class="icon-checkout-previous">
+                                <div class="popup-previous">
+                                    <div class="updated">
+                                        <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                                        <h6>{{updateassociatemobileNo}}</h6>
+                                    </div>
+                                    <div class="previous">
+                                        <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                                        <h6>{{preassociatemobileNo}}</h6>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </span>   
+                   <span *ngIf="!beastMode"  for="Associate Mobile Number" >
+                    {{'label.RegisterCustomer.AssociateMobileNumber' | translate}}</span>
+                    <div class="checkbox check2">
+                        <label>
+                <input type="checkbox" (click)=associateChange($event)/>
+                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                {{'label.RegisterCustomer.Enable' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="asst-number-bg col-md-10">
+                <!-- <div class="col-md-12">
+                    <label for="Mobile Number">Associate Mobile Number</label>
+                </div> -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group phone-mumber">
+                      
+                        <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="customerObj.associatemobileNo" [enablePlaceholder]="true" [searchCountryFlag]="true"  [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode"
+                        [onlyCountries]="CountryISO"  name="phone" formControlName="associatemobileNo">
+                        </ngx-intl-tel-input>
+                        <div class="error error-position" *ngIf="CustomerFormGrid.controls['associatemobileNo'].hasError('required') && 
+                        CustomerFormGrid.controls['associatemobileNo'].touched">
+                        {{'error.RegisterCustomer.AssociateMobilenumber' |translate }}   </div>
+                            <div class="error error-position" *ngIf="CustomerFormGrid.controls['associatemobileNo'].hasError('validatePhoneNumber') && CustomerFormGrid.controls['associatemobileNo'].touched">
+                                {{'error.RegisterCustomer.Invalidphone' | translate}} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="manage-over manage-over2" [class.disabled]="temp.status == 'channel' ">
+                <div class="col-md-10 padl0 padr0">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span  *ngIf="channelMode" >
+
+                                <h4 class="panel-title eror-active refe-active" style="cursor: pointer;">
+                                    <a data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion" >
+                                        <i class="more-less fa fa-caret-right"></i>{{'label.RegisterCustomer.Channels' | translate}} 
+                                        
+                                    </a> <span class="icon-checkout-previous">
+                                            <div class="popup-previous">
+                                                <div class="updated">
+                                                    <p>{{'label.RegisterCustomer.Updated' | translate}}</p>
+                                                    <h6>{{updateChannel}}</h6>
+                                                </div>
+                                                <div class="previous">
+                                                    <p>{{'label.RegisterCustomer.Previous' | translate}}</p>
+                                                    <h6 *ngFor="let list of preChannel; let i=index">{{list}}</h6>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <a data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion" class="pr-1st">
+                                            {{'label.RegisterCustomer.hvghjj' | translate}}</a> 
+                                    <div class="check-select">
+                                        <a [class.active]="this.customerObj.showSelectChannel" (click)="selectAllChannels();"><i class="fa fa-check-circle"
+                                        aria-hidden="true"></i><span>{{'label.RegisterCustomer.Selectall' | translate}} </span></a>
+
+
+                                    </div>
+                                </h4>
+                                </span>
+
+                                <span  *ngIf="!channelMode" >
+
+                                    <h4 class="panel-title ">
+                                        <a data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion">
+                                            {{'label.RegisterCustomer.Channels' | translate}}  
+                                        </a>
+                                        <div class="check-select">
+                                            <a [class.active]="this.customerObj.showSelectChannel" (click)="selectAllChannels();"> <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                {{'label.RegisterCustomer.Selectall' | translate}} </a>
+    
+    
+                                        </div>
+                                    </h4>
+                                    </span>
+
+                            </div>
+                            <div id="" class="panel-collapse collapse in" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div class="switch-outer">
+                                        <div class="chanels-switch border-bottom" >
+                                            <div class="tgl-group tg-mg0 tg-with0"  *ngFor="let list of listChannelId; let i=index" formArrayName="channelId" >
+                                       
+
+                                                <input id="checkbox-{{i}}" (change)="onChangeService(list)" type="checkbox" [formControlName]="i"
+                                                value="{{list.channelId}}" [(ngModel)]="list.isChecked" class='tgl tgl-light'/>
+                                              <label for="checkbox-{{i}}" class='tgl-btn'></label>
+                                              <span>{{list.channelDesc}}</span>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="error error-position" *ngIf="CustomerFormGrid.controls['channelId'].hasError('required') && 
+                        CustomerFormGrid.controls['channelId'].touched">
+                        {{'error.RegisterCustomer.Channel' | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+ 
+        <div class="button-right scroll-button">
+            <a *ngIf="updateButton && !isApprove"  [class.disabled]="getAccessRole('isEdit')" (click)=updateCustomer() type="submit" class="add-btn"><span>{{'label.RegisterCustomer.Update' | translate}}</span></a>
+            <input *ngIf="SubmitButton && !isApprove"  [class.disabled]="getAccessRole('isAdd')" (click)=registerCustomer() type="submit" class="add-btn" value="{{'label.RegisterCustomer.Register' | translate}}" />
+            <input *ngIf="isApprove"  [class.disabled]="getAccessRole('isChecker')" (click)="showAprroveorRejecte('approve')" type="submit" class="add-btn" value="{{'label.RegisterCustomer.Approve' | translate}}" />
+            <input *ngIf="isApprove"  [class.disabled]="getAccessRole('isChecker')" (click)="showAprroveorRejecte('reject')" type="submit" class="cancel-btn" value="{{'label.RegisterCustomer.Reject' | translate}}" />
+            <a class="cancel-btn" *ngIf="!isApprove" (click)=backToList()><span>{{'label.RegisterCustomer.Cancel' | translate}}</span></a>
+            <a class="cancel-btn" *ngIf="isApprove" (click)=backToApproveList()><span>{{'label.RegisterCustomer.Cancel' | translate}}</span></a>
+        </div>
+    </div>
+</form>
+
+
+<!-- <div class="row">
+
+    <div class="form-list" *ngIf="isApprove">
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Reason</label>
+                    <textarea placeholder="Enter Reason" type="text" class="form-control" [(ngModel)]="customerObj.reason" id="reason" autocomplete="off" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","500","reason",customerObj.reason.length)'></textarea>
+                    <div class="error error-position" *ngIf="errReasonMsg">Enter Reason</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> -->
+
+
+<div class="modal fade" id="approveModale" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="icon-close1"></span>
+                </button>
+                <i class="fa fa-bell-o"></i>
+                <h4>{{'label.RegisterCustomer.AlertMessage' | translate}}</h4>
+                <p>{{'label.RegisterCustomer.Areyou' | translate}}</p>
+        
+
+                <!-- <a (click)="send()" class="add-btn"><span>Approve</span></a> -->
+                <a (click)="sendOver('approve')" *ngIf="approve" class="add-btn "><span>
+                    {{'label.RegisterCustomer.Approve' | translate}} </span></a>
+
+             
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade left-alignmodal" id="userModale" tabindex="-1 " role="dialog " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+    <div class="modal-dialog notify-modal modal-medium reject-modal-inner" role="document">
+            <div class="modal-content ">
+                <div class="modal-heading">
+                    <h5 *ngIf="approve ">{{'label.RegisterCustomer.Approve' | translate}}</h5>
+                    <h5 *ngIf="!approve ">{{'label.RegisterCustomer.Reject' | translate}}</h5>
+                </div>
+                <div class="modal-body ">
+        
+
+                    <div *ngIf="approve" class="text-areabox ">
+                        <div class="reject-modal-inrcont">
+                                <h4>{{'label.RegisterCustomer.Areyou' | translate}}</h4>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!approve " class="text-areabox ">
+
+
+                        <div class="reject-modal-inrcont">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="border-spacing">
+                                        <h6>{{'label.RegisterCustomer.Name' | translate}}</h6>
+                                        <h6 class="name-cont">{{customerObj.firstName}}</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="border-spacing">
+                                        <h6>{{'label.RegisterCustomer.Email' | translate}}</h6>
+                                        <h6 class="name-cont">{{customerObj.emailID}}</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <div class="border-spacing">
+                                        <h6>{{'label.RegisterCustomer.Mobile' | translate}}</h6>
+                                        <h6 class="name-cont">{{customerObj.phoneNo}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="req-detail">
+                                <h6>{{'label.RegisterCustomer.RequestType' | translate}}</h6>
+                                <h6 class="name-cont">{{customerObj.txn_CODE}} </h6>
+                            </div>
+                            <div class="form-group">
+                                <label for="Rason">{{'label.RegisterCustomer.Reason' | translate}}</label>
+                                <textarea [(ngModel)]="customerObj.reason"  #reason id="reason " class="form-control " (input)='approveField($event,"/^[ A-Za-z0-9_@./#&+-]*$/ ","1 ","50 ","reason ")'></textarea>
+
+                                <small class="form-text text-muted "><code>{{50 - reason.value.length}}</code> {{'label.RegisterCustomer.of' | translate}}
+                    <code>{{maxIncidentReasonLength}}</code> {{'label.RegisterCustomer.charactersleft' | translate}}</small>
+                          
+                    </div>
+                          
+                        </div>
+
+
+
+                    </div>
+
+                    <a (click)="sendOver('approve')" *ngIf="approve" class="add-btn "><span><i class="icon-approve"></i>
+                        {{'label.RegisterCustomer.Approve' | translate}} </span></a>
+                    <a (click)="sendOver('reject')" *ngIf="!approve" class="add-btn "><span>
+                        {{'label.RegisterCustomer.Reject' | translate}}</span></a>
+                    <a (click)="cancel()" class="cancel-btn"><span>
+                        {{'label.RegisterCustomer.Cancel' | translate}}</span></a>
+
+
+                </div>
+
+            </div>
+
+    </div>
+
+</div>
+
+<!-- user edit modal -->
+<div class="modal fade left-alignmodal" id="activeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.RegisterCustomer.EditStatus' | translate}}
+                <button type="button" class="close close12" (click)="CloseModalActive()"  aria-label="Close">
+          <span aria-hidden="true"><i class="icon-close1"></i></span>
+        </button>
+            </div>
+            <form [formGroup]="ActiveForm">
+
+                <div class="modal-body">
+                    <div class="status-list">
+                        <div class="status-toggle">
+                            <p>{{'label.RegisterCustomer.Status' | translate}}</p>
+                            <!-- <div class="tgl-group">
+                            <input class='tgl tgl-light' type='checkbox'  id="aciveStatus" formControlName="isActive" checked [(ngModel)]="customerObj.isActive">
+                            <label class='tgl-btn' for='aciveStatus'></label>
+                            <span>Active
+                             </span>
+                        </div> -->
+
+
+                            <div class="tgl-group tg-mg0 tg-mg-padd">
+                                <input formControlName="status" class='tgl tgl-light' (change)="ActiveUpdate()" id='theCheckbox' type='checkbox' [(ngModel)]="customerObj.status">
+                                <label class='tgl-btn' for='theCheckbox'></label>
+                                <span *ngIf="active">{{'label.RegisterCustomer.Active' | translate}}</span>
+                                <span *ngIf="!active">{{'label.RegisterCustomer.Inactive' | translate}}</span>
+                            </div>
+                            <div class="text-areabox">
+                                <label>{{'label.RegisterCustomer.Reason' | translate}}</label>
+                                <textarea class="form-control"  rows="3" [(ngModel)]="customerObj.reasons" formControlName="reasons"></textarea>
+                                <div class="error error-position error-right" *ngIf="ActiveForm.controls['reasons'].hasError('required') && 
+                                ActiveForm.controls['reasons'].touched">
+                                {{'error.RegisterCustomer.Reason' | translate}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <input type="submit" class="add-btn" (click)=statusSubmit() [class.disabled]="temp.status == 'new' " value="{{'label.RegisterCustomer.Update' | translate}}">
+
+                    <!-- <a class="add-btn"><span>Update</span></a> -->
+                    <a class="cancel-btn" (click)=cancelActive()><span>{{'label.RegisterCustomer.Cancel' | translate}}</span></a>
+
+                    <!-- <div class="success-msg">
+                    <span class="icon-tick"></span>
+                    <p>Request Successfully sent for Approved</p>
+                    <input value="Ok" type="submit">
+                </div> -->
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- subscribe modal -->
+<div class="modal fade left-alignmodal" id="subModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.RegisterCustomer.EditStatus' | translate}}
+                <button type="button" class="close close12" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="icon-close1"></i></span>
+        </button>
+            </div>
+            <form [formGroup]="SubForm">
+                <div class="modal-body">
+                    <div class="status-list">
+
+                        <div class="status-toggle form-group">
+                            <p>{{'label.RegisterCustomer.Status' | translate}}</p>
+                            <div class="tgl-group">
+                                <input class='tgl tgl-light' type='checkbox' id="subscription" (change)="subChange()" formControlName="subUnSub" checked [(ngModel)]="customerObj.subUnSub">
+                                <label class='tgl-btn' for='subscription'></label>
+                                <span *ngIf="sub">{{'label.RegisterCustomer.Subscribe' | translate}}</span>
+                                <span *ngIf="!sub">{{'label.RegisterCustomer.Unsubscribe' | translate}}</span>
+                            </div>
+                            <div class="text-areabox">
+                                <label>{{'label.RegisterCustomer.Reason' | translate}}</label>
+                                <textarea class="form-control" [(ngModel)]="customerObj.subReasons" formControlName="subReasons"></textarea>
+                                <div class="error error-position error-right" *ngIf="SubForm.controls['subReasons'].hasError('required') && 
+                                SubForm.controls['subReasons'].touched">
+                                {{'error.RegisterCustomer.Reason' | translate}}</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <br />
+                    <input type="submit" class="add-btn" (click)=subSubmit() [class.disabled]="temp.status == 'new' " value="{{'label.RegisterCustomer.Update' | translate}}">
+                    <!-- <a class="add-btn"><span>Update</span></a> -->
+                    <a class="cancel-btn" (click)=cancelSub()><span>{{'label.RegisterCustomer.Cancel' | translate}}</span></a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- search modal -->
+<div class="modal fade left-alignmodal" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="notify-modal modal-dialog modal-smedium" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.RegisterCustomer.SearchCustomer' | translate}}
+                    <button type="button" class="close close12" data-dismiss="modal" aria-label="Close" >
+                           <span aria-hidden="true"><i class="icon-close1"></i></span>
+                   </button>
+            </div>
+            <div class="modal-body search-inr-csmr">
+                <form [formGroup]="CustomerForm">
+                    <div class="input-group">
+                        <input id="user_name" type="text" class="form-control" name="name" formControlName="customerNumber"  [(ngModel)]="reqCust.customerNumber" 
+                         placeholder="{{'label.RegisterCustomer.CustomerNumber' | translate}}">
+                        <span class="input-group-addon"><i   class="icon-search" (click)=buttonSearch()></i></span>
+                    </div>
+                    <div class="responsive-nt">
+                        <h6 class="srch-result"><span>{{listAllTmpCustomers.length}}</span>
+                            {{'label.RegisterCustomer.Resultfoundfor' | translate}}  <span class="user-bold"> " {{'label.RegisterCustomer.CustomerNumber' | translate}} "</span></h6>
+                                <table class="table dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="column1">
+                                                {{'label.RegisterCustomer.CustomerNumber' | translate}} 
+                                            </th>
+                                            <th scope="col" class="column1">
+                                                {{'label.RegisterCustomer.CustomerName' | translate}}  
+                                            </th>
+                                            <th scope="col" class="column3">
+                                                {{'label.RegisterCustomer.BranchName' | translate}} 
+                                            </th>
+                                            <th scope="col" class="column4">
+                                                {{'label.RegisterCustomer.MobileNumber' | translate}} 
+                                            </th>
+                                            <th scope="col" class="column5">
+                                                {{'label.RegisterCustomer.Email' | translate}} 
+                                            </th>
+                                            <th scope="col" class="column6">
+                                                {{'label.RegisterCustomer.Status' | translate}} 
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                             
+                           
+                                    <tbody>
+                                        <tr *ngFor="let customer of listAllTmpCustomers">
+                                            <td class="hover-hand column2" data-th="Customer Number"  (click)="searchCustomer(customer)" >
+                                                <a>{{customer.customerNumber}}</a> </td>
+                                            <td class="column1" data-th="Customer Name">{{customer.firstName}}</td>
+                                            <td class="column3" data-th="Branch Name">{{getBranchName(customer.branchId)}}</td>
+                                            <td class="column4" data-th="Mobile Number">{{customer.mobileNo}}</td>
+                                            <td class="column5" data-th="Email">{{customer.emailID}}</td>
+                                            <td class="column6" data-th="Status">                    
+                                                <p *ngIf="customer.status=='true'"><i class="fa fa-check"></i>
+                                                    {{'label.RegisterCustomer.Active' | translate}} </p>
+                                                <p *ngIf="customer.status=='false'"><i class="fa fa-times"></i>
+                                                    {{'label.RegisterCustomer.Deactive' | translate}} </p>
+                                                <!-- <i class="fa fa-check" *ngIf="customer.status=='Active'"></i>
+                                                <i class="fa fa-times" *ngIf="customer.status=='Deactive'"></i> -->                    
+                                                <!-- {{customer.status}} -->
+                                            </td>
+
+                                        </tr>
+                                      
+                                      
+                                    </tbody>
+                                </table>
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- <div class="button-right">
+    <input *ngIf="!isEdit && !isApprove && showDetails" (click)=registerCustomer() type="submit" class="add-btn" value="Register" />
+    <input *ngIf="isApprove" (click)="approve('approve')" type="submit" class="add-btn" value="Approve" />
+    <input *ngIf="isApprove" (click)="approve('reject')" type="submit" class="cancel-btn" value="Reject" />
+</div> -->
+
+
+
+
+
+
+<!-- Audit Log -->
+<div class="modal fade left-alignmodal" id="auditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-heading"> {{'label.RegisterCustomer.AuditLogs' | translate}}
+                <button type="button" class="close close12" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="icon-close1"></i></span>
+        </button>
+            </div>
+            <div class="modal-body search-inr-csmr">
+
+
+
+
+                <div class="col-md-12 padl0 padr0 px-0">
+                    <div class="panel-group panelgroup-audit-log border-bottom-0" id="accordion">
+                        <div class="panel panel-default" id="panel1" *ngFor="let logs of listAllCustomerLogs; let i = index">
+                            <div class="panel-heading">
+                                <div class="date-content">
+                                    <span>{{logs.record_TIME | showDate}}</span>
+                                    <p>{{'label.RegisterCustomer.ServiceType' | translate}} : <span>{{logs.txn_CODE}}</span></p>
+                                </div>
+                                <h4 class="panel-title autilog-collapse">
+                                    {{logs.txn_CODE}}
+                                    <div class="audit-response-icon">
+                                        <span class="text-danger" *ngIf="logs.wf_STATUS == 'R'">
+                                            {{'label.RegisterCustomer.Rejected' | translate}}</span>
+                                        <span class="text-inprogress" *ngIf="logs.wf_STATUS == 'N'">
+                                            {{'label.RegisterCustomer.In-Progress' | translate}}</span>
+                                        <span class="text-success" *ngIf="logs.wf_STATUS == 'Y'">
+                                            {{'label.RegisterCustomer.Approved' | translate}}</span>
+                                        <a data-toggle="collapse" [attr.data-target]="'#collapseOne' + i">
+                                            <i class="icon-down-arrow"></i>
+                                            <i class="icon-close1"></i>
+                                        </a>
+                                    </div>
+                                </h4>
+
+                            </div>
+                            <div id="collapseOne{{i}}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="panael-audt-innercotent">
+                                        <div class="inner-content-audit">
+                                            <span class="inner-d">{{logs.record_TIME | showDate}}</span>
+                                            <div>
+                                                <h6>
+                                                    {{'label.RegisterCustomer.Yourrequestfor' | translate}} {{logs.txn_CODE}}
+                                                    {{'label.RegisterCustomer.hasbeenProcessed' | translate}} 
+                                                </h6>
+                                                <h6 *ngIf="logs.reason != ' '">
+                                                    {{'label.RegisterCustomer.Comments' | translate}}   : <span>{{logs.reason}}</span>
+                                                </h6>
+
+                                            </div>
+                                        </div>
+                                        <div class="response-iner-content text-danger" *ngIf="logs.wf_STATUS == 'R'">
+                                            <!-- {{logs.wf_STATUS}} -->
+                                            {{'label.RegisterCustomer.Rejected' | translate}} 
+                                        </div>
+                                        <div class="response-iner-content text-inprogress" *ngIf="logs.wf_STATUS == 'N'">
+                                            <!-- {{logs.wf_STATUS}} -->
+                                            {{'label.RegisterCustomer.In-Progress' | translate}}  
+                                        </div>
+                                        <div class="response-iner-content text-success" *ngIf="logs.wf_STATUS == 'Y'">
+                                            <!-- {{logs.wf_STATUS}} -->
+                                            {{'label.RegisterCustomer.Approved' | translate}}   
+                                        </div>
+
+                                        <!-- </div>
+                    <div class="panael-audt-innercotent border-bottom-0">
+                        <div class="inner-content-audit">
+                            <span class="inner-d">17/05/2020</span>
+                            <div>
+                                <h6>
+                                    Your request to change mobile number has been sent for approval
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="response-iner-content text-inprogress">
+                            In-Progress
+                        </div>
+
+                    </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="panel panel-default" id="panel2">
+            <div class="panel-heading">
+                <div class="date-content">
+                    <span>17/05/2020</span>
+                    <p>Service Type : <span>Update Basic Details</span></p>
+                </div>
+                <h4 class="panel-title autilog-collapse">
+                    Your request to change Email ID has been processed
+                    <div class="audit-response-icon">
+                        <span class="text-danger">Rejected</span>
+                        <a data-toggle="collapse" data-target="#collapseTwo" class="collapsed">
+                            <i class="icon-down-arrow"></i>
+                            <i class="icon-close1"></i>
+                        </a>
+                    </div>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="panael-audt-innercotent border-bottom-0">
+                        <div class="inner-content-audit">
+                            <span class="inner-d">17/05/2020</span>
+                            <div>
+                                <h6>
+                                    Your request to change mobile number has been Processed
+                                </h6>
+                                <h6>
+                                    Comments : <span>rejected due to wrong or invalid mobile number</span>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="response-iner-content text-danger">
+                            Rejected
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" id="panel3">
+            <div class="panel-heading">
+                <div class="date-content">
+                    <span>17/05/2020</span>
+                    <p>Service Type : <span>Update Basic Details</span></p>
+                </div>
+                <h4 class="panel-title autilog-collapse">
+                    Your request to change Email ID has been processed
+                    <div class="audit-response-icon">
+                        <span class="text-approved">Approved</span>
+                        <a data-toggle="collapse" data-target="#collapseThree" class="collapsed">
+                            <i class="icon-down-arrow"></i>
+                            <i class="icon-close1"></i>
+                        </a>
+                    </div>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="panael-audt-innercotent border-bottom-0">
+                        <div class="inner-content-audit">
+                            <span class="inner-d">17/05/2020</span>
+                            <div>
+                                <h6>
+                                    Your request to change mobile number has been Processed
+                                </h6>
+                                <h6>
+                                    Comments : <span>rejected due to wrong or invalid mobile number</span>
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="response-iner-content text-danger">
+                            Rejected
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div> -->
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Audit Log Ends -->

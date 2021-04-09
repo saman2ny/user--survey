@@ -1,0 +1,253 @@
+<div class="breadcrumb-div">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a
+        routerLink="/home/dashboard/">{{'label.ServiceMessageTemplates.Home' | translate}}</a></li>
+    <li class="breadcrumb-item active">{{role.menuLabel}}</li>
+  </ol>
+</div>
+<div class="inner-head">
+  <h2>{{role.menuLabel}}</h2>
+</div>
+
+<!-- <div class="row" >
+  <div class="col-sm-6 col-md-5 col-xs-12"><br>
+    <div class="form-group">
+      <label>Status</label>
+     
+      <select class="form-control" [(ngModel)]="reqObj.statusFilter" id="listServices"
+        (change)="onChangeSelect($event.target.value)">
+        
+        <option *ngFor="let status of status; let i = index" value="{{status.id}}">
+          {{status.name}}</option>
+      </select>
+     
+    </div>
+
+  </div>
+</div> -->
+
+<ul class="nav nav-tabs campaigntab" id="myTab" role="tablist">
+  <li class="nav-item" [class.active]="isActiveChannel" *ngFor="let channels of listChannels; let i = index"
+    id="load{{i}}">
+    <a class="nav-link{{i}}" data-toggle="tab" href="#{{channels.channelId}}" (click)="getchannelId(channels, $event)"
+      role="tab" aria-controls="sms" aria-selected="true"><i class="icon-sms"></i> {{channels.channelDesc}}</a>
+  </li>
+  <!-- <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#email" role="tab" aria-controls="email" aria-selected="false"><i class="icon-emailnew"></i> Email</a>
+  </li> -->
+</ul>
+<div class="tab-content" id="myTabContent" *ngIf="showTables">
+  <div class="tab-pane fade in active" id="{{channelIdChange}}" role="tabpanel" aria-labelledby="sms-tab">
+    <div class="tablesearch-sort">
+      <div class="search-input">
+        <div class="searchexpand">
+          <input type="text" id="searchTextId" placeholder="{{'label.ServiceMessageTemplates.Search' | translate}}"
+            [(ngModel)]="SearchValue" />
+          <button type="submit"><i class="icon-search"></i></button>
+        </div>
+        <span class="icon-search"></span>
+        <span class="icon-close1 closesearch" (click)="clearAllFilter()"></span>
+      </div>
+      <!-- <div class="search-value">
+            <p class="sortby-title">Sorted by</p>
+            <p>Type <i class="icon-close1"></i></p>
+            <p class="clearall" >Clear All</p>
+              
+        </div> -->
+    </div>
+    <div class="button-orange">
+      <a [class.disabled]="getAccessRole('isAdd')"
+        (click)="addTemplate()">{{'label.ServiceMessageTemplates.AddTemplate' | translate}} <span
+          class="icon-plus"></span></a>
+    </div>
+    <div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="20"
+      (scrolled)="onScroll()">
+      <!-- <div class="no-record" *ngIf="!listTemplate.length">
+        No Records Found
+      </div> -->
+      <div class="responsive-nt">
+        <table class="designdata-table table datatable table-visible">
+          <thead>
+            <tr>
+              <th>{{'label.ServiceMessageTemplates.ServiceId' | translate}} ({{listTemplate.length}})</th>
+              <th>{{'label.ServiceMessageTemplates.ChannelId' | translate}}</th>
+              <th>{{'label.ServiceMessageTemplates.Status' | translate}}</th>
+              <th>{{'label.ServiceMessageTemplates.ApprovalStatus' | translate}}
+                <!-- <span class="icon-uniE90D user-arrow filter-open"></span>
+                        <div class="table-checkfilter">
+                            <div class="searchbox">
+                                <input type="text" placeholder="Search" />
+                            </div>
+                            <div class="tablesearch-content">
+                                <ul>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <span class="cr"><i
+                                                        class="cr-icon fa fa-check"></i></span>Approve
+                                                &nbsp;&nbsp;</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <span class="cr"><i
+                                                        class="cr-icon fa fa-check"></i></span>Deactivate
+                                                &nbsp;&nbsp;</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+              </th>
+              <th class="text-center">{{'label.ServiceMessageTemplates.Actions' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let messageList of listTemplate">
+              <td data-th="Template Name" (click)="goToMsgTemplate(messageList)" class="ellipsis">
+                <a data-toggle="tooltip" title="{{messageList.serviceId}}">{{messageList.serviceId}}</a></td>
+              <td data-th="Type">{{getChannelName(messageList.channelId)}}</td>
+              <td data-th="Status">
+                <p *ngIf="messageList.isActive=='true'"><i
+                    class="fa fa-check"></i>{{'label.ServiceMessageTemplates.Status' | translate}} </p>
+                <p *ngIf="messageList.isActive=='false'"><i
+                    class="fa fa-times"></i>{{'label.ServiceMessageTemplates.Inactive' | translate}} </p>
+              </td>
+              <td data-th="Status">
+                <p title="{{messageList.status}}" data-toggle="tooltip"><i class="icon-approve"
+                    *ngIf="messageList.status=='Approved' "></i>
+                  <i class="icon-draft" *ngIf="messageList.status=='Draft'"></i>
+                  <i class="icon-reject" *ngIf="messageList.status=='Rejected'"></i>
+                  <i class="icon-reopen" *ngIf="messageList.status=='Reopen'"></i>
+                  <i class="icon-pending" *ngIf="messageList.status=='Pending For Approval'"></i> {{messageList.status}}
+                </p>
+              </td>
+
+              <td data-th="Actions" class="text-align">
+                <div *ngIf=" messageList.status=='Approved'" [class.disabled]="getAccessRole('isDelete')"
+                  class="text-align">
+                  <i class="icon-delete column6" (click)="showModal(messageList.id)" title="Delete"
+                    data-toggle="tooltip" data-placement="left"></i>
+                </div>
+                <div *ngIf=" messageList.status=='Draft' && (user.userId == messageList.makerUserId)"
+                  [class.disabled]="getAccessRole('isDelete')" class="text-align">
+                  <i class="icon-delete column6" (click)="showModalDraft(messageList.wfId)" title="Delete"
+                    data-toggle="tooltip" data-placement="left"></i>
+                </div>
+
+                <div
+                  *ngIf="messageList.status=='Pending For Approval' && (user.userId!=messageList.makerUserId||user.data.isAdminUser)"
+                  [class.disabled]="getAccessRole('isChecker')">
+
+
+                  <i class="icon-returnmaker"
+                    *ngIf="messageList.status=='Pending For Approval' && (user.userId!=messageList.makerUserId||user.data.isAdminUser)"
+                    title="Return to Maker" (click)="reopenMsgTemplates(messageList)" data-toggle="tooltip"
+                    data-placement="left"></i>
+                  <div class="statuschange" *ngIf="messageList.status=='Pending For Approval'">
+                    <i class="icon-status-change dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false"></i>
+                    <i class="icon-close1 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false"></i>
+                    <div class="statuschange-list dropdown-menu dropdown-menu-right">
+                      <p (click)="approveMsgTemplates(messageList)"><i class="icon-approve"></i>
+                        {{'label.ServiceMessageTemplates.Approve' | translate}}
+                      </p>
+                      <p (click)="rejectMsgTemplates(messageList)"><i class="icon-reject"></i>
+                        {{'label.ServiceMessageTemplates.Reject' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+
+            <!-- <tr>
+                  <td data-th="Template Name"><a>Administrator</a></td>
+                  <td data-th="Type">SMS</td>
+                  <td data-th="Created By">DucComp</td>
+                  <td data-th="Created Date">07 Apr 2020 09:02 PM</td>
+                  <td data-th="Status"><i class="icon-approve"></i> Approve</td>
+                  <td data-th="Actions" class="text-center"><i class="icon-delete" title="Delete" data-toggle="tooltip" data-placement="left"></i></td>
+              </tr>              -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog notify-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="icon-close1"></span>
+        </button>
+        <i class="fa fa-bell-o"></i>
+        <h4>{{selectedMessageTemplate.title}}</h4>
+        <p>{{selectedMessageTemplate.body}}</p>
+        <div *ngIf="this.templateStatus != 2" class="text-areabox">
+          <label>{{'label.ServiceMessageTemplates.Reason' | translate}}</label>
+          <form [formGroup]="AppOrRejForm">
+            <textarea [(ngModel)]="selectedMessageTemplate.reason" formControlName="reason" class="form-control"
+              (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF/\s/g]","1","250","reason",selectedMessageTemplate.reason.length)'></textarea>
+            <span>{{'label.ServiceMessageTemplates.Max250' | translate}}</span>
+            <div *ngIf="errMsg" class="error error-position error-right">
+              {{'label.ServiceMessageTemplates.Enter' | translate}}</div>
+          </form>
+        </div>
+
+        <a (click)="send()" *ngIf="this.templateStatus == 2"
+          class="add-btn"><span>{{'label.ServiceMessageTemplates.Approve' | translate}}</span></a>
+        <a (click)="send()" *ngIf="this.templateStatus == 4"
+          class="add-btn"><span>{{'label.ServiceMessageTemplates.Reject' | translate}}</span></a>
+        <a (click)="send()" *ngIf="this.templateStatus == 5"
+          class="add-btn"><span>{{'label.ServiceMessageTemplates.Return' | translate}}</span></a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog notify-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="icon-close1"></span>
+        </button>
+        <i class="icon-delete del-popup"></i>
+        <h4>Alert message</h4>
+        <p>Are you sure you want to delete the selected message template</p>
+        <a (click)="deleteMsgTemplate()" class="add-btn"><span>Delete</span></a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="draftModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog notify-modal" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="icon-close1"></span>
+        </button>
+        <i class="icon-delete del-popup"></i>
+        <h4>Alert message</h4>
+        <p>Are you sure you want to delete the selected message template</p>
+        <a (click)="deleteDraft()" class="add-btn"><span>Delete</span></a>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home</a></li>
+        <li class="breadcrumb-item active">{{role.menuLabel}}</li>
+    </ol>
+</div>
+<div class="inner-head">
+    <h2>{{role.menuLabel}}</h2>
+</div>
+<div class="row">
+        <div class="col-sm-5 col-md-4 col-xs-12">
+            <div class="form-group">
+                <label>Status</label>
+                <div class="styled-select">
+                <select class="form-control" [(ngModel)]="reqObj.isFileContainText" id="listServices"
+                    (change)="onChange($event.target.value)">
+                    <!-- <option value="undefined" selected disabled> Select Service</option> -->
+                    <option *ngFor="let status of status; let i = index" value="{{status.id}}">
+                        {{status.name}}</option>
+                </select>
+            </div>
+        </div>
+        </div>
+        <div class="col-sm-5 col-md-4 col-xs-12">
+             <div class="form-group">
+                <label>Import </label>
+                <input [owlDateTime]="Date" class="form-control" [(ngModel)]="reqObj.Date" [owlDateTimeTrigger]="Date"
+                    [selectMode]="'range'" placeholder="Date">
+                <owl-date-time [pickerType]="'calendar'" #Date></owl-date-time>
+            </div>
+
+
+        </div>
+        <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label> From Date &nbsp; &nbsp;</label>
+                <input [owlDateTime]="importFrom" class="form-control" [(ngModel)]="reqObj.importFrom"
+                    [owlDateTimeTrigger]="importFrom" [selectMode]="'range'" placeholder="From Time">
+                <owl-date-time #importFrom></owl-date-time>
+            </div>
+
+
+        </div> -->
+        <!-- <div class="col-sm-6 col-md-5 col-xs-12">
+            <div class="form-group">
+                <label> To Date &nbsp; &nbsp;</label>
+                <input [owlDateTime]="toDate" class="form-control" [(ngModel)]="reqObj.toDate"
+                    [owlDateTimeTrigger]="toDate" placeholder="To Date">
+                <owl-date-time #toDate></owl-date-time>
+            </div>
+
+
+        </div> -->
+    
+        <div class="pull-left margin20">
+            <a [class.disabled]="getAccessRole('isAdd')" class="add-btn button-left" (click)="getReport()">Search
+            </a>
+        
+     </div>
+    </div>
+
+<div class="dropdown pull-right">
+    <button class="toggle-btn dropdown-toggle" type="button" data-toggle="dropdown">Export
+        <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a (click)="downloadReport('pdf')">PDF</a></li>
+        <li><a (click)="downloadReport('xlsx')">XLSX</a></li>
+    </ul>
+</div>
+<div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="20"
+    (scrolled)="onScroll()">
+    <div class="no-record" *ngIf="!campaginList.length">
+        No Records Found
+    </div>
+    <div class="responsive-nt" *ngIf="campaginList.length">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th scope="col">File Name</th>
+                        <th scope="col">Record Count</th>
+                        <th scope="col">Channel</th>
+                        <th scope="col">Success</th>
+                        <th scope="col">Failure</th>
+                        <th scope="col">Imported by</th>
+                        <th scope="col">Imported Date</th>
+                        <!-- <th scope="col">Import Status</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let campaign of campaginList;">
+
+                        <td scope="col">{{campaign.fileName}}</td>
+                        <td scope="col">{{campaign.totalMsgs}}</td>
+                        <td scope="col">{{getChannelName(campaign.channel) }}</td>
+                        <td scope="col">{{campaign.validMsgs}}</td>
+                        <td scope="col">{{campaign.totalMsgs-campaign.validMsgs}}</td>
+                        <td scope="col">{{campaign.createdBy}}</td>
+                        <td scope="col">{{campaign.createdDate  | showDate}}</td>
+                        <!-- <td scope="col">{{campaign.dlkadsjf}}</td> -->
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

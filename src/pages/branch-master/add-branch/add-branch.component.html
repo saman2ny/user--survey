@@ -1,0 +1,833 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">{{'label.AddBranch.Home' | translate}}</a></li>
+        <li class="breadcrumb-item active">{{'label.AddBranch.AddBranch' | translate}}</li>
+    </ol>
+</div>
+<div class="inner-head display-head">
+    <h2 *ngIf="temp.status=='submit'"><a (click)=back() href="javascript:void(0)" class="back-btn"><span
+                                class="icon-back"></span></a>{{'label.AddBranch.AddBranchMaster' | translate}}</h2>
+    <h2 *ngIf="temp.status=='edit'"><a (click)=back() href="javascript:void(0)" class="back-btn"><span
+                                class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}</h2>
+
+    <div class="active-sec" *ngIf="Edit">
+        <div *ngIf="branchObj.isActive==1" class="active-btn">{{'label.AddBranch.Active' | translate}} <span class="icon-edit-new" data-toggle="modal" data-target="#statusModal" (click)="openStatus()"></span></div>
+        <div *ngIf="branchObj.isActive==0" class="active-btn active-btn-red">
+            {{'label.AddBranch.Deactive' | translate}}    <span class="icon-edit-new" data-toggle="modal" data-target="#statusModal" (click)="openStatus()"></span></div>
+
+    </div>
+</div>
+
+<div class="modal fade left-alignmodal" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog notify-modal modal-medium" role="document">
+        <div class="modal-content">
+            <div class="modal-heading">{{'label.AddBranch.EditStatus' | translate}}  
+                <button type="button" class="close close12" data-dismiss="modal" aria-label="Close">
+                                            <span class="icon-close1"></span>
+                                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="status-list">
+                    <div class="status-toggle">
+                        <p>{{'label.AddBranch.Status' | translate}}  </p>
+                        <div class="tgl-group">
+
+
+                            <input [(ngModel)]="branchObj.changeStatus" class='tgl tgl-light' id='display-creditLimit' type='checkbox'>
+                            <label class='tgl-btn' for='display-creditLimit'></label><span>
+                                                                    <span *ngIf="branchObj.changeStatus==1">
+                                                                        {{'label.AddBranch.Active1' | translate}} </span>
+                            <span *ngIf="branchObj.changeStatus==0">
+                                {{'label.AddBranch.Deactive' | translate}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-areabox">
+                        <label>{{'label.AddBranch.Reason' | translate}}</label>
+                        <textarea class="form-control" [(ngModel)]="changeStatus"></textarea>
+                    </div>
+                </div>
+                <br />
+                <a class="add-btn" (click)="updateStatus()"><span>{{'label.AddBranch.Update' | translate}}</span></a>
+                <a class="cancel-btn" data-dismiss="modal"><span>{{'label.AddBranch.Cancel' | translate}}</span></a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="addmaster-company cmpy-edit">
+    <div class="nav nav-tabs nav-fill company-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link " [class.active]="branchObj.isActiveBranch" data-tab="nav-home" [class.disabled]="disableBranch"> <span class="icon-building"></span> BRANCH DETAILS</a>
+        <a class="nav-item nav-link" [class.active]="contactObj.isActiveContact" data-tab="nav-profile" [class.disabled]="disableContact"><span class="icon-phone"></span>BRANCH CONTACT</a>
+    </div>
+    <div class="form-list">
+        <form [formGroup]="BranchForm" [class.disabled]="isEditOrUpdate()">
+            <div class="tab-pane company-content" [class.active]="branchObj.isActiveBranch" id="nav-home">
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.BranchName' | translate}}</label>
+                            <input type="text" class="form-control" [(ngModel)]="branchObj.branchName" id="branchName" formControlName="branchName" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","branchName",branchObj.branchName.length)'>
+                            <div class="error error-position" *ngIf="BranchForm.controls['branchName'].hasError('required') && 
+                                                    BranchForm.controls['branchName'].touched">
+                                                    {{'error.AddBranch.BranchNamerequired' | translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.BranchCode' | translate}}</label>
+                            <input type="text" class="form-control" [(ngModel)]="branchObj.branchCode" id="branchCode" formControlName="branchCode" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","branchCode",branchObj.branchCode.length)'>
+                            <div class="error error-position" *ngIf="BranchForm.controls['branchCode'].hasError('required') && 
+                                                    BranchForm.controls['branchCode'].touched">
+                                                    {{'error.AddBranch.BranchCoderequired' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-title">
+                    <h2>{{'label.AddBranch.ContactInformation' | translate}}</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.EmailAddress' | translate}} </label>
+                            <input type="email" class="form-control" [(ngModel)]="branchObj.emailId" formControlName="emailId">
+                            <div class="error error-position" *ngIf="BranchForm.controls['emailId'].hasError('required') && 
+                                                    BranchForm.controls['emailId'].touched">
+                                                    {{'error.AddBranch.Emailidrequired' | translate}}</div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group phone-mumber">
+                            <label>{{'label.AddBranch.Phone' | translate}} </label>
+                            
+                            <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="branchObj.mobileNo" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode"
+                            [onlyCountries]="CountryISO"   name="phone" formControlName="mobileNo" (change)="focusOutMobile()">
+                            </ngx-intl-tel-input>
+                            <div class="error error-position" *ngIf="BranchForm.controls['mobileNo'].hasError('required') && BranchForm.controls['mobileNo'].touched">
+                                {{'error.AddBranch.Mobilenumberrequired' | translate}}    </div>
+
+                            <span *ngIf="pluginVali">
+
+                                                                <div class="error error-position"
+                                                                        *ngIf="BranchForm.controls['mobileNo'].hasError('validatePhoneNumber') && BranchForm.controls['mobileNo'].touched">
+                                                     {{'error.AddBranch.Invalidphone' | translate}}  </div>
+                                                        </span>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.Fax' | translate}}  <span>{{'label.AddBranch.Optional' | translate}}</span></label>
+                            <input type="text" class="form-control" formControlName="fax" [(ngModel)]="branchObj.fax" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","fax",branchObj.fax.length)'>
+
+                            <div class="error error-position error-right" *ngIf="BranchForm.controls['fax'].hasError('required') && BranchForm.controls['fax'].touched">
+                                {{'error.AddBranch.Faxrequired' | translate}} </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.WebsiteURL' | translate}} </label>
+                            <input type="text" class="form-control" formControlName="websiteUrl" [(ngModel)]="branchObj.websiteUrl" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","websiteUrl",branchObj.websiteUrl.length)'>
+
+                            <div class="error error-position" *ngIf="BranchForm.controls['websiteUrl'].hasError('required') && BranchForm.controls['websiteUrl'].touched">
+                                {{'error.AddBranch.WebsiteURL' | translate}}  </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.AptSuite' | translate}}</label>
+                            <input type="text" class="form-control" formControlName="apiSuite" [(ngModel)]="branchObj.apiSuite" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","apiSuite",branchObj.apiSuite.length)'>
+
+                            <div class="error error-position" *ngIf="BranchForm.controls['apiSuite'].hasError('required') && BranchForm.controls['apiSuite'].touched">
+                                {{'error.AddBranch.Suiterequired' | translate}}   </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.AddressLine1' | translate}} </label>
+                            <textarea class="form-control" formControlName="address1" [(ngModel)]="branchObj.address1" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","500","address1",branchObj.address1.length)'></textarea>
+                            <div class="error error-position" *ngIf="BranchForm.controls['address1'].hasError('required') && BranchForm.controls['address1'].touched">
+                                {{'error.AddBranch.Addressline1' | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.AddressLine2' | translate}}</label>
+                            <textarea class="form-control" formControlName="address2" [(ngModel)]="branchObj.address2" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","500","address2",branchObj.address2.length)'></textarea>
+                            <div class="error error-position" *ngIf="BranchForm.controls['address2'].hasError('required') && BranchForm.controls['address2'].touched">
+                                {{'error.AddBranch.Addressline2' | translate}} </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.StateProvince' | translate}}</label>
+                            <input type="text" class="form-control" formControlName="state" [(ngModel)]="branchObj.state" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","state",branchObj.state.length)'>
+                            <div class="error error-position" *ngIf="BranchForm.controls['state'].hasError('required') && BranchForm.controls['state'].touched">
+                                {{'error.AddBranch.Staterequired' | translate}}   </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.CityTown' | translate}} </label>
+                            <input type="text" class="form-control" formControlName="city" [(ngModel)]="branchObj.city" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","city",branchObj.city.length)'>
+                            <div class="error error-position " *ngIf="BranchForm.controls['city'].hasError('required') && BranchForm.controls['city'].touched">
+                                {{'error.AddBranch.Cityrequired' | translate}}</div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.ZipPostalCode' | translate}} </label>
+                            <input type="text" class="form-control" formControlName="postalCode" [(ngModel)]="branchObj.postalCode" (input)='changeField($event,"[^0-9]","1","20","postalCode",branchObj.postalCode.length)'>
+                            <div class="error error-position" *ngIf="BranchForm.controls['postalCode'].hasError('required') && BranchForm.controls['postalCode'].touched">
+                                {{'error.AddBranch.ZipPostalCoderequired' | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.Country' | translate}} </label>
+                            <div class="styled-select">
+                                <select formControlName="country" [(ngModel)]="branchObj.country" id="country">
+                                                                        <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                                value="{{countryCodes.countryDesc}}">
+                                                                                {{countryCodes.countryDesc}}
+                                                                        </option>
+                                                                </select>
+
+                                <span class="fa fa-sort-desc"></span>
+
+                            </div>
+                            <div class="error error-position" *ngIf="BranchForm.controls['country'].hasError('required') && BranchForm.controls['country'].touched">
+                                {{'error.AddBranch.Countryrequired' | translate}} </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="button-right">
+                    <a class="add-btn" (click)=next()><span>{{'label.AddBranch.Next' | translate}} </span></a>
+                    <!-- <a class="add-btn" *ngIf="!isPrev" (click)=prev()><span>Previous</span></a> -->
+                </div>
+
+            </div>
+        </form>
+
+
+
+
+        <form [formGroup]="ContactForm">
+
+            <div class="tab-pane company-content" [class.active]="contactObj.isActiveContact" id="nav-profile">
+                <div class="page-title">
+                    <h2>{{'label.AddBranch.PrimaryInformation' | translate}}</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.ContactName' | translate}} </label>
+                            <input type="text" class="form-control" [(ngModel)]="contactObj.contactName" formControlName="contactName" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","contactName",contactObj.contactName.length)'>
+                            <div class="error error-position" *ngIf="ContactForm.controls['contactName'].hasError('required') && 
+                                                    ContactForm.controls['contactName'].touched">
+                                                    {{'error.AddBranch.ContactNamerequired' | translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.Designation' | translate}} </label>
+                            <input type="text" class="form-control" [(ngModel)]="contactObj.designation" formControlName="designation" (input)='changeField($event,"[^0-9 a-zA-Z\u0600-\u06FF]","1","20","designation",contactObj.designation.length)'>
+                            <div class="error error-position" *ngIf="ContactForm.controls['designation'].hasError('required') && 
+                                                    ContactForm.controls['designation'].touched">
+                                                    {{'error.AddBranch.Designationrequired' | translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="form-control" [(ngModel)]="contactObj.isPrimaryContact" formControlName="isPrimaryContact" value="1">
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.E-MailAddress' | translate}} </label>
+                            <input type="email" class="form-control" (change)="focusOutEmailId($event)" [(ngModel)]="contactObj.emailId" formControlName="emailId" autocomplete="off">
+                            <div class="error error-position" *ngIf="ContactForm.controls['emailId'].hasError('required') && 
+                                                    ContactForm.controls['emailId'].touched">
+                                                    {{'error.AddBranch.Emailid' | translate}}</div>
+                            <div class="error error-position" *ngIf="ContactForm.controls['emailId'].hasError('alreadyExist')&& ContactForm.controls['emailId'].touched">
+                                {{'error.AddBranch.ExistEmail' | translate}} </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group phone-mumber">
+                            <label>{{'label.AddBranch.PhoneNumber' | translate}}</label>
+         
+                            <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="contactObj.mobileNo" [enablePlaceholder]="true" [searchCountryFlag]="true" 
+                            
+                             [maxLength]="15" [tooltipField]="TooltipLabel.Name"
+                             [separateDialCode]="separateDialCode"
+                            [onlyCountries]="CountryISO"  name="mobileNo" formControlName="mobileNo" (change)="focusOutMobile2()">
+                            </ngx-intl-tel-input>
+                            <div class="error error-position" *ngIf="ContactForm.controls['mobileNo'].hasError('required') && ContactForm.controls['mobileNo'].touched">
+                                {{'error.AddBranch.MobileNumberrequired' | translate}}   </div>
+
+                            <span *ngIf="pluginVali2">
+
+                                                                <div class="error error-position"
+                                                                        *ngIf="ContactForm.controls['mobileNo'].hasError('validatePhoneNumber') && ContactForm.controls['mobileNo'].touched">
+                                                                        {{'error.AddBranch.Invalidphone1' | translate}}   
+                                                                        </div>
+                                                        </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group phone-mumber">
+                            <label>{{'label.AddBranch.WorkPhone' | translate}} </label>
+                            
+                            <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="contactObj.workPhoneNo" [enablePlaceholder]="true" [searchCountryFlag]="true"  [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode"
+                            name="workPhoneNo" formControlName="workPhoneNo" (change)="focusOutMobile3()">
+                        </ngx-intl-tel-input>
+                            <div class="error error-position" *ngIf="ContactForm.controls['workPhoneNo'].hasError('required') && ContactForm.controls['workPhoneNo'].touched">
+                                {{'error.AddBranch.WorkPhonerequired' | translate}}   </div>
+
+                            <span *ngIf="pluginVali3">
+
+                                                                <div class="error error-position"
+                                                                        *ngIf="ContactForm.controls['workPhoneNo'].hasError('validatePhoneNumber') && ContactForm.controls['workPhoneNo'].touched">
+                                                                        {{'error.AddBranch.InvalidPhone' | translate}} 
+                                                                        </div>
+                                                        </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-5 col-xs-12">
+                        <div class="form-group">
+                            <label>{{'label.AddBranch.Fax1' | translate}} <span>{{'label.AddBranch.Optional1' | translate}}</span></label>
+                            <input type="text" class="form-control" [(ngModel)]="contactObj.fax" formControlName="fax" (input)='changeField($event,"[^0-9]","1","20","fax",contactObj.fax.length)'>
+                            <div class="error error-position error-right" *ngIf="ContactForm.controls['fax'].hasError('required') && 
+                                                    ContactForm.controls['fax'].touched">
+                                                    {{'error.AddBranch.Faxrequired2' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                                    <div class="col-sm-6 col-md-5 col-xs-12">
+                                            <div class="form-group">
+                                                    <label>Apt/Suite/Unit</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.apiSuite" formControlName="apiSuite"
+                                                    >
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['apiSuite'].hasError('required') && 
+                                                    ContactForm.controls['apiSuite'].touched">Apt/Suite is required</div>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-5 col-xs-12">
+                                            <div class="form-group">
+                                                    <label>Website URL</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.websiteUrl" formControlName="websiteUrl"
+                                                    >
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['websiteUrl'].hasError('required') && 
+                                                    ContactForm.controls['websiteUrl'].touched">Website Url is required</div>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                                            <div class="form-group">
+                                                    <label>Address Line 1</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.address1" formControlName="address1">
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['address1'].hasError('required') && 
+                                                    ContactForm.controls['address1'].touched">Address is required</div>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-5 col-xs-12 text-areab">
+                                            <div class="form-group">
+                                                    <label>Address Line 2</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.address2" formControlName="address2"
+                                                    >
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['address2'].hasError('required') && 
+                                                    ContactForm.controls['address2'].touched">Address is required</div>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-sm-6 col-md-5 col-xs-12">
+                                            <div class="form-group">
+                                                    <label>State/Province</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.state" formControlName="state"
+                                                    >
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['state'].hasError('required') && 
+                                                    ContactForm.controls['state'].touched">State is required</div>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-5 col-xs-12">
+                                            <div class="form-group">
+                                                    <label>City/Town/Department</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.city" formControlName="city"
+                                                    >
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['city'].hasError('required') && 
+                                                    ContactForm.controls['city'].touched">City is required</div>
+                                            </div>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-sm-6 col-md-5 col-xs-12">
+                                            <div class="form-group">
+                                                    <label>Zip/Postal Code</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="contactObj.postalCode" formControlName="postalCode"
+                                                    >
+                                                    <div class="error error-position error-right" *ngIf="ContactForm.controls['postalCode'].hasError('required') && 
+                                                    ContactForm.controls['postalCode'].touched">Zip Code is required</div>
+                                            </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-5 col-xs-12">
+                                            <div class="form-group">
+                                                    <label>Country</label>
+                                                    <div class="styled-select">
+                                                        <select formControlName="country"
+                                                                [(ngModel)]="contactObj.country" id="country">
+                                                                <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                        value="{{countryCodes.countryDesc}}">
+                                                                        {{countryCodes.countryDesc}}
+                                                                </option>
+                                                        </select>
+
+                                                        <span class="fa fa-sort-desc"></span>
+
+                                                </div>
+                                                <div class="error error-position"
+                                                        *ngIf="ContactForm.controls['country'].hasError('required') && ContactForm.controls['country'].touched">
+                                                        Country is required</div>
+                                           </div>
+                                    </div>
+
+                                   
+                            </div> -->
+
+
+
+
+
+                <div class="table-list">
+                    <h2>{{'label.AddBranch.RoleAccess' | translate}}</h2>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <div class="tablemain tablemain-hight0">
+                                <div class="tableheader">
+                                    <table class="table table-checkbox">
+                                        <thead>
+                                            <tr>
+
+                                                <th width="1%" scope="col">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                                                                                        <input type="checkbox"
+                                                                                                                                [class.active]="this.branchObj.showSelectGroup"
+                                                                                                                                (click)="selectAllGroup()">
+                                                                                                                        <span
+                                                                                                                                class="cr"><i
+                                                                                                                                        class="cr-icon fa fa-check"></i></span>
+                                                                                                                </label>
+                                                    </div>
+                                                </th>
+                                                <th width="75%" scope="col">{{'label.AddBranch.Role' | translate}}
+                                                </th>
+
+                                                <th width="20%" scope="col">
+                                                    <div class="check-select">
+                                                        <a *ngIf="selectedAll2" href="javascript:void(0)" [class.active]="this.branchObj.showSelectGroup" (click)="selectAllGroup()">
+                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                            {{'label.AddBranch.SelectAll' | translate}}
+                                                        </a>
+
+                                                        <a *ngIf="!selectedAll2" href="javascript:void(0)" [class.active]="this.branchObj.showSelectGroup" (click)="selectAllGroup()">
+                                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                            {{'label.AddBranch.DeselectAll' | translate}}
+                                                        </a>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="tablebody scroll-margin ">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr formArrayName="opGroup" *ngFor="let group of listGroups; let i = index">
+                                                <td width="1%" data-th="Select All">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                                                                                        <input [class.disabled]="RoleDisable"
+                                                                                                                                type="checkbox"
+                                                                                                                                [formControlName]="i"
+                                                                                                                                id="group_desc"
+                                                                                                                                [(ngModel)]="group.isChecked"
+                                                                                                                                id="theCheckbox-{{i}}"
+                                                                                                                                (change)="toggleVisibility(group)"
+                                                                                                                                value="{{group.groupId}}">
+                                                                                                                        <span
+                                                                                                                                class="cr"><i
+                                                                                                                                        class="cr-icon fa fa-check"></i></span>
+                                                                                                                </label>
+                                                    </div>
+                                                </td>
+                                                <td width="75%" data-th="Role">
+                                                    <!-- <input type="text"  class="form-control alert-success" > -->
+
+
+                                                    <span *ngIf="group.isChecked">
+                                                                                                                <input type="text"
+                                                                                                                        id="group_desc"
+                                                                                                                        class="form-control alert-success"
+                                                                                                                        value="{{group.groupName}}"
+                                                                                                                        disabled>
+                                                                                                        </span>
+                                                    <span *ngIf="!group.isChecked">
+                                                                                                                <input type="text"
+                                                                                                                        id="group_desc"
+                                                                                                                        class="form-control "
+                                                                                                                        value="{{group.groupName}}"
+                                                                                                                        disabled>
+                                                                                                        </span>
+
+                                                </td>
+                                                <td width="20%" data-th="">
+                                                    <span class="not-select" *ngIf="!group.isChecked">{{'label.AddBranch.NotSelected' | translate}}
+                                                                                                                </span>
+                                                    <span class="ok-select" *ngIf="group.isChecked">{{'label.AddBranch.Ok' | translate}}</span>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="error" *ngIf="ContactForm.controls['opGroup'].status=='INVALID' && ContactForm.controls['opGroup'].touched">
+                            {{'error.AddBranch.UserRolerequired' | translate}} </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row contact">
+                    <div class="col-sm-12 col-md-10 col-xs-12">
+                        <div class="page-title right-btn">
+                            <h2>{{'label.AddBranch.ListofContact' | translate}}</h2>
+                            <div class="button-orange">
+                                <a (click)=addContacts()>{{'label.AddBranch.AddContacts' | translate}} <span
+                                                                                class="icon-plus"></span></a>
+                            </div>
+                        </div>
+
+                        <div class="company-over">
+                            <div class="manage-over" formArrayName="contactList">
+
+
+
+
+                                <div class="panel-group" id="accordion{{i}}" *ngFor="let contactsList of ContactForm['controls'].contactList['controls']; let i = index" formGroupName="{{i}}">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" href="#collapse{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                                                    <i class="more-less fa fa-caret-right"></i> 
+                                                    {{'label.AddBranch.Contact' | translate}} {{i + 1}}
+                                                </a>
+                                                <div class="delete-btn">
+                                                    <button (click)="deleteContact(i)"><i
+                                                                                                                        class="icon-delete"></i></button>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>{{'label.AddBranch.ContactName1' | translate}}
+                                                                                                                                </label>
+                                                            <input type="text" class="form-control" id="contactName" #contactName formControlName="contactName">
+                                                            <div class="error error-position" *ngIf="contactsList.controls['contactName'].hasError('required') && 
+                                                                                        contactsList.controls['contactName'].touched">
+                                                                                        {{'error.AddBranch.ContactNamerequired1' | translate}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>{{'label.AddBranch.Designation' | translate}}</label>
+                                                            <input type="text" class="form-control" id="designation" #designation formControlName="designation">
+                                                            <div class="error error-position" *ngIf="contactsList.controls['designation'].hasError('required') && 
+                                                                                        contactsList.controls['designation'].touched">
+                                                                                        {{'error.AddBranch.Designationrequired1' | translate}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label> {{'label.AddBranch.E-MailAddress' | translate}}
+                                                                                                                                
+                                                                                                                        </label>
+                                                            <input type="email" class="form-control" id="emailId" #emailId formControlName="emailId">
+                                                            <div class="error error-position error-right" *ngIf="contactsList.controls['emailId'].hasError('required') && 
+                                                                                        contactsList.controls['emailId'].touched">
+                                                                                        {{'error.AddBranch.Emailid1' | translate}}   
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                                        <div class="form-group phone-mumber">
+                                                            <label>{{'label.AddBranch.Workphone' | translate}} 
+                                                                                                                                <span>{{'label.AddBranch.Optional2' | translate}}</span></label>
+                                                            
+
+                                                            <ngx-intl-tel-input [cssClass]="'custom'" [enablePlaceholder]="true" [searchCountryFlag]="true" 
+                                                             [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode" name="workPhoneNo"
+                                                                formControlName="workPhoneNo">
+                                                            </ngx-intl-tel-input>
+
+                                                            <div class="error error-position" *ngIf="contactsList.controls['workPhoneNo'].hasError('required') && contactsList.controls['workPhoneNo'].touched">
+                                                                {{'error.AddBranch.Workphonerequired' | translate}}        
+                                                            </div>
+
+
+                                                            <div class="error error-position" *ngIf="contactsList.controls['workPhoneNo'].hasError('validatePhoneNumber') && contactsList.controls['workPhoneNo'].touched">
+                                                                {{'error.AddBranch.Invalidphone2' | translate}}    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                                        <div class="form-group phone-mumber">
+                                                            <label>{{'label.AddBranch.MobileNumber' | translate}}
+                                                                                                                                <span>{{'label.AddBranch.Optional3' | translate}}</span></label>
+                                                            
+                                                            <ngx-intl-tel-input [cssClass]="'custom'" [enablePlaceholder]="true" [searchCountryFlag]="true" [maxLength]="15" [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode" name="mobileNo" formControlName="mobileNo">
+                                                            </ngx-intl-tel-input>
+
+                                                            <div class="error error-position" *ngIf="contactsList.controls['mobileNo'].hasError('required') && contactsList.controls['mobileNo'].touched">
+                                                                {{'error.AddBranch.MobileNumber' | translate}}  
+                                                            </div>
+
+                                                            <span>
+                                                                                                                                <div class="error error-position"
+                                                                                                                                        *ngIf="contactsList.controls['mobileNo'].hasError('validatePhoneNumber') && contactsList.controls['mobileNo'].touched">
+                                                                                                                                        {{'error.AddBranch.Invalidphone3' | translate}}              
+                                                                                                                                        
+                                                                                                                                </div>
+                                                                                                                        </span>
+                                                        </div>
+                                                        <!-- <div class="checkbox same-check">
+                                                                                        <label>
+                                                                                             <input type="checkbox" (change)="setPrimary(i, $event)">
+                                                                                                <span class="cr"><i  class="cr-icon fa fa-check-square"></i></span>
+                                                                                                Same as Primary Address</label>
+                                                                                </div> -->
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-xs-12">
+                                                        <div class="form-group">
+                                                            <label>{{'label.AddBranch.Fax2' | translate}}
+                                                                                                                                <span>{{'label.AddBranch.Optional4' | translate}}</span></label>
+                                                            <input type="number" class="form-control" id="fax" #fax formControlName="fax">
+
+                                                            <div class="error error-position error-right" *ngIf="contactsList.controls['fax'].hasError('required') && 
+                                                                                        contactsList.controls['fax'].touched">
+                                                                                        {{'error.AddBranch.Fax2' | translate}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div style="display:none;" class="form-group">
+                                                    <label>{{'label.AddBranch.BranchContact' | translate}}
+                                                                                                                <span>{{'label.AddBranch.Optional5' | translate}}</span></label>
+                                                    <input type="number" class="form-control" id="branchContactId" #branchContactId formControlName="branchContactId">
+
+
+                                                </div>
+
+
+
+                                                <!-- <div class="row">
+                                                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Apt/Suite/Unit</label>
+                                                                                        <input type="text"  class="form-control" id="apiSuite" #apiSuite formControlName="apiSuite">
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['apiSuite'].hasError('required') && 
+                                                                                        contactsList.controls['apiSuite'].touched">apiSuite is required</div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Website URL</label>
+                                                                                        <input type="text" class="form-control" id ="websiteUrl" #websiteUrl formControlName="websiteUrl">
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['websiteUrl'].hasError('required') && 
+                                                                                        contactsList.controls['websiteUrl'].touched">websiteUrl is required</div>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+        
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 col-md-6 col-xs-12 text-areab text-check">
+                                                                                <div class="form-group">
+                                                                                        <label>Address Line 1</label>
+                                                                                        <textarea class="form-control" id ="address1" #address1 formControlName="address1"></textarea>
+                                                                                        
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['address1'].hasError('required') && 
+                                                                                        contactsList.controls['address1'].touched">address is required</div>
+                                                                              </div>
+                                                                        </div>
+                                                                  <div  class="col-sm-6 col-md-6 col-xs-12 text-areab">
+                                                                                <div class="form-group">
+                                                                                        <label>Address Line 2</label>
+                                                                                        <textarea class="form-control" id ="address2" #address2 formControlName="address2"></textarea>
+                                                                                        
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['address2'].hasError('required') && 
+                                                                                        contactsList.controls['address2'].touched">address is required</div>
+                                                                                </div>
+                                                                        </div>
+        
+                                                                </div>
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                        <label>State/Province</label>
+                                                                                        <input type="text" class="form-control" id="state" #state formControlName="state">
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['state'].hasError('required') && 
+                                                                                        contactsList.controls['state'].touched">state is required</div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div
+                                                                                class="col-sm-6 col-md-6 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Cite/Town/Department</label>
+                                                                                        <input type="text"  class="form-control" id="city" #city formControlName="city">
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['city'].hasError('required') && 
+                                                                                        contactsList.controls['city'].touched">city is required</div>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Zip/Postal Code</label>
+                                                                                        <input type="text" class="form-control" id="postalCode" #postalCode formControlName="postalCode">
+                                                                                                                                                                
+                                                                                        <div class="error error-position error-right" *ngIf="contactsList.controls['postalCode'].hasError('required') && 
+                                                                                        contactsList.controls['postalCode'].touched">postalCode is required</div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div
+                                                                                class="col-sm-6 col-md-6 col-xs-12">
+                                                                                <div class="form-group">
+                                                                                        <label>Country</label>
+                                                                                        <div class="styled-select">
+                                                                                                <select formControlName="country" id="country" #country>
+                                                                                                        <option *ngFor="let countryCodes of listCountryCode; let i=index "
+                                                                                                                value="{{countryCodes.countryDesc}}">
+                                                                                                                {{countryCodes.countryDesc}}
+                                                                                                        </option>
+                                                                                                </select>
+                                        
+                                                                                                <span class="fa fa-sort-desc"></span>
+                                        
+                                                                                        </div>
+                                                                                        <div class="error error-position"
+                                                                                                *ngIf="contactsList.controls['country'].hasError('required') && contactsList.controls['country'].touched">
+                                                                                                Country is required</div>
+                                                                                </div>
+                                                                        </div>
+                                                                </div> -->
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="button-right">
+                    <input *ngIf="temp.status=='submit'" type="submit" class="add-btn" value="{{'label.AddBranch.Submit' | translate}}" (click)=regBranch() />
+                    <input [class.disabled]="getAccessRole('isEdit')" *ngIf="temp.status=='edit'" type="submit" class="add-btn" value="{{'label.AddBranch.Update1' | translate}}" (click)=updateBranch() />
+                    <a class="add-btn" *ngIf="!isPrev" (click)=prev()><span>{{'label.AddBranch.Previous' | translate}}</span></a>
+
+                    <!-- <input class="cancel-btn" value="{{'label.AddBranch.Cancel1' | translate}}" (click)=cancel() /> -->
+
+                    <a (click)=cancel() class="cancel-btn">{{'label.AddBranch.Cancel1' | translate}}</a>
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        </form>
+
+
+    </div>
+</div>

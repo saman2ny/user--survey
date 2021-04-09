@@ -1,0 +1,179 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home</a></li>
+        <li class="breadcrumb-item active">My Profile</li>
+    </ol>
+</div>
+<div class="inner-head">
+    <h2><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>My Profile</h2>
+
+</div>
+<form [formGroup]="profileForm">
+    <div class="form-list">
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type="file" formControlName="opImageCopy" value="" (change)="onFileChange($event)"
+                            accept="image/jpeg, image/jpg, image/png" />
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <img [src]="profileObj.opImageCopy" onerror="this.src='assets/images/profile.jpg';" />
+                    </div>
+                </div>
+                <div class="label-alert col-xs-12">
+                    Image size should not exceeds of 20KB
+                </div>
+            </div>
+        </div>
+        <div class="profile-detail">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                    <div class="form-group label-bold">
+                        <label>Operator Name</label>
+                        <p>{{profileObj.opFirstName}}</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                    <div class="form-group label-bold">
+                        <label>Employee ID</label>
+                        <p>{{profileObj.opEmployeeId}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                    <div class="label-bold">
+                        <label>Branch</label>
+                        <p>{{ getBranchName(profileObj.branchId) }}</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                    <div class="label-bold">
+                        <label>Department</label>
+                        <p>{{ getDepartmentName(profileObj.departmentId) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                <div class="form-group label-bold">
+                    <label>Company Name</label>
+                    <p>Aj ddfg</p>
+                </div>
+            </div>
+        </div> -->
+
+
+        <!-- <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>User Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="profileObj.opFirstName"
+                        formControlName="opUserName" id="opUserName" autocomplete="off">
+                </div>
+                <div class="error error-position"
+                    *ngIf="profileForm.controls['opUserName'].hasError('required') && profileForm.controls['opUserName'].touched">
+                    User Name is required</div>
+
+                    
+
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Employee ID</label>
+                    <input type="text" class="form-control" [(ngModel)]="profileObj.opEmployeeId"
+                        formControlName="employeeId" id="employeeId">
+                </div>
+                <div class="error error-position"
+                    *ngIf="profileForm.controls['employeeId'].hasError('required') && profileForm.controls['employeeId'].touched">
+                    Employee Id is required</div>
+
+            </div>
+        </div> -->
+        <div class="page-title">
+            <h2>Contact Information</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Email Id</label>
+                    <input type="text" class="form-control" [(ngModel)]="profileObj.opEmailId"
+                        formControlName="opEmailId" id="opEmailId">
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group phone-mumber">
+                    <label>Mobile Number </label>
+                    <ngx-intl-tel-input [cssClass]="'custom'" [(ngModel)]="profileObj.opPreMobileNo"
+                        [enablePlaceholder]="true" [searchCountryFlag]="true"
+                        [selectedCountryISO]="selectedCorpPreMobileNo" [maxLength]="15"
+                        [tooltipField]="TooltipLabel.Name" [separateDialCode]="separateDialCode" name="phone"
+                        formControlName="opPreMobileNo">
+                    </ngx-intl-tel-input>
+                    <!-- <div class="styled-select">
+
+                        <select formControlName="opPreMobileNo" [(ngModel)]="profileObj.opPreMobileNo"
+                            id="opPreMobileNo">
+                            <option>971</option>
+                            <option>973</option>
+                        </select>
+                        <span class="fa fa-sort-desc"></span>
+                    </div>
+                    <input type="number" class="form-control" [(ngModel)]="profileObj.opMobileNo"
+                        formControlName="opMobileNo" id="opMobileNo"> -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div class="row">
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Department</label>
+                    <div class="styled-select">
+
+                        <select [(ngModel)]="profileObj.departmentId" formControlName="opDept" id="opDept">
+                            <option value="Select Department"> Select Department</option>
+                            <option *ngFor="let listDepartments of listDepartments; let i=index "
+                                value="{{listDepartments.departmentId}}">{{listDepartments.departmentName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="error error-position"
+                    *ngIf="profileForm.controls['opDept'].hasError('required') && profileForm.controls['opDept'].touched">
+                    Department is required</div>
+
+            </div>
+            <div class="col-sm-6 col-md-5 col-xs-12">
+                <div class="form-group">
+                    <label>Branch</label>
+                    <div class="styled-select">
+
+                        <select [(ngModel)]="profileObj.branchId" formControlName="opBranch" id="opBranch">
+                            <option value="Select Branch">Select Branch</option>
+                            <option *ngFor="let listBranchs of listBranchs; let i=index "
+                                value="{{listBranchs.branchId}}">
+                                {{listBranchs.branchName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="error error-position"
+                    *ngIf="profileForm.controls['opBranch'].hasError('required') && profileForm.controls['opBranch'].touched">
+                    Branch is required</div>
+
+            </div>
+        </div> -->
+
+    </div>
+    <div class="button-right">
+        <input (click)=Save() type="submit" class="add-btn" value="Add" />
+
+        <!-- <a href="#" class="add-btn">ADD</a> -->
+    </div>
+
+</form>

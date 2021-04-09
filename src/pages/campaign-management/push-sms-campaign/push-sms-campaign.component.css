@@ -1,0 +1,12 @@
+.border_bottom{
+    border-bottom: 1px solid #E6E7E8;
+}
+.l_h_32{
+    line-height:32px;
+}
+
+.att_class p{
+    font-size: 0.9375em;
+     color: #008658;
+     font-weight: 600;
+}

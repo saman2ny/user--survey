@@ -1,0 +1,202 @@
+<header>
+    <div class="homeicon">
+        <div class="mobilemenu menu-close visible-xs">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </div>
+    </div>
+</header>
+<div class="sidebar">
+    <div class="menuclose-icon visible-xs"><i class="icon-plus"></i></div>
+    <div class="sidemenu">
+        <ul class="firstmenu">
+         
+
+            <li class="has-menu">
+                <a href="#" routerLink="/" title="Home" data-toggle="tooltip" data-placement="right"
+                    data-original-title="Survey Page"><i class="icon-home"></i></a>
+            </li>
+
+            <!-- <li class="has-menu">
+        <a href="javascript:void(0)" title="Company Master" data-toggle="tooltip" data-placement="right"><i
+            class="icon-company"></i></a>
+        <div class="sub-menu">
+          <h2>Company<br> Master</h2>
+          <ul>
+            <li><a routerLink="/home/company-master/" title="Companies">Companies</a></li>
+          </ul>
+          <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+        </div>
+      </li> -->
+            <!-- <li class="has-menu">
+        <a href="javascript:void(0)" title="Group Management" data-toggle="tooltip" data-placement="right"><i
+            class="icon-customer-mng"></i></a>
+        <div class="sub-menu">
+          <h2>Group<br> Management</h2>
+          <ul>
+            <li><a routerLink="/home/reports/campaignUpload" href="javascript:void(0)" title="Groups">campagin upload report</a></li>
+            <li><a routerLink="/home/group-management/group-privileges" href="javascript:void(0)"
+                title="Group privilege">Group privilege</a></li>
+          </ul>
+          <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+        </div>
+      </li> -->
+
+
+<!-- 
+            <li class="has-menu" *ngFor="let mainPage of pages">
+                <ng-container *ngIf="mainPage.page.length">
+                    <a href="javascript:void(0)" title={{mainPage.menuLabel}} data-toggle="tooltip"
+                        data-placement="right"><i class={{mainPage.menuIcon}}></i></a>
+                    <div class="sub-menu">
+                        <h2>{{mainPage.menuLabel}}</h2>
+                        <ul>
+                            <li *ngFor="let subPage of mainPage.page">
+                                <a (click)="goto(mainPage,subPage)" title={{subPage.menuLabel}}>
+                                    {{subPage.menuLabel}}
+                                </a>
+                            </li>
+                        </ul>
+                        <span class="submenu-close"><i class="icon-right-arrow"></i><i
+                                class="icon-right-arrow"></i></span>
+                    </div>
+                </ng-container>
+            </li>
+
+ -->
+            <!-- <li class="has-menu">
+                <a href="javascript:void(0)" title="Chat Services" data-toggle="tooltip" data-placement="right"><i
+                        class="icon-customer-mng"></i></a>
+                <div class="sub-menu">
+                    <h2>System Alerts</h2>
+                    <ul>
+                        <li><a routerLink="/home/system-parameters/system-alerts/" href="javascript:void(0)" title="System Alerts">System Alerts</a></li>
+                        <li><a routerLink="/home/reports/campaignMessageStatusSummary/" href="javascript:void(0)" title="Campaign Summary">Campaign Summary</a></li>
+                        <li><a routerLink="/home/reports/app-message-summary/" href="javascript:void(0)" title="Message Statstics Summary">Message Statstics Summary</a></li>
+                        <li><a routerLink="/home/app-severdashboard" href="javascript:void(0)" title="chats">server dashboard</a></li>
+                        <li><a (click)="goToAnalytics()" href="javascript:void(0)" title="chats">Analytics</a></li>
+                        
+                        <li><a routerLink="/home/DynamicFormsComponent" href="javascript:void(0)" title="chats">Feedback</a></li>
+                        <li><a routerLink="/home/DynamicformsAddEditComponent" href="javascript:void(0)" title="chats">AddForm</a></li>
+                        <li><a routerLink="/home/DynamicFormsPopupComponent" href="javascript:void(0)" title="chats">Popup</a></li>
+                        <li><a routerLink="/home/DynamicformslistComponent1" href="javascript:void(0)" title="chats">DynamicForm</a></li>
+                        
+                    </ul>
+                    <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+                </div>
+            </li> -->
+
+
+            <!-- <li class="has-menu">
+                <a href="javascript:void(0)" title="Branch Master" data-toggle="tooltip" data-placement="right"><i
+                        class="icon-customer-mng"></i></a>
+                <div class="sub-menu">
+                    <h2>Branch Master</h2>
+                    <ul>
+                        <li routerLink="../home/chat/chat-list/">Chats</li>
+                        <li><a routerLink="/home/branch/" href="javascript:void(0)" title="Branch">Branch Master</a></li>
+        
+        
+                    </ul>
+                    <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+                </div>
+            </li> -->
+
+
+
+        </ul>
+    </div>
+</div>
+<div class="pagecontainer">
+
+    <div class="site-content ">
+
+        <router-outlet></router-outlet>
+        <footer>
+            <p class="copyright"> {{'label.LandingPage.Copyrights' | translate}} &copy;{{'label.LandingPage.DucontIndiaSystemsPvtLtd' | translate}}</p>
+        </footer>
+    </div>
+
+</div>
+
+
+<!-- harcode pages -->
+<!--
+   <li class="has-menu">
+        <a href="javascript:void(0)" title="Corporate Management" data-toggle="tooltip" data-placement="right"><i
+            class="icon-corporate"></i></a>
+        <div class="sub-menu">
+          <h2>Corporate <br> Management</h2>
+          <ul>
+            <li><a routerLink="/home/corporate-master/" title="Corporates">Corporates</a></li>
+          </ul>
+          <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+        </div>
+      </li>
+      <li class="has-menu">
+        <a href="javascript:void(0)" title="Company Master" data-toggle="tooltip" data-placement="right"><i
+            class="icon-company"></i></a>
+        <div class="sub-menu">
+          <h2>Company<br> Master</h2>
+          <ul>
+            <li><a routerLink="/home/company-master/" title="Companies">Companies</a></li>
+          </ul>
+          <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+        </div>
+      </li>
+  <li class="has-menu">
+    <a routerlink="#" title="Operator Management" data-toggle="tooltip" data-placement="right"><i
+        class="icon-user-mg"></i></a>
+    <div class="sub-menu">
+      <h2>Operator<br> Management</h2>
+      <ul>
+        <li><a routerLink="/home/operator-management/" title="Operators">Operators</a></li>
+        <li><a routerLink="/home/operator-management/approve-operator" title="Approve Operator">Approve Operator</a>
+        </li>
+      </ul>
+      <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+    </div>
+  </li>
+  <li class="has-menu">
+    <a href="javascript:void(0)" title="Group Management" data-toggle="tooltip" data-placement="right"><i
+        class="icon-customer-mng"></i></a>
+    <div class="sub-menu">
+      <h2>Group<br> Management</h2>
+      <ul>
+        <li><a routerLink="/home/group-management/" href="javascript:void(0)" title="Groups">Groups</a></li>
+        <li><a routerLink="/home/group-management/group-privileges" href="javascript:void(0)" title="Group privilege">Group privilege</a></li>
+      </ul>
+      <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+    </div>
+  </li>
+  <li class="has-menu">
+    <a href="javascript:void(0)" title="Service Management" data-toggle="tooltip" data-placement="right"><i
+        class="icon-service-mng"></i></a>
+    <div class="sub-menu">
+      <h2>Service <br> Management</h2>
+      <ul>
+        <li><a routerLink="/home/service-management/default-services/" title="Services">Services</a></li>
+        <li><a href="javascript:void(0)" title="Approve Services">Approve Services</a></li>
+        <li><a routerLink="/home/service-management/" title="Template Parameters">Template Parameters</a></li>
+        <li><a href="javascript:void(0)" title="Approve Template Parameters">Approve Template Parameters</a></li>
+        <li><a href="javascript:void(0)" title="Message Templates">Message Templates</a></li>
+        <li><a href="javascript:void(0)" title="Approve Message Templates">Approve Message Templates</a></li>
+        <li><a href="javascript:void(0)" title="Promotional Marketing">Promotional Marketing</a></li>
+        <li><a href="javascript:void(0)" title="Approve Promotional Marketing ">Approve Promotional Marketing </a>
+        </li>
+      </ul>
+      <span class="submenu-close"><i class="icon-right-arrow"></i><i class="icon-right-arrow"></i></span>
+    </div>
+  </li>
+
+
+<li>
+                <li><a routerLink="/home/service-management/default-services/" title="Services">Services</a></li>
+                <li><a routerLink="/home/service-management/approve-default-services/" title="Approve Services">Approve Services</a></li>
+                <li><a routerLink="/home/service-management/" title="Template Parameters">Template Parameters</a></li>
+                <li><a routerLink="/home/service-management/approve-template" title="Approve Template Parameters">Approve Template Parameters</a></li>
+                <li><a routerLink="/home/service-management/message-templates/" title="Message Templates">Message Templates</a></li>
+                <li><a routerLink="/home/service-management/approve-message-templates" title="Approve Message Templates">Approve Message Templates</a></li>
+              </li>
+-->

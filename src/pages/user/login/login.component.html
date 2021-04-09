@@ -1,0 +1,60 @@
+<!-- <div class="input text">
+    <div class="form-group">
+        <label>{{'label.login.language' | translate}} </label>
+        <div class="styled-select">
+            <select id="language"  (change)="changeLanguage($event.target.value)"
+                [(ngModel)]="user.language">
+                <option *ngFor="let company of languageList; let i=index "
+                    value="{{company.code}}">
+                    {{company.name}}
+                </option>
+            </select>
+
+            <span class="fa fa-sort-desc"></span>
+
+        </div>
+
+       
+    </div>
+
+</div> -->
+<div class="login-section">
+  
+    <div class="login-inner">
+
+        <div class="login-left">
+            <img src="assets/images/logo.svg" alt="Logo" />
+
+
+
+            <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+                <div class="input text">
+                    <input type="email" [(ngModel)]="user.userId" placeholder="{{'label.login.userName' | translate}}" formControlName="opUserId" id="opUserId" autocomplete="off" />
+                    <span class="icon-login icon-login-user"></span>
+                    <div class="error" *ngIf="loginForm.controls['opUserId'].hasError('required') && loginForm.controls['opUserId'].touched">
+                        {{'error.login.userNameRequired' | translate}}</div>
+                </div>
+                <div class="input text">
+                    <input type="password" placeholder="{{'label.login.password' | translate}}" [(ngModel)]="user.pass" formControlName="opPassword" id="opPassword" autocomplete="off" />
+                    <span class="icon-login icon-user-pass"></span>
+                    <div class="error" *ngIf="loginForm.controls['opPassword'].hasError('required') && loginForm.controls['opPassword'].touched">
+                        {{'error.login.passwordRequired' | translate}}</div>
+
+                </div>
+              
+                <div class="submit-btn">
+                    <input type="submit" value="{{'label.login.loginBtn' | translate}}" />
+                </div>
+                <div class="forgotlink">
+                    <a (click)="showForgot()" title="{{'label.login.forgotPassword' | translate}}"><span
+                            class="icon-user-forget"></span>{{'label.login.forgotPassword' | translate}}</a>
+                </div>
+                <div class="nodify-btn">
+                    <h5>{{'label.login.whatIsNotisify' | translate}}</h5>
+                    <a href="#">{{'label.login.knowMore' | translate}}</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

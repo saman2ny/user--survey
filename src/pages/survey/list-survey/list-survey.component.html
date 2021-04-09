@@ -1,0 +1,122 @@
+<div class="breadcrumb-div">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home </a></li>
+      <li class="breadcrumb-item active">Survey</li>
+    </ol>
+  </div>
+  <div class="inner-head">
+    <h2>List Survey</h2>
+  </div>
+  
+  <div class="row">
+    <div class="status-filter">
+  
+      <div class="col-xs-12">
+        <div class="tablesearch-sort">
+          <div class="tablesearch-sort">
+            <div class="search-input">
+              <div class="searchexpand">
+                <input type="text" id="searchTextId" placeholder="Search"/>
+                <button type="submit"><i class="icon-search"></i></button>
+              </div>
+              <span class="icon-search"></span>
+              <span class="icon-close1 closesearch" ></span>
+            </div>
+           
+            
+          </div>
+        </div>
+     
+        
+        <div class="button-orange">
+          <a 
+            (click)="addSurvey()">Create <span class="icon-plus"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="20">
+ 
+  </div>
+  <div class="responsive-nt">
+    <table class="table  datatable table-visible">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Questions</th>
+          <th scope="col">Response</th>
+          <th scope="col">Status</th>  
+           <th scope="col">Actions</th>
+          
+        </tr>
+      </thead>
+   
+      
+      <tbody>
+        <tr *ngFor="let listSurvey of listSurvey; let i=index">
+          <td *ngIf ="listSurvey.surveyStatus === 1 " class="hover-hand ellipsis" ><a title="{{listSurvey.surveyName}}" data-toggle="tooltip"
+            (click)="goEditListSurvey(listSurvey)">{{listSurvey.surveyName}}</a></td> 
+            <td *ngIf ="listSurvey.surveyStatus > 1 " >{{listSurvey.surveyName}}</td> 
+          <td>{{listSurvey.typeId}}</td> 
+          <td>{{listSurvey.showQuesNo}}</td> 
+          <td>{{listSurvey.progressBar}}</td> 
+          <td>{{gotoStatus(listSurvey.surveyStatus)}}</td> 
+            
+        <td data-th="Actions" class="text-align">
+          <div class="text-align" *ngIf ="listSurvey.surveyStatus === 1 ">
+              <i class="icon-delete column6" (click)="showModal(listSurvey)" title="Delete"
+                  data-toggle="tooltip" data-placement="left"></i>
+          </div>
+          <div class="text-align" *ngIf ="listSurvey.surveyStatus > 1 ">
+          </div>
+        
+      </td>
+
+        </tr>
+      </tbody>
+    </table>
+  
+  
+  </div>
+  
+
+
+  <div class="modal fade" id="deleteSurveyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="icon-close1"></span>
+                </button>
+                <i class="icon-delete del-popup"></i>
+                <h4>Alert Message</h4>
+                <p>Are you sure you want to delete the selected Survey</p>
+                <a (click)="deleteSurvey()" class="add-btn"><span>Delete</span></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+  <div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog notify-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="icon-close1"></span>
+          </button>
+          <i class="icon-delete del-popup"></i>
+          <h4>Alert Message</h4>
+          <a  class="add-btn"><span>Okay</span></a>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  

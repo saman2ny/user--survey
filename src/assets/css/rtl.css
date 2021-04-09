@@ -1,0 +1,789 @@
+.arabic .support{
+    float: right;
+}
+.arabic .header-right, .arabic .profile-name, .arabic .notification, .arabic .settings, .arabic .header-search, .arabic .mobile-search {
+   float: left;
+}
+.arabic .pagecontainer{
+   padding-right: 70px; 
+   padding-left: 0;
+}
+.arabic .sub-menu{
+  right: -250px;
+  box-shadow: -10px 0px 20px rgba(0, 0, 0, 0.2);
+}
+.arabic .active .sub-menu{
+   right: 66px;
+   -webkit-animation-name: fadeInLeft;
+   animation-name: fadeInLeft;
+}
+.arabic .submenu-close {
+   left: -30px;
+   transform: rotate(360deg);
+   right: auto;
+}
+.arabic .sub-menu h2:before{
+   right: 5px;
+}
+.arabic .mCS-dir-rtl > .mCSB_outside + .arabic .mCSB_scrollTools{
+left: -9px;
+}
+.arabic .sidebar .mCSB_scrollTools .mCSB_draggerContainer{
+   right: -35px;
+   left: 0;
+}
+/*nithya*/
+.arabic .sidebar{
+    border-left: 1px solid #e0e0e0;
+    border-right:none
+}
+.arabic .sidebar:before{
+    background: url('../images/right-menu.png') left center no-repeat #fff
+}
+.arabic .login-left .input input{
+    padding: 10px 40px 10px 10px;
+}
+.arabic .icon-login{
+    left: auto;
+    right: 12px;
+}
+.arabic .notify-modal .foot-btn .cancel-btn,
+.arabic .notify-modal .foot-btn .add-btn,
+.arabic .add-rightside,
+.arabic .add-btn,
+.arabic .active-sec,
+.arabic div.dataTables_wrapper div.dataTables_paginate ul.pagination,
+.arabic .button-orange,
+.arabic .block-tab .nav-link span,
+.arabic .dashborad-left .head-p h5 span,
+.arabic .graph-select,
+.arabic .forgotlink a{
+    float: left;
+}
+.arabic .graph-section,
+.arabic .forgotlink a,
+.arabic .nodify-btn h5{
+    direction: ltr;
+}
+.arabic .addmaster-company .nav-link{
+    margin-right: 0px;
+    margin-left: 35px;
+}
+.arabic .block-tab .nav-link{
+    margin-left: 0px;
+}
+.arabic .list-stcontent{
+    text-align: right;
+}
+.arabic .statistic-list{
+    margin-right:0;
+    margin-left: 10px;
+}
+.arabic .service-mng{
+    margin-left:30px;
+    margin-right: 0px;
+}
+.arabic .service-mng:last-child {
+    margin-right: 0;
+    margin-left: 0;
+}
+.arabic footer p{
+    padding-left:0;
+    padding-right: 67px;
+    float: right;
+}
+.arabic .mCS-dir-rtl > .mCSB_outside + .mCSB_scrollTools {
+    right: -26px;
+}
+.arabic .mCS-dir-rtl > .mCSB_inside > .mCSB_scrollTools,
+.arabic .mCS-dir-rtl > .mCSB_outside + .mCSB_scrollTools {
+    left: 0;
+    right: auto;
+}
+.arabic .mCSB_outside + .mCSB_scrollTools {
+    left: -26px;
+}
+.arabic .dashborad-left{
+    float: right;
+    padding-right: 0;
+    padding-left:10px
+}
+.arabic .quicklinks{
+    padding-right: 40px;
+    padding-left:0
+}
+.arabic .head-p h5 span {
+    margin-left: 8px;
+    float: right;
+}
+.arabic .month-nav button:first-child{
+    position: absolute;
+    left: 0px;
+}
+/* .arabic .cc-upload .custom-upload .input-group, */
+.arabic .text-areabox label,
+.arabic .tablesearch-sort,
+.arabic .addmaster-company .user-manage .nav-link,
+.arabic .addmaster-company .nav-link{
+    float: right;
+}
+.arabic .cc-upload .custom-upload .input-group-btn{
+    position: relative;
+    width: auto;
+    display: inline-block;
+    top:0;
+}
+.arabic .btn-top{
+    left:0;
+    right:inherit
+}
+.arabic table.dataTable thead > tr > th.sorting_asc,
+.arabic table.dataTable thead > tr > th.sorting_desc, 
+.arabic table.dataTable thead > tr > th.sorting,
+.arabic table.dataTable thead > tr > td.sorting_asc,
+.arabic table.dataTable thead > tr > td.sorting_desc,
+.arabic table.dataTable thead > tr > td.sorting {
+    padding-left: 30px;
+    padding-right: 8px;
+}
+.arabic .table.dataTable thead tr th:first-child,
+.arabic .table.dataTable tbody tr td:first-child {
+    padding-right: 25px ;
+    padding-left: 0;
+}
+.arabic .breadcrumb-div ol li+li:before{
+    float: right;
+    line-height: 15px;
+    transform: rotate(180deg);
+}
+.arabic .staus-cont{
+    left: -24px;
+    right:inherit
+}
+.arabic .close,
+.arabic .status-closediv{
+    left:20px;
+    right:inherit
+}
+.arabic .staus-cont p span{
+    margin-left: 14px;
+    margin-right:0
+}
+.arabic .styled-select .fa-sort-desc{
+    left:12px;
+    right:inherit
+}
+.arabic .back-btn span{
+    float: right;
+    transform: rotate(180deg);
+    margin-left: 20px;
+    margin-right: 0;
+}
+.arabic .responsive-nt .table td .icon-div span,
+.arabic .responsive-nt .table .checkbox span {
+    margin-left: 8px;
+    margin-right:0
+}
+.arabic .responsive-nt .table td .actions-group span,
+.arabic .language-select-inline .styled-select,
+.arabic .lng-formgroup .add-btn,
+.arabic .filledcontent .commoncolumn,
+.arabic .filledcontent .firstcolumn,
+.arabic .responsive-nt .table td .icon-approve,
+.arabic .search-input input,
+.arabic .checkbox .cr,
+.arabic .radio .cr,
+.arabic .status-toggle p,
+.arabic .form-group label,
+.arabic .table-checkfilter .checkbox .cr{
+    float: right;
+}
+.arabic .language-select-inline {
+    display: inline-block;
+    width: 100%;
+}
+.arabic .user-arrow:after{
+    margin-right: 3px;
+    margin-left:0;
+}
+.arabic .searchexpand{
+    right: 1px;
+    left:inherit;
+}
+.arabic .error-position,
+.arabic .button-right{
+    text-align: left;
+}
+.arabic .cc-upload .custom-upload {
+    width: calc(100% - 50px);
+}
+.arabic .ui-dropdown-panel .ui-dropdown-item,
+.arabic .status-toggle p,
+.arabic .error-right {
+    text-align: right;
+}
+.arabic .table-checkfilter,
+.arabic .dropdown-menu-right {
+    left: 0;
+    right: inherit;
+}
+.arabic .checkbox .cr,
+.arabic .radio .cr,
+.arabic .responsive-nt .table td i{
+    margin-left: 5px;
+    margin-right:0;
+    /* float: right; */
+}
+.arabic .responsive-nt .table td .cr-icon{
+    margin-left: 0;
+}
+.arabic .tgl-light+.tgl-btn{
+    float: right;
+    margin-left: 10px;
+    margin-right: 0;
+}
+.arabic .cancel-btn,
+.arabic .cancel-bg.cancel-btn,
+.arabic .check-select,
+.arabic #subModal .tgl-light+.tgl-btn,
+.arabic #subModal .tgl-group span{
+  float: left;
+}
+.arabic .tgl:checked+.tgl-btn:after {
+    right: 60%;
+    left: inherit;
+}
+.arabic .manage-over .check-select{
+    left: 5px;
+    right:inherit
+}
+.arabic .button-orange.button-blue a,
+.arabic .status-toggle .tgl-light+.tgl-btn{
+        float: left;
+        margin-right: 10px;
+        margin-left:0;
+}
+.arabic .add-btn.disabled{
+    color: #fff;
+}
+.arabic .side-button{
+    left: 0;
+    right:inherit;
+    border-radius: 5px;
+    /* transform: rotate(180deg); */
+}
+
+.arabic .side-button:before {
+    border-left: 30px solid #27AAE1;
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    margin-top: -7px;
+    border-right: none;
+    left: 0;
+    right: auto;
+}
+.arabic .side-button {
+    width: 45px;
+    height:45px;
+    padding-top: 10px;
+}
+.arabic .side-button:before{
+    margin-top: -17px;
+}
+.arabic .search-inr-csmr span.input-group-addon i{
+    transform: translate(50%, -50%) rotate(276deg);
+}
+.arabic .search-inr-csmr span.input-group-addon{
+    left:30px;
+    right:inherit;
+}
+.arabic .search-inr-csmr input{
+    border-right:1px solid #e7e2e2;
+}
+.arabic .tg-mg0.tg-mg-padd {
+    float: right;
+    padding-right: 0;
+}
+.arabic .tg-mg0.tg-mg-padd .tgl-light+.tgl-btn{
+    float: right;
+    margin-right: 0;
+    margin-left: 10px;
+}
+.arabic .tg-mg0.tg-mg-padd span{
+    width: auto;
+    float: right;
+}
+.arabic .tabs-list .nav-tabs li a{
+ margin-left:2px;
+ margin-right:0
+}
+.arabic .check-select i{
+    margin-left:5px;
+    margin-right:0px
+}
+.arabic .tablebody {
+    padding-right: 0px;
+    padding-left: 20px;
+}
+.arabic .simple-keyboard.active,
+.arabic .tablebody  .mCSB_inside > .mCSB_scrollTools,
+ .arabic .tablebody  .mCSB_outside + .mCSB_scrollTools {
+    left: 0;
+    right: auto;
+}
+.arabic .table-checkbox .checkbox label {
+    padding-right: 0;
+}
+.arabic .ui-multiselect .ui-multiselect-trigger,
+.arabic .intl-tel-input .search-container:before{
+    right: auto;
+    left: 6px;
+}
+.arabic .text-leftalign .notify-modal .modal-body,
+.arabic .left-alignmodal .notify-modal .modal-body,
+.arabic .ui-multiselect-panel .ui-multiselect-item,
+.arabic .intl-tel-input .country-list .country{
+    text-align: right;
+}
+.arabic .doc-count .aciton-del,
+.arabic .doc-count .action-img,
+.arabic .ui-multiselect-panel .ui-multiselect-header .ui-chkbox,
+.arabic .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item .ui-chkbox,
+.arabic .intl-tel-input .country-list .flag-box,
+.arabic .intl-tel-input .country-list .country-name {
+    margin-left: 6px;
+    margin-right:0;
+    float: right;
+}
+.arabic .ui-dropdown .ui-dropdown-label,
+.arabic .ui-dropdown-panel .ui-dropdown-filter-container .ui-dropdown-filter{
+    padding-left: 2em;
+    padding-right: 0.429em;
+}
+.arabic .ui-dropdown-panel .ui-dropdown-filter-container .ui-dropdown-filter-icon{
+    left: 1.357em;
+    right:auto;
+}
+.arabic .ui-dropdown .ui-dropdown-trigger{
+    left:0;
+    right:auto
+}
+.arabic .delete-btn button{
+    left:35px;
+    right:auto
+}
+.arabic .tablemain-approve-csmr .tableheader{
+    padding-right: 0;
+}
+.arabic .tablemain-approve-csmr .tablebody{
+    padding-left: 0;
+}
+.arabic .more-less{
+    margin-left: 5px;
+    margin-right:0
+}
+.arabic .profile-name .dropdown-menu{
+    left: 0;
+    right: auto;
+}
+.arabic .active-border:before,
+.arabic .sub-menu ul li a:before{
+    right:0;
+    left:auto;
+}
+.arabic .active-btn{
+    margin-left: 0;
+    margin-right:15px;
+    padding-left: 0;
+    padding-right:15px;
+}
+.arabic .sub-menu ul li a:hover {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+.arabic .modal.right.fade.in .modal-dialog {
+    left: 0;
+    right: auto;
+}
+.arabic .modal.right.fade .modal-dialog {
+    left: -360px;
+    right: auto;
+}
+.arabic .modal.right .close{
+    right: -30px;
+    left:auto
+}
+.arabic .profile-name .dropdown-menu{
+    left: 0;
+    right: auto;
+}
+.arabic .dt-box,
+.arabic .sub-menu ul li a:before{
+    right:0;
+    left:auto;
+}
+
+.arabic .sub-menu ul li a:hover {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+.arabic .modal.right.fade.in .modal-dialog {
+    left: 0;
+    right: auto;
+}
+.arabic .modal.right.fade .modal-dialog {
+    left: -360px;
+    right: auto;
+}
+.arabic .modal.right .close{
+    right: -35px;
+    left:auto
+}
+.arabic .del-input{
+    left: 7px;
+    right: auto;
+    position: absolute;
+    top: calc(100% - 45%);
+}
+.arabic .cnt-count .show-content,
+.arabic .ctn-bgray,
+.arabic .ctn-right,
+.arabic .addnew-button{
+    text-align: left;
+}
+.arabic .add-btn.add-testsms{
+    margin-left: 0px;
+    margin-right: 10px;
+}
+.arabic .radio-group.pushpull-radiogroup .radio-btn input[type="checkbox"]:checked+.radio-label:before,
+.arabic .radio-group.pushpull-radiogroup .radio-btn input[type="radio"]:checked+.radio-label:before{
+    transform: translate(10px, 0px);
+    float: right;
+}
+.arabic .tt-contact {
+    border-right: 1px solid #f1f1f1;
+    border-left: none;
+}
+.arabic .dt-remove{
+    left: 12px;
+    right:auto
+}
+.arabic .tt-contact.bordernone{
+    border:none
+}
+.arabic .navlink-report,
+.arabic .tablemain{
+    margin-right: 0;
+}
+.arabic .form-inline .checkbox input[type=checkbox],
+.arabic .form-inline .radio input[type=radio]{
+    position: absolute;
+}
+.arabic .checkboxtable-nt table th .checkbox{
+    margin-top: 0
+}
+.doc-count .dropdown a.dropdown-toggle{
+    padding: 6px 5px;
+    float: left;
+}
+.arabic .select-all{
+    float: left;
+    padding-right: 15px;
+    border-right: 1px solid #ddd;
+    border-left:none;
+    padding-left:0;
+}
+.arabic .refrsh-cnt{
+    float: left;
+    padding-left: 10px;
+    padding-right: 0; 
+}
+.arabic .bggray-input{
+    padding-left: 45px;
+    padding-right: 10px;
+}
+{
+
+}
+/* nithya end */
+
+.arabic .compaign-radio .radio-label {
+        padding: 6px 15px 6px 25px;
+}
+.arabic .compaign-radio .radio-btn input[type="radio"]+.radio-label:before {
+    margin-left: 10px;
+}
+.arabic .form-group label{
+    float: right;
+}
+.arabic .active-btn span{
+    margin-right: 10px;
+    float: left;
+    margin-top: 5px;
+}
+.arabic .radio-group .radio-btn{
+    margin-left: 30px;
+    margin-right: 0px;
+}
+.arabic .compaign-radio .radio-btn{
+    margin-left: 15px;
+    margin-right: 0;
+}
+.arabic .compaign-radio .radio-label {
+        padding: 6px 15px 6px 25px;
+}
+.arabic .compaign-radio .radio-btn input[type="radio"]+.radio-label:before {
+    margin-left: 10px;
+}
+.arabic table.dataTable thead:hover .sorting:after, .arabic table.dataTable thead:hover .sorting_asc:after, .arabic table.dataTable thead:hover .sorting_desc:after, .arabic table.dataTable thead:hover .sorting_asc_disabled:after, .arabic table.dataTable thead:hover .sorting_desc_disabled:after{
+    padding-right: 5px;
+    }
+    
+    .arabic table.dataTable thead .sorting:after, .arabic table.dataTable thead .sorting_asc:after, .arabic table.dataTable thead .sorting_desc:after, .arabic table.dataTable thead .sorting_asc_disabled:after, .arabic table.dataTable thead .sorting_desc_disabled:after {
+        margin-right: 5px;
+    }
+    .arabic .button-orange span {
+        padding: 4px 10px 4px 4px;
+        font-size: 11px;
+        margin-right: 8px;
+        border-right: 1px solid #fbfbfb;
+        float: left;
+        line-height: 16px;
+        border-left: 0;
+    }
+    .arabic .button-orange a{
+        padding: 2px 12px 2px 0px;
+        float: right;
+        text-align: right;
+        line-height: 24px;
+    }
+    .arabic .button-orange:hover span{
+        border-right: 1px solid #FBB03B;
+    }
+    .arabic .button-orange.button-blue:hover span{
+        border-color:#27AAE1;
+    }
+    .arabic .compaign-radio .radio-label
+    {
+        padding: 6px 15px 6px 25px;
+    }
+    .arabic .forgotlink a span{
+        margin-left: 5px;
+    top: 5px;
+    float: right;
+    -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+    }
+    .arabic .intl-tel-input.allow-dropdown .flag-container, .arabic .intl-tel-input.separate-dial-code .flag-container{
+            float: right;
+    }
+    .arabic .intl-tel-input.separate-dial-code .selected-flag{
+        margin-left: 5px;
+        margin-right: 0;
+    }
+    .arabic .intl-tel-input.separate-dial-code .selected-dial-code, .arabic .intl-tel-input .selected-flag .iti-arrow {
+        margin-right: 6px;
+    }
+    .arabic .graph-head span{
+        top: 0px;
+    }
+    .arabic .active-btn:after {
+        right: 4px;
+        top: 3px;
+        left: auto;
+    
+    }
+    .arabic .table>thead>tr>th{
+        padding: 10px;
+    }
+    .arabic .page-title h2:before, .common-title:before{
+            right: 0;
+            left: auto;
+    }
+    .arabic .active-btn span{
+        -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    position: relative;
+    top: -5px;
+    }
+    .arabic .cmpy-edit .nav-link span{
+        margin-left: 5px;
+    top: 2px;
+    float: right;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    }
+    .arabic .refrsh-div,
+    .arabic .company-over .more-less{
+       float: left; 
+    }
+    .arabic .delete-btn button{
+        left: 35px;
+        right: auto;
+    }
+    .arabic .iziToast-wrapper-topRight{
+        left: 0;
+        right: auto;
+    }
+    .arabic .styled-select select {
+        padding: 5px 5px 5px 30px;
+    }
+    .arabic body .ui-multiselect-panel .ui-multiselect-header .ui-multiselect-filter-container .ui-multiselect-filter-icon{
+        left: 0.5em;
+        right: auto;
+    }
+    .arabic .ui-multiselect-header, .ui-multiselect-panel .arabic .ui-multiselect-item{
+        text-align: right;
+    }
+    .arabic .ui-multiselect-header .ui-multiselect-close{
+            left: .375em;
+            right:auto;
+    }
+    .arabic body .ui-multiselect-panel .ui-multiselect-header .ui-chkbox{
+            margin-left: 0.5em;
+            margin-right: auto;
+    }
+    .arabic body .ui-multiselect-panel .ui-multiselect-items .ui-multiselect-item .ui-chkbox{
+        margin: 0 0 0 0.5em;
+    }
+    .arabic body .ui-multiselect-panel .ui-multiselect-header .ui-chkbox{
+            margin-left: 0.5em;
+    }
+    .arabic .addparam-accordion .panel-title>a span.radiobutton
+    {
+        margin-left: 12px;
+    }
+    .arabic .campaigntab li {
+        float: right;
+    }
+    .arabic .campaigntab>li>a i{
+        margin-left: 10px;
+        float: right;
+    }
+    .arabic .virtualkeyboard{
+        left: -40px;
+        right: auto !important;
+    }
+    .arabic .text-muted,  .arabic .text-alert{
+        float: left;
+    }
+    .arabic .div-date {
+        left: 10px;
+        right:auto;
+    }
+  
+    @media screen and (min-width:768px) and (max-width:991px) {
+        .arabic .addmaster-company .block-tab .nav-link,
+        .arabic .addmaster-company.cmpy-edit .nav-link{
+            width: 20.3%;
+            margin:0 10px;
+            float: right;
+        }
+    }
+    @media screen and (min-width: 768px){
+        .arabic .bggray-input{
+            padding-right: 10px;
+            padding-left: 45px;
+        }
+       
+    }
+
+@media screen and (max-width: 768px){
+.arabic .tablebody .table tbody tr td:before,
+.arabic table tbody tr td:before {
+    right: 10px;
+    left: auto;
+    text-align: right;
+}
+.arabic .tablebody .table tbody tr td,
+.arabic table.dataTable tbody tr td,
+.arabic .tablebody .table tbody tr td,
+.arabic table tbody tr td {
+    padding-right: 50% !important;
+    padding-left: 10px !important;
+    text-align: right;
+}
+.arabic .block-tab .nav-link{
+    text-align: right;
+}
+.arabic .del-input{
+    top: calc(100% - 25%);
+}
+}
+
+@media screen and (max-width:767px) {
+    .arabic .homeicon {
+        float: right;
+        margin-left: 12px;
+    }
+    .arabic .mobilpf{
+        float: left;
+        text-align: right;
+    }
+    .arabic .service-mng{
+        margin-left:0;
+    }
+    .arabic .sidebar.open .firstmenu:after
+    {
+       left: 0;
+       right: auto;
+    }
+    .arabic .sidebar.open{
+        right: 0;
+        left:auto
+    }
+    .arabic .pagecontainer {
+        padding-right:15px;
+        padding-left: 15px;
+    }
+    /*nithya*/
+    .arabic .service-mng{
+        margin-left:0;
+    }
+    .arabic .addmaster-company .nav-link {
+        margin-left: 0;
+        text-align: right;
+    }
+    .arabic .tg-mg0,
+    .arabic .quicklinks {
+        padding-right: 0px;
+    }
+    .arabic .tablebody,
+    .arabic .dashborad-left{
+        padding-left: 0;
+    }
+    .arabic footer p{
+       padding-right:0;
+       float: none;
+       text-align: center;
+    }
+    .arabic .lng-formgroup .add-btn{
+        margin: 0px 11px 0 0px;
+    }
+    .arabic .inner-head h2 a.back-btn {
+        float: right;
+    }
+    .arabic .button-right .add-btn{
+        float: left;
+    }
+    .arabic .notify-modal .close{
+        left:15px;
+        right:inherit;
+        top:10px;
+    }
+    .arabic .search-inr-csmr span.input-group-addon {
+        left: 15px;
+        right: inherit;
+    }
+    .arabic .search-inr-csmr span.input-group-addon i{
+        transform: translate(50%, -50%) rotate(276deg);
+    }
+    .arabic .refrsh-overall.marg-20{
+        margin-top:0
+    }
+}
+@media screen and (max-width: 479px){
+.arabic #pendingModal .cancel-btn{
+    margin: 15px 8px ;
+}
+}
