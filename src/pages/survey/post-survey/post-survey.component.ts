@@ -11,7 +11,6 @@ import * as jsonLogic from 'json-logic-js/logic.js'
 import * as _ from 'lodash';
 
 
-
 import { Font } from 'ngx-font-picker';
 import { keyboard } from '@amcharts/amcharts4/core';
 
