@@ -267,6 +267,7 @@ export class PostSurveyComponent implements OnInit {
     this.configObjModel.Questions = '#d2c4ff'
     this.configObjModel.Answers = '#d2c4ff'
     this.configObjModel.hexColorButton = '#d2c4ff'
+    
     this.configObjModel.mainConfig = false
 
 
@@ -1723,6 +1724,7 @@ console.log(status, "status")
         this.configObjModel.backgroundColor = succ['survey'].bgColor
         this.configObjModel.attachmentFile = succ['survey'].bgImageByte
         this.configObjModel.Questions = succ['survey'].quesColor
+        this.configObjModel.hexColorButton = succ['survey'].quesColor
 
 
         this.configObjModel.surveyName = succ['survey'].surveyName
@@ -2715,10 +2717,10 @@ console.log(status, "status")
     }
 
 
-    if (whatConfig === "buttons") {
-      this.shoModelName = "buttons"
+    if (whatConfig === "hexColorButton") {
+      this.shoModelName = "hexColorButton"
     }
-
+   
 
 
     $('#showButtonColor').modal('show')
@@ -2731,7 +2733,7 @@ console.log(status, "status")
   }
   back() {
 
-    this.router.navigateByUrl("/home/survey");
+    this.router.navigateByUrl("/");
 
   }
 
