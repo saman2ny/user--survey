@@ -2,17 +2,20 @@
 html,
 body {
     height: 100%;
-    font-family: "Muli-Regular";
+    /* font-family: "Muli-Regular"; */
+    font-family: "'Cutive Mono',monospace";
 }
 
 body {
-    font-family: "Muli-Regular";
+    /* font-family: "Muli-Regular"; */
+    font-family: "'Cutive Mono',monospace";
     background: #fff;
     overflow-x: hidden;
-    font-size: 13px;
+    font-size: 14px;
 }
 .toggle-cancel{
-    font-family: "Muli-Bold";
+    /* font-family: "Muli-Bold"; */
+    font-family: "'Cutive Mono',monospace";
     color: #666 !important;
 }
 b {
@@ -20,7 +23,9 @@ b {
 }
 
 body .ui-widget {
-    font-family: "Muli-Regular" !important;
+    /* font-family: "Muli-Regular" !important; */
+    font-family: "'Cutive Mono',monospace" !important;
+
 }
 
 input,
@@ -53,7 +58,8 @@ p {
 
 label {
     font-weight: inherit;
-    font-family: "Muli-Regular"
+    /* font-family: "Muli-Regular"; */
+    font-family: "'Cutive Mono',monospace"
 }
 
 ul {
@@ -2160,7 +2166,7 @@ header {
 
 .button-orange a:hover {
     background: #fff;
-    color: #FBB03B
+    color: #10100f
 }
 
 .button-orange:hover span {
@@ -2595,7 +2601,7 @@ table.dataTable td {
     background: #fff;
 }
 .addparam-accordion .panel-title>a[aria-expanded="true"] {
-    background: #e6e6e6;
+    background: #673fb594;
 }
 
 .addparam-accordion .panel-title>a span.radiobutton {
@@ -4689,7 +4695,7 @@ select::-ms-expand {
     background: #f3f3f3;
 }
 .panel-title>a.collapsed {
-    background: #fff;
+    background: #673fb594;
 }
 .manage-over .panel-title>a:hover{
     color: inherit;
@@ -9012,3 +9018,43 @@ border-color:#e12727;
 .color-white{
  color: white !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* stylessssssss */
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }

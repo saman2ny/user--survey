@@ -391,8 +391,15 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     <label>Background Image</label>
                                                 </div>
                                                 <div class="col-sm-3 col-xl-3 col-xs-6">
-                                                    <input type="file" id="upload" formControlName="backgroundImage"
-                                                        (change)="onFileSelect($event)" class="file">
+                                                    <!-- <input type="file" id="upload" formControlName="backgroundImage"
+                                                        (change)="onFileSelect($event)" class="file"> -->
+
+                                                        <div class="upload-btn-wrapper">
+                                                            <button class="btn">Upload a file</button>
+                                                            <input type="file" name="myfile" id="upload" formControlName="backgroundImage"
+                                                            (change)="onFileSelect($event)" class="file" />
+                                                          </div>
+
                                                 </div>
                                             </div>
 
