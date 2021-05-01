@@ -520,7 +520,7 @@ input[type=number]::-webkit-outer-spin-button {
     display: inline-block;
 }
 .ellipsis.hover-hand a{
-    color: #27AAE1;
+    color: #3f51b5;
     cursor: pointer;
 }
 .ellipsis .tooltip.top .tooltip-arrow {
@@ -840,7 +840,7 @@ footer p {
 .pagecontainer {
     position: relative;
     min-height: 100vh;
-    padding-left: 70px;
+    /* padding-left: 70px; */
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
 }
@@ -856,7 +856,7 @@ header {
     top: 0;
     left: 0px;
     right: 0;
-    background: #F9F9F9;
+    background: #3f51b5;
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     z-index: 92;
@@ -1938,7 +1938,7 @@ header {
 
 .inner-head h2 {
     font-size: 22px;
-    color: #4D4D4D;
+    color: #3f51b5;
     font-family: "Muli-Bold";
     border-bottom: 1px solid #4d4d4d;
     padding-bottom: 8px;
@@ -2132,8 +2132,8 @@ header {
 .button-orange a {
     font-size: 13px;
     color: #fff;
-    background: #FBB03B;
-    border: 1px solid #F7931E;
+    background: #3f51b5;
+    border: 1px solid #3f51b5;
     padding: 4px 0px 4px 12px;
     border-radius: 3px;
     float: right;
@@ -2194,11 +2194,11 @@ header {
 }
 
 .table>thead>tr>th {
-    background: #F7F7F7;
-    border-top: 1px solid #DDDDDD !important;
-    border-bottom: 1px solid #DDDDDD;
+    background: #3f51b5;
+    border-top: 1px solid #ffffff !important;
+    border-bottom: 1px solid #ffffff;
     font: 14px "Muli-Regular";
-    color: #000;
+    color: #fff;
     position: relative;
     padding:8px;
     outline:0;
@@ -8850,7 +8850,7 @@ label.eror-active,
 .red .month-nav button,
 .red .breadcrumb-div ol li a,
 body.red a{
-    color:#e12727;
+    color:#3f51b5;
 }
 .red .addmaster-company .nav-link.active{
     border-bottom-color:#e12727;
