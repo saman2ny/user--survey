@@ -1932,7 +1932,7 @@ header {
 }
 
 .breadcrumb-div ol li a {
-    color: #27AAE1;
+    color: #3F51B5;
 }
 
 .breadcrumb-div ol li+li:before {
@@ -1969,7 +1969,7 @@ header {
     left: 0;
     right: 0;
     height: 1px;
-    background: #4D4D4D;
+    border-top: 1px dotted #3F51B5;
 }
 
 .edit-toggle {
@@ -3873,7 +3873,7 @@ form label .star {
 }
 
 .add-btn {
-    background: #48AF46;
+    background: #3F51B5;
     color: #fff;
     font-size: 15px;
     font-family: "Muli-Bold";
@@ -4469,7 +4469,7 @@ select::-ms-expand {
 
 .error {
     color: red;
-    font-size: 11px;
+    font-size: 13px;
     bottom: 20px;
     left: 0px;
     margin-top: -20px;
@@ -4692,10 +4692,10 @@ select::-ms-expand {
     /* background: #f3f3f3; */
 }
 .manage-over .panel-title>a{
-    background: #f3f3f3;
+    background: #ffffff;
 }
 .panel-title>a.collapsed {
-    background: #673fb594;
+    background: #ffffff;
 }
 .manage-over .panel-title>a:hover{
     color: inherit;
@@ -4999,7 +4999,7 @@ select::-ms-expand {
 }
 
 .addmaster-company .tab-pane.active {
-    display: block;
+    display: flex;
 }
 
 .company-over .panel-title>a {
@@ -9058,3 +9058,33 @@ border-color:#e12727;
     top: 0;
     opacity: 0;
   }
+  .theme-color{
+      background: #3f51b5;
+  }
+  .theme-color-text{
+      color: #3f51b5;
+  }
+  .del-icon{
+    position: relative;
+    top: 10px;
+  }
+  .choices-global-style{
+    padding: 30px;
+    display: flex;
+  }
+  .img-clup{
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+  .box{
+    width: 250px;        
+    border: 3px solid #3f51b5;
+} 
+.remove-logics{
+    margin-top: 20px;
+    float:right;
+}
+.border-down{
+    border-bottom: 2px solid #3f51b5;
+}

@@ -48,7 +48,6 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/intl-tel-input/build/css/intlTelInput.css",
-              // "src/assets/keymanweb/osk/kmwosk.scss",
               "src/assets/css/style.css",
               "src/assets/css/responsive.css"
             ],

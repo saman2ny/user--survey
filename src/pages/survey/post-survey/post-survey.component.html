@@ -21,42 +21,42 @@ class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}<
 
 <!-- 
 <div class="integratedata-model row">
-    <div class="col-sm-12 col-md-10 col-xs-12">
-        <form [formGroup]="survey" novalidate>
-            
-            <div formArrayName="sections">
-        <div class="addparam-accordion panel-group" id="accordion">
+<div class="col-sm-12 col-md-10 col-xs-12">
+<form [formGroup]="survey" novalidate>
 
-            
-                <div class="panel panel-default" *ngFor="let section of getSections(survey); let i = index">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" ><span
-                            class="radiobutton" id="roundButton">
-                            </span>{{titleName+i}}</a>
-                            </h4>
-                        </div>
+<div formArrayName="sections">
+<div class="addparam-accordion panel-group" id="accordion">
 
 
-              
-
-                <div id="collapse{{i}}" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p>collapse{{i}}</p>
-                    </div>
-                    </div>
-
-                </div>
+<div class="panel panel-default" *ngFor="let section of getSections(survey); let i = index">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}" ><span
+class="radiobutton" id="roundButton">
+</span>{{titleName+i}}</a>
+</h4>
+</div>
 
 
 
-            </div>
 
-        </div>
-    </form>
+<div id="collapse{{i}}" class="panel-collapse collapse">
+<div class="panel-body">
+<p>collapse{{i}}</p>
+</div>
+</div>
 
-        </div>
-    </div> -->
+</div>
+
+
+
+</div>
+
+</div>
+</form>
+
+</div>
+</div> -->
 
 
 
@@ -161,8 +161,8 @@ class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}<
                                         <!-- <div class="form-group"> -->
                                         <div class="col-sm-4">
                                             <!-- <img [src]="surveyTypes.typeImage"
-                                                    onerror="this.src='assets/images/logo.svg';" class="img-responsive"
-                                                    alt="loreum picsum" width="50%" /> -->
+onerror="this.src='assets/images/logo.svg';" class="img-responsive"
+alt="loreum picsum" width="50%" /> -->
                                         </div>
 
                                         <!-- <div class="col-sm-4">
@@ -189,6 +189,8 @@ class="img-responsive" alt="loreum picsum" width="50%" />
                     <!-- UI Config -->
                     <!-- UI Config -->
                     <!-- UI Config -->
+
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -222,7 +224,9 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                 [ngStyle]="{'font':font?.getStyles(),'color': this.configObjModel.Answers}" />
                                         </div>
                                     </div>
-                                    <h4 class="padding-10" [ngStyle]="{'font':font?.getStyles(), 'color': this.configObjModel.hexColorButton}">SKIP</h4>
+                                    <h4 class="padding-10"
+                                        [ngStyle]="{'font':font?.getStyles(), 'color': this.configObjModel.hexColorButton}">
+                                        SKIP</h4>
                                 </div>
 
 
@@ -253,7 +257,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     <!-- {{hexColorBackground}} -->
                                                 </div>
                                             </div>
-                                            
+
 
                                             <div class="col-sm-6 col-xs-12 col-xl-6 padding-10">
                                                 <div class="col-sm-3 col-xl-3 col-xs-6">
@@ -392,13 +396,14 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                 </div>
                                                 <div class="col-sm-3 col-xl-3 col-xs-6">
                                                     <!-- <input type="file" id="upload" formControlName="backgroundImage"
-                                                        (change)="onFileSelect($event)" class="file"> -->
+(change)="onFileSelect($event)" class="file"> -->
 
-                                                        <div class="upload-btn-wrapper">
-                                                            <button class="btn">Upload a file</button>
-                                                            <input type="file" name="myfile" id="upload" formControlName="backgroundImage"
+                                                    <div class="upload-btn-wrapper">
+                                                        <button class="btn">Upload a file</button>
+                                                        <input type="file" name="myfile" id="upload"
+                                                            formControlName="backgroundImage"
                                                             (change)="onFileSelect($event)" class="file" />
-                                                          </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -470,7 +475,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                     <!-- End Main Config-->
                     <!-- End Main Config-->
                     <!-- End Main Config-->
-                    <input type="submit" value="Next" class="add-btn" (click)="submitConfig()">
+                    <input type="submit" value="Next" class="add-btn theme-color" (click)="submitConfig()">
 
                 </div>
             </form>
@@ -493,7 +498,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                 Questions<i class="icon-right-arrow"></i></p>
             <ul class="dropdown-menu">
 
-                <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a
+                <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a class="theme-color-text"
                         (click)="questionTypeCheck(listQuestionTypes.quesTypeId)">{{listQuestionTypes.quesTypeDesc}}</a>
                 </li>
             </ul>
@@ -515,9 +520,9 @@ class="img-responsive" alt="loreum picsum" />  -->
                     <div formArrayName="sections">
 
                         <div class="addparam-accordion  panel-group" id="accordion">
-                            <div class="panel panel-default" [formGroupName]="i" *ngFor="let section of getSections(survey); let i = index">
-                                <div class="panel-heading" 
-                                    (click)="getAllDetailsForEdit(section, i)">
+                            <div class="panel panel-default" [formGroupName]="i"
+                                *ngFor="let section of getSections(survey); let i = index">
+                                <div class="panel-heading" (click)="getAllDetailsForEdit(section, i)">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}"
                                             class="collapse{{i}}">
@@ -558,9 +563,9 @@ class="img-responsive" alt="loreum picsum" />  -->
                                         <div [formGroupName]="j"
                                             *ngFor="let question of getQuestions(section); let j = index">
                                             <div class="row">
-                                                <div class="col-sm-10 col-md-10 col-xs-12">
+                                                <div class="col-sm-5 col-md-5 col-xs-12">
                                                     <div class="form-group" style="margin: 30px;">
-                                                        <!-- <label>Untitled Question</label> -->
+                                                        <label>Question Name</label>
 
                                                         <input type="text" class="form-control"
                                                             placeholder="Start typing your question ..."
@@ -572,11 +577,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                 </div>
 
 
-                                            </div>
 
-
-                                            <div class="row">
-                                                <div class="col-sm-10 col-md-10 col-xs-12">
+                                                <div class="col-sm-5 col-md-5 col-xs-12">
                                                     <div class="form-group" style="margin: 30px;">
                                                         <label>Order Id</label>
 
@@ -585,7 +587,12 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                             value={{question.value.orderId}}>
                                                     </div>
                                                 </div>
+
+
                                             </div>
+
+
+
 
 
 
@@ -610,7 +617,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     <div [formGroupName]="k"
                                                         *ngFor="let option of getChoices(question); let k=index">
                                                         <!-- <pre>{{option.value | json}}</pre> -->
-                                                        <div class="row" style="padding: 30px;">
+                                                        <div class="row choices-global-style">
                                                             <div class="col-sm-5 col-md-6 col-xs-12">
                                                                 <div class="form-group">
                                                                     <input type="text" id="choicesType"
@@ -632,7 +639,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                             <div class="col-sm-5 col-md-6 col-xs-12">
 
 
-                                                                <div class="form-group">
+                                                                <div class="form-group del-icon">
                                                                     <i class="icon-delete column6-post"
                                                                         (click)="removeChoices(i,j, k, option.value.allStatus)"
                                                                         title="Delete" data-toggle="tooltip"
@@ -646,9 +653,9 @@ class="img-responsive" alt="loreum picsum" />  -->
 
                                                         </div>
                                                         <!-- <div class="row button-right">
-                                                                <input (click)=addChoices(i,k)  class="add-btn"
-                                                                    value="Add New Choices" />
-                                                            </div> -->
+<input (click)=addChoices(i,k)  class="add-btn"
+value="Add New Choices" />
+</div> -->
 
 
                                                     </div>
@@ -717,13 +724,28 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                 </div>
                                             </div>
                                             <div *ngIf="question.value.questionTypeId === 4 ">
-                                                <input type="text" class="form-control" id="text" disabled
-                                                    placeholder="Text Input">
+
+                                                <div class="col-sm-10 col-md-19 col-xs-12">
+                                                    <div class="form-group" style="margin: 15px;">
+                                                        <input type="text" class="form-control" id="text" disabled
+                                                            placeholder="Text Input">
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
                                             </div>
                                             <div *ngIf="question.value.questionTypeId === 5 ">
-                                                <input type="text" class="form-control" id="emailId" disabled
-                                                    placeholder="Email Input">
+                                                <div class="col-sm-10 col-md-10 col-xs-12">
+                                                    <div class="form-group" style="margin: 15px;">
+                                                        <input type="text" class="form-control" id="emailId" disabled
+                                                            placeholder="Email Input">
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
                                             </div>
+
                                             <div *ngIf="question.value.questionTypeId === 6 ">
 
                                                 <div formArrayName="pictureChoices">
@@ -731,13 +753,19 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     <div [formGroupName]="k3"
                                                         *ngFor="let pictureChoice of getPictureChoices(question); let k3=index">
                                                         <!-- <pre>{{pictureChoice.value | json}}</pre> -->
-                                                        <div class="row" style="padding: 30px;">
+                                                        <div class="row choices-global-style">
                                                             <div class="col-sm-5 col-md-5 col-xs-12">
-                                                                {{pictureChoice.value.pictureImage}}
-                                                                <img [src]="pictureChoice.value.pictureImage" formControlName="pictureImage"
-                                                                #pictureImage  onerror="this.src='assets/images/logo.svg';" style="width:100% !important;"/>
+                                                                <!-- {{pictureChoice.value.pictureImage}} -->
+                                                                <div class="box">
+                                                                    <img [src]="pictureChoice.value.pictureImage"
+                                                                        class="img-clup" formControlName="pictureImage"
+                                                                        #pictureImage
+                                                                        onerror="this.src='assets/images/logo.svg';"
+                                                                        style="width:100% !important;" />
+                                                                </div>
                                                             </div>
-                                                                <div class="col-sm-5 col-md-5 col-xs-12" style="padding-left: 40px;">
+                                                            <div class="col-sm-5 col-md-5 col-xs-12"
+                                                                style="padding-left: 40px;">
 
 
                                                                 <div class="dragdrop-file">
@@ -745,31 +773,36 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                                         <div class="custom-upload">
                                                                             <div class="input-group">
                                                                                 Drag and drop a file here upload or
-                                                                                <span class="input-group-btn input-group-sm">
-                                                                                    <input type="file" formControlName="pictureType" value="" #pictureType
-                                                                                    accept="image/x-png,image/gif,image/jpeg"
-                                                                                        (change)="getPicture($event, section, i, k3)" class="pictureType" />
+                                                                                <span
+                                                                                    class="input-group-btn input-group-sm">
+                                                                                    <input type="file"
+                                                                                        formControlName="pictureType"
+                                                                                        value="" #pictureType
+                                                                                        accept="image/x-png,image/gif,image/jpeg"
+                                                                                        (change)="getPicture($event, section, i, k3)"
+                                                                                        class="pictureType" />
                                                                                     <button type="button"
-                                                                                        class="btn btn-fab btn-fab-mini">Select a File
+                                                                                        class="btn btn-fab btn-fab-mini">Select
+                                                                                        a File
                                                                                     </button>
                                                                                 </span>
                                                                             </div>
                                                                         </div>
-                                                        
+
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                   
 
 
-<!--                                 
 
-                                                                    <input type="file" id="choicesType"
-                                                                        (change)="getPicture($event, section, i, k3)"
-                                                                        class="file"
-                                                                        formControlName="pictureType" #pictureType
-                                                                        value="{{pictureChoice.value.pictureType}}"> -->
+                                                                    <!--                                 
+
+<input type="file" id="choicesType"
+(change)="getPicture($event, section, i, k3)"
+class="file"
+formControlName="pictureType" #pictureType
+value="{{pictureChoice.value.pictureType}}"> -->
                                                                 </div>
                                                             </div>
 
@@ -784,7 +817,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                             <div class="col-sm-2 col-md-2 col-xs-12">
 
 
-                                                                <div class="form-group" style="position: relative; top: 35px;">
+                                                                <div class="form-group"
+                                                                    style="position: relative; top: 35px;">
                                                                     <i class="icon-delete column6-post"
                                                                         (click)="removePictureChoices(i,j, k3, pictureChoice.value.allStatus)"
                                                                         title="Delete" data-toggle="tooltip"
@@ -816,26 +850,30 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     <div class="col-xl-6 col-xs-6">
                                                         <div class="icon-yes-no">
                                                             <i class="glinks fa fa-thumbs-up" *ngIf="thumbsVisible"></i>
-                                                            <i class="glinks fa fa-check" *ngIf="RightOrWrongVisible"></i>
-                                
+                                                            <i class="glinks fa fa-check"
+                                                                *ngIf="RightOrWrongVisible"></i>
+
                                                         </div>
-                                
+
                                                     </div>
                                                     <div class="col-xl-6 col-xs-6">
                                                         <div class="icon-yes-no">
-                                                            <i class="glinks fa fa-thumbs-down" *ngIf="thumbsVisible"></i>
-                                                            <i class="glinks fa fa-times" *ngIf="RightOrWrongVisible"></i>
-                                
+                                                            <i class="glinks fa fa-thumbs-down"
+                                                                *ngIf="thumbsVisible"></i>
+                                                            <i class="glinks fa fa-times"
+                                                                *ngIf="RightOrWrongVisible"></i>
+
                                                         </div>
-                                
+
                                                     </div>
-                                
+
                                                 </div>
                                             </div>
 
 
                                             <div *ngIf="question.value.questionTypeId === 8 ">
-                                                <input type="text" id="numberInput" class="form-control" placeholder="Number Input" disabled>
+                                                <input type="text" id="numberInput" class="form-control"
+                                                    placeholder="Number Input" disabled>
 
                                             </div>
                                             <div *ngIf="question.value.questionTypeId === 9 ">
@@ -944,12 +982,12 @@ class="img-responsive" alt="loreum picsum" />  -->
 
 
                                                                     <!-- <div class="col-sm-3 col-md-3 col-xs-12">
-        <label class="prefered-tgle-label">Start Scale</label>
-        <div class="tgl-group tg-mg0 tg-mg-padd">
-        <input class='tgl tgl-light' id='display-multiRequest' type='checkbox'>
-        <label class='tgl-btn' for='display-multiRequest'></label>
-        </div>
-        </div> -->
+<label class="prefered-tgle-label">Start Scale</label>
+<div class="tgl-group tg-mg0 tg-mg-padd">
+<input class='tgl tgl-light' id='display-multiRequest' type='checkbox'>
+<label class='tgl-btn' for='display-multiRequest'></label>
+</div>
+</div> -->
 
 
 
@@ -1078,26 +1116,28 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                             <p>To be done</p>
                                                         </div>
                                                         <div *ngIf="question.value.questionTypeId === 7 ">
-                                                          
+
                                                             <div class="col-xl-2 col-xs-2">
                                                                 <div class="form-group">
                                                                     <label>Choose an icon </label>
                                                                 </div>
-                            
+
                                                             </div>
                                                             <div class="col-xl-6 col-xs-6">
                                                                 <div class="form-group">
-                                                                    <div class="col-xl-6 col-xs-6" style="display: flex;"
+                                                                    <div class="col-xl-6 col-xs-6"
+                                                                        style="display: flex;"
                                                                         (click)="changeIcon('thumbs')">
                                                                         <i class="fa-lg fa fa-thumbs-up active"></i>
                                                                         <i class="fa-lg fa fa-thumbs-down active"></i>
                                                                     </div>
-                                                                    <div class="col-xl-6 col-xs-6" style="display: flex;"
+                                                                    <div class="col-xl-6 col-xs-6"
+                                                                        style="display: flex;"
                                                                         (click)="changeIcon('times')">
                                                                         <i class="fa-lg fa fa-check active"></i>
                                                                         <i class="fa-lg fa fa-times active"></i>
                                                                     </div>
-                            
+
                                                                 </div>
                                                             </div>
 
@@ -1110,14 +1150,16 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                             <div class="col-xl-6 col-xs-6">
                                                                 <div class="form-group">
                                                                     <label>Minimum Value</label>
-                                                                    <textarea rows="3" class="form-control" id="minimumValue"></textarea>
+                                                                    <textarea rows="3" class="form-control"
+                                                                        id="minimumValue"></textarea>
                                                                 </div>
                                                             </div>
                                                             <div class="col-xl-6 col-xs-6">
                                                                 <div class="form-group">
                                                                     <label>Maximum Value</label>
-                                                                    <textarea rows="3" class="form-control" id="maximumValue"></textarea>
-                            
+                                                                    <textarea rows="3" class="form-control"
+                                                                        id="maximumValue"></textarea>
+
                                                                 </div>
                                                             </div>
 
@@ -1339,8 +1381,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                                                                         [selected]="'OR'==myDynamicDisplayoficalInitial[k1]">
                                                                                                         OR</option>
                                                                                                     <!-- <option *ngFor="let displayLogic of answerListPushFinal[i]; let i=index"
-                                                                                                        value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
-                                                                                                        {{displayLogic.type}}</option> -->
+value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
+{{displayLogic.type}}</option> -->
 
                                                                                                 </select>
 
@@ -1522,8 +1564,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-sm-3 col-md-3 col-xs-12"
-                                                                                        style="margin-top: 35px;">
+                                                                                    <div
+                                                                                        class="col-sm-3 col-md-3 col-xs-12 remove-logics">
 
 
                                                                                         <div class="form-group">
@@ -1797,8 +1839,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                                                                         [selected]="'OR'==myDynamicDisplayoficalInitialSkip[k2]">
                                                                                                         OR</option>
                                                                                                     <!-- <option *ngFor="let displayLogic of answerListPushFinal[i]; let i=index"
-                                                                                                        value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
-                                                                                                        {{displayLogic.type}}</option> -->
+value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
+{{displayLogic.type}}</option> -->
 
                                                                                                 </select>
 
@@ -1980,8 +2022,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                                                         </div>
                                                                                     </div>
 
-                                                                                    <div class="col-sm-3 col-md-3 col-xs-12"
-                                                                                        style="margin-top: 35px;">
+                                                                                    <div
+                                                                                        class="col-sm-3 col-md-3 col-xs-12 remove-logics">
 
 
                                                                                         <div class="form-group">
@@ -2100,7 +2142,7 @@ class="img-responsive" alt="loreum picsum" />  -->
 
 
 
- 
+
     </div>
 
     <!-- </div> -->
@@ -2109,21 +2151,21 @@ class="img-responsive" alt="loreum picsum" />  -->
 
 
 
-       <div class="add-btn profile-name-ques dropdown" *ngIf="listquesOrderAsc.length != 0">
-            <p class="dropdown-toggle color-white"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Questions<i class="icon-right-arrow"></i></p>
-            <ul class="dropdown-menu">
-                <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a
-                        (click)="questionTypeCheck(listQuestionTypes.quesTypeId)">{{listQuestionTypes.quesTypeDesc}}</a>
-                </li>
-            </ul>
-        </div>
+<div class="add-btn profile-name-ques dropdown" *ngIf="listquesOrderAsc.length != 0">
+    <p class="dropdown-toggle color-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Questions<i class="icon-right-arrow"></i></p>
+    <ul class="dropdown-menu">
+        <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a
+                (click)="questionTypeCheck(listQuestionTypes.quesTypeId)">{{listQuestionTypes.quesTypeDesc}}</a>
+        </li>
+    </ul>
+</div>
 
 
 
 
-        <input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() />
-        <!-- <input type="submit" class="add-btn" value="Submit" (click)=SubmitQuestion() /> -->
+<input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() />
+<!-- <input type="submit" class="add-btn" value="Submit" (click)=SubmitQuestion() /> -->
 
 
 
