@@ -145,7 +145,7 @@ class="radiobutton" id="roundButton">
 
                                 <div class="col-sm-12 col-md-12 col-xs-12" style="display: inline-flex;">
                                     <div class="form-group" *ngFor="let surveyTypes of surveyTypes">
-                                        <label class="radio-inline" style="margin-right: 160px;">
+                                        <label class="radio-inline survey-pick" style="margin-right: 160px;">
                                             <input type="radio" formControlName="typeOfSurvie" name="typeOfSurvie"
                                                 [(ngModel)]="configObjModel.typeOfSurvey" value="{{surveyTypes.typeId}}"
                                                 checked>{{surveyTypes.typeDesc}}
@@ -576,9 +576,9 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     </div>
                                                 </div>
 
+<div class="clearfix"></div>
 
-
-                                                <div class="col-sm-5 col-md-5 col-xs-12">
+                                                <div class="col-sm-5 col-md-5 col-xs-12" style="display:none;visibility:hidden;">
                                                     <div class="form-group" style="margin: 30px;">
                                                         <label>Order Id</label>
 
