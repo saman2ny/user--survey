@@ -5,7 +5,8 @@
     </ol>
 </div>
 <div class="inner-head display-head">
-    <h2><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Add Survey</h2>
+    <h2 *ngIf="!Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Add Survey</h2>
+    <h2 *ngIf="Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Edit Survey</h2>
     <!-- <h2 *ngIf="temp.status=='edit'"><a (click)=back() href="javascript:void(0)" class="back-btn"><span
 class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}</h2> -->
 
@@ -145,7 +146,7 @@ class="radiobutton" id="roundButton">
 
                                 <div class="col-sm-12 col-md-12 col-xs-12" style="display: inline-flex;">
                                     <div class="form-group" *ngFor="let surveyTypes of surveyTypes">
-                                        <label class="radio-inline survey-pick" style="margin-right: 160px;">
+                                        <label class="radio-inline survey-pick" >
                                             <input type="radio" formControlName="typeOfSurvie" name="typeOfSurvie"
                                                 [(ngModel)]="configObjModel.typeOfSurvey" value="{{surveyTypes.typeId}}"
                                                 checked>{{surveyTypes.typeDesc}}
@@ -2149,9 +2150,8 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
 </div>
 
-
-
-<div class="add-btn profile-name-ques dropdown" *ngIf="listquesOrderAsc.length != 0">
+<div *ngIf="checkTwo">
+<div  class="add-btn profile-name-ques dropdown" *ngIf="listquesOrderAsc.length != 0">
     <p class="dropdown-toggle color-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Questions<i class="icon-right-arrow"></i></p>
     <ul class="dropdown-menu">
@@ -2160,7 +2160,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
         </li>
     </ul>
 </div>
-
+</div>
 
 
 

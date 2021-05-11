@@ -1712,6 +1712,7 @@ console.log(status, "status")
     this.edit = this.common.getEditCompany()
     if (!_.isEmpty(this.edit)) {
       this.listquesOrderAscEdit = [];
+      this.checkTwo = false
       this.Edit = true
       this.edit = { "id": this.edit.listSurvey }
       this.apiService.postSurvey(this.constantsService.getSurveyDetailsUsingId, this.edit["id"]).subscribe((succ: any) => {
