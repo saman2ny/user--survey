@@ -312,7 +312,7 @@ export class PostSurveyComponent implements OnInit {
   }
 
 
-  questionTypeCheck(quesTypeId) {
+  questionTypeCheck(quesTypeId, e) {
     this.common.showLoading()
     this.placeId = ++this.placeIdPro
     console.log(this.placeId, "this.placeId")
@@ -351,8 +351,9 @@ export class PostSurveyComponent implements OnInit {
     this.addQuestionChecker = true
     // this.SubmitQuestion()
 
+    console.log(e.currentTarget);
 
-
+    e.stopPropagation()
 
     this.SubmitQuestion()
 
@@ -469,7 +470,6 @@ export class PostSurveyComponent implements OnInit {
           // this.initskipLogic()
         ]),
       });
-
     } else {
       return new FormGroup({
         questionTitle: new FormControl(''),
@@ -489,7 +489,7 @@ export class PostSurveyComponent implements OnInit {
 
 
   getSections(form) {
-    // console.log(form.get('sections').controls);
+    // var total  = form.value.sections.length
     return form.controls.sections.controls;
   }
 
@@ -2499,6 +2499,7 @@ console.log(status, "status")
       // var ctrlLegnth = Math.max.apply(null, this.survey.length)
 
 
+    
 
       this.common.hideLoading()
 
@@ -2611,7 +2612,7 @@ console.log(status, "status")
           "companyId": this.user.companyId,
           "config": "string",
           "createdBy": this.user.userId,
-          "createdOn": "2020-12-30T18:08:09.910Z",
+          "createdOn": new Date(),
           "cutOffDate": "2020-12-30T18:08:09.910Z",
           "fontStyle": JSON.stringify(this.font),
           "maxResponseCount": 0,  //Doubt
@@ -2621,12 +2622,11 @@ console.log(status, "status")
           "showQuesNo": this.configObjModel.questionNumber,   //Doubt
           "surveyId": 0,
           // "surveyName": this.configObjModel.surveyName,
-          "surveyName": "antony",
+          "surveyName": this.configObjModel.surveyName,
           "surveyStatus": this.configObjModel.typeOfSurvey,
           "surveyUrl": "string",
           "typeId": 0
         }
-
 
 
 

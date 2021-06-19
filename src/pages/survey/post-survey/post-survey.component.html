@@ -5,8 +5,10 @@
     </ol>
 </div>
 <div class="inner-head display-head">
-    <h2 *ngIf="!Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Add Survey</h2>
-    <h2 *ngIf="Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span class="icon-back"></span></a>Edit Survey</h2>
+    <h2 *ngIf="!Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span
+                class="icon-back"></span></a>Add Survey</h2>
+    <h2 *ngIf="Edit"><a (click)=back() href="javascript:void(0)" class="back-btn"><span
+                class="icon-back"></span></a>Edit Survey</h2>
     <!-- <h2 *ngIf="temp.status=='edit'"><a (click)=back() href="javascript:void(0)" class="back-btn"><span
 class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}</h2> -->
 
@@ -146,7 +148,7 @@ class="radiobutton" id="roundButton">
 
                                 <div class="col-sm-12 col-md-12 col-xs-12" style="display: inline-flex;">
                                     <div class="form-group" *ngFor="let surveyTypes of surveyTypes">
-                                        <label class="radio-inline survey-pick" >
+                                        <label class="radio-inline survey-pick">
                                             <input type="radio" formControlName="typeOfSurvie" name="typeOfSurvie"
                                                 [(ngModel)]="configObjModel.typeOfSurvey" value="{{surveyTypes.typeId}}"
                                                 checked>{{surveyTypes.typeDesc}}
@@ -500,7 +502,7 @@ class="img-responsive" alt="loreum picsum" />  -->
             <ul class="dropdown-menu">
 
                 <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a class="theme-color-text"
-                        (click)="questionTypeCheck(listQuestionTypes.quesTypeId)">{{listQuestionTypes.quesTypeDesc}}</a>
+                        (click)="questionTypeCheck(listQuestionTypes.quesTypeId, $event)">{{listQuestionTypes.quesTypeDesc}}</a>
                 </li>
             </ul>
         </div>
@@ -534,7 +536,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     <span class="radiobutton" id="roundButton">
                                                     </span>
                                                     <input type="text" id="dotCheck"
-                                                        formControlName="questionTitleHeader"
+                                                        formControlName="questionTitleHeader" placeholder="Type here..."
                                                         value={{section.value.questionTitleHeader}} disabled
                                                         style="background: none;">
                                                 </div>
@@ -577,9 +579,10 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                     </div>
                                                 </div>
 
-<div class="clearfix"></div>
+                                                <div class="clearfix"></div>
 
-                                                <div class="col-sm-5 col-md-5 col-xs-12" style="display:none;visibility:hidden;">
+                                                <div class="col-sm-5 col-md-5 col-xs-12"
+                                                    style="display:none;visibility:hidden;">
                                                     <div class="form-group" style="margin: 30px;">
                                                         <label>Order Id</label>
 
@@ -2151,15 +2154,15 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 </div>
 
 <div *ngIf="checkTwo">
-<div  class="add-btn profile-name-ques dropdown" *ngIf="listquesOrderAsc.length != 0">
-    <p class="dropdown-toggle color-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Questions<i class="icon-right-arrow"></i></p>
-    <ul class="dropdown-menu">
-        <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a
-                (click)="questionTypeCheck(listQuestionTypes.quesTypeId)">{{listQuestionTypes.quesTypeDesc}}</a>
-        </li>
-    </ul>
-</div>
+    <div class="add-btn profile-name-ques dropdown" *ngIf="listquesOrderAsc.length != 0">
+        <p class="dropdown-toggle color-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Questions<i class="icon-right-arrow"></i></p>
+        <ul class="dropdown-menu">
+            <li *ngFor="let listQuestionTypes of listQuestionTypes; let i=index "><a
+                    (click)="questionTypeCheck(listQuestionTypes.quesTypeId,  $event)">{{listQuestionTypes.quesTypeDesc}}</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 
