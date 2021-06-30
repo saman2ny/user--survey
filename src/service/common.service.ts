@@ -46,12 +46,22 @@ export class CommonService {
   customers: any;
   language: any;
   UserDetailEncryption: any="sd";
+  listSurvey: any;
   constructor(@Inject(DOCUMENT) private document: Document,public router: Router, public iziToast: Ng2IzitoastService, private translate: TranslateService) {
 
     this.user = sessionStorage.user;
 
 
   }
+    //Survey
+
+    setSurveyId(listSurvey) {
+      this.listSurvey = listSurvey;
+  
+    }
+    getSurveyId() {
+      return this.listSurvey;
+    }
 
 
   setLogin(loginCred) {

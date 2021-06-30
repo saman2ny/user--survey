@@ -25,6 +25,8 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ListSurveyComponent } from './list-survey/list-survey.component';
 import { PostSurveyComponent } from './post-survey/post-survey.component';
+import { ReportsSurveyComponent } from './reports-survey/reports-survey.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 const routes: Routes = [
@@ -40,9 +42,14 @@ const routes: Routes = [
     component: PostSurveyComponent,
     
   },
+  {
+    path: 'reports-survey',
+    component: ReportsSurveyComponent,
+    
+  },
 ]
 @NgModule({
-  declarations: [ListSurveyComponent, PostSurveyComponent],
+  declarations: [ListSurveyComponent, PostSurveyComponent, ReportsSurveyComponent],
   imports: [
     SliderModule,
     ColorSketchModule,
@@ -54,7 +61,8 @@ const routes: Routes = [
     InfiniteScrollModule,
     DropdownModule,
     MultiSelectModule,
-    FontPickerModule
+    FontPickerModule,
+    GoogleChartsModule
     ],
     providers: [
       {

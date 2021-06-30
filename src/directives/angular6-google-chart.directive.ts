@@ -30,7 +30,7 @@ declare const googleChartsPackagesToLoad: any;
     ngOnInit() {
         if (!googleLoaded) {
             googleLoaded = true;
-            google.charts.load('visualization', '1.1', {'packages': ['controls']});
+            google.charts.load('current', '1.1', {'packages': ['controls']});
         }
         setTimeout(() => this.drawGraph(this.chartOptions, this.chartType, this.chartData, this.chartColumn, this._element), this.loadingDelay);
     }

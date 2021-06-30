@@ -115,6 +115,11 @@ export class ListSurveyComponent implements OnInit {
   addSurvey(){
     this.router.navigateByUrl("/post-survey");
   }
+  showReports(listSurvey){
+    this.common.setSurveyId(listSurvey)
+    this.router.navigateByUrl("/reports-survey");
+
+  }
   goEditListSurvey(listSurvey){
 
     var listSurveyId = { "listSurvey": listSurvey };

@@ -478,7 +478,8 @@ class="img-responsive" alt="loreum picsum" />  -->
                     <!-- End Main Config-->
                     <!-- End Main Config-->
                     <!-- End Main Config-->
-                    <input type="submit" value="Next" class="add-btn theme-color" (click)="submitConfig()">
+                    <!-- <input type="submit" value="Next" class="add-btn theme-color" (click)="submitConfig()"> -->
+                    <button class="btn pull-right" (click)="submitConfig()"><span>Next</span></button>
 
                 </div>
             </form>
@@ -2167,8 +2168,8 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
 
 
-<input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() />
-<!-- <input type="submit" class="add-btn" value="Submit" (click)=SubmitQuestion() /> -->
+<!-- <input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() /> -->
+<button class="btn pull-right" (click)="goPrevious()"><span>Previous</span></button>
 
 
 

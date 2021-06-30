@@ -487,7 +487,6 @@ export class PostSurveyComponent implements OnInit {
   }
 
 
-
   getSections(form) {
     // var total  = form.value.sections.length
     return form.controls.sections.controls;
@@ -623,6 +622,7 @@ console.log(status, "status")
   }
 
   deleteQuest(sections, i) {
+    this.common.showLoading()
     this.getAllDetailsForEdit(sections, i)
     console.log(sections.value.questions, "sections")
     var j = 0
@@ -658,16 +658,23 @@ console.log(status, "status")
 
     this.apiService.postSurvey(this.constantsService.deleteQuestion, frame).subscribe((succ: any) => {
 
-      // const control = <FormArray>(
-      //   this.survey.get("sections")
-      // );
-      // control.removeAt(i);
+      if(succ.code=== 200){
+      const control = <FormArray>(
+        this.survey.get("sections")
+      );
+      control.removeAt(i);
+      this.common.hideLoading()
+
+      }
+
 
     }, err => {
       this.common.hideLoading();
       this.common.showErrorMessage(err.message)
 
     });
+
+
 
   }
   addAnswer(indexx, k) {
@@ -1047,6 +1054,7 @@ console.log(status, "status")
       this.questionTypeSkipLogicsDemo = this.questionTypeSkipLogics[0]
       console.log(this.questionTypeSkipLogicsDemo, "this.questionTypeDisplayLogicsDemo"); // true
       this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.skipLogic.clear()
+    
       for (var dl = 0; dl < this.questionTypeSkipLogicsDemo.length; dl++) {
         this.myDynamicDisplayoficalInitialSkip[dl] = true
         this.myDynamicDisplayquesIdInitialSkip[dl] = true

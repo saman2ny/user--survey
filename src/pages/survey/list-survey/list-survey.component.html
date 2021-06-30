@@ -1,6 +1,6 @@
 <div class="breadcrumb-div">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/home/dashboard/">Home </a></li>
+      <li class="breadcrumb-item"><a routerLink="/">Home </a></li>
       <li class="breadcrumb-item active">Survey</li>
     </ol>
   </div>
@@ -19,8 +19,8 @@
                 <input type="text" id="searchTextId" placeholder="Search"/>
                 <button type="submit"><i class="icon-search"></i></button>
               </div>
-              <span class="icon-search"></span>
-              <span class="icon-close1 closesearch" ></span>
+              <!-- <span class="icon-search"></span>
+              <span class="icon-close1 closesearch" ></span> -->
             </div>
            
             
@@ -28,10 +28,13 @@
         </div>
      
         
-        <div class="button-orange">
+        <!-- <div class="button-orange">
           <a 
             (click)="addSurvey()">Create <span class="icon-plus"></span></a>
-        </div>
+        </div> -->
+
+        <button class="btn pull-right" (click)="addSurvey()"><span>Create</span></button>
+
       </div>
     </div>
   </div>
@@ -67,6 +70,8 @@
         <td data-th="Actions" class="text-align">
           <div class="text-align" *ngIf ="listSurvey.surveyStatus === 1 ">
               <i class="icon-delete column6" (click)="showModal(listSurvey)" title="Delete"
+                  data-toggle="tooltip" data-placement="left"></i> | &nbsp;
+                  <i class="fa fa-3x fa-file-text column6" (click)="showReports(listSurvey)" title="Reports"
                   data-toggle="tooltip" data-placement="left"></i>
           </div>
           <div class="text-align" *ngIf ="listSurvey.surveyStatus > 1 ">

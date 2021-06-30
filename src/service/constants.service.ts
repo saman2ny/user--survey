@@ -445,5 +445,6 @@ export class ConstantsService {
   deleteAnswerss="deleteAnswer"
   fetchSurveyStatuss= "fetchSurveyStatus"
   // surveyDetails="surveyDetails"
+  surveyReport = "report"
   constructor() { }
 }

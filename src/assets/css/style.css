@@ -2366,7 +2366,7 @@ div.dataTables_wrapper div.dataTables_length label{
 
 .responsive-nt .table td i {
     margin-right: 5px;
-    font-size: 12px;
+    font-size: 17px;
     vertical-align: middle;
 }
 
@@ -9091,3 +9091,75 @@ border-color:#e12727;
 .survey-pick{
     display: contents;
 }
+
+.give-space{
+    padding-bottom: 15px;
+}
+.font-report{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: initial;
+}
+
+.report-weight{
+    font-weight: 600;
+}   
+.full-height{
+    height: 100vh;
+}
+.reports-right{
+    padding-right: 100px;
+}
+.border-btm{
+    border-bottom: 1px solid black;
+}
+
+/* Single scroll */
+/* Single scroll */
+/* Single scroll */
+/* Single scroll */
+/* Single scroll */
+
+
+
+.btn {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 100;
+    font-size: 13px;
+    background-color: #3f51b5;
+    padding: 11px 30px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+  }
+  
+  .btn span {
+    position: relative; 
+    z-index: 1;
+  }
+  
+  .btn:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 140%;
+    background: #ffffff;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  }
+  
+  .btn:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  }
+  
