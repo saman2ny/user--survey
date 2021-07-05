@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 
 import { Font } from 'ngx-font-picker';
 import { keyboard } from '@amcharts/amcharts4/core';
+import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 
 
 
@@ -351,9 +352,11 @@ export class PostSurveyComponent implements OnInit {
     this.addQuestionChecker = true
     // this.SubmitQuestion()
 
-    console.log(e.currentTarget);
+    console.log( this.survey.controls.sections['controls'].length, "lenght");
+      var join  = 0
 
-    e.stopPropagation()
+    $('#accordion' ).collapse('hide');
+
 
     this.SubmitQuestion()
 
@@ -1154,7 +1157,15 @@ console.log(status, "status")
   onFieldQuestionChangeIntial(answer2, indexx) {
     let answer = answer2.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayQuestion'].setValue(answer) as FormArray
-    this.onFieldQuestionChangeSecond(answer, indexx)
+    // this.onFieldQuestionChangeSecond(answer, indexx)
+    if (answer === "select") {
+    this.answerListId = ""
+    this.secondDisplayHideType(indexx)
+    }else{
+      this.onFieldQuestionChangeSecond(answer, indexx)
+      this.answerListId = ""
+      this.secondDisplayHideType(indexx)
+    }
   }
 
   onFieldQuestionChangeSecond(answer, indexx) {
@@ -1233,7 +1244,7 @@ console.log(status, "status")
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLabelLogicTypeForAnswer'].setValue(answer2) as FormArray
 
 
-    if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered") {
+    if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered" || answer2 === "select") {
       this.answerListId = ""
     } else {
       this.answerListId = this.quesGroupPush[0]
@@ -1438,7 +1449,17 @@ console.log(status, "status")
   onSkipFieldQuestionDynamicChange(answer2, indexx) {
     let answerSkip = answer2.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayQuestionSkip'].setValue(answerSkip) as FormArray
-    this.onFieldQuestionSkipChangeSecond(answerSkip, indexx)
+    // this.onFieldQuestionSkipChangeSecond(answerSkip, indexx)
+
+    if (answerSkip === "select") {
+      this.answerListId = ""
+      this.secondDisplayHideTypeSkip(indexx)
+      }else{
+        this.onFieldQuestionSkipChangeSecond(answerSkip, indexx)
+        this.answerListId = ""
+        this.secondDisplayHideTypeSkip(indexx)
+      }
+
   }
  
   onFieldQuestionSkipChangeSecond(answer, indexx){
@@ -1508,7 +1529,7 @@ console.log(status, "status")
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLabelLogicTypeForAnswerSkip'].setValue(answer2) as FormArray
 
 
-    if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered") {
+    if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered"|| answer2 === "select") {
       this.answerListId = ""
     } else {
       this.answerListId = this.quesGroupPush[0]

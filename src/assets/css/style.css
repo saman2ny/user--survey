@@ -9082,7 +9082,7 @@ border-color:#e12727;
     border: 3px solid #3f51b5;
 } 
 .remove-logics{
-    margin-top: 20px;
+    margin-top: 10px;
     float:right;
 }
 .border-down{
@@ -9163,3 +9163,15 @@ border-color:#e12727;
     transform: translateX(-9%) translateY(-25%) rotate(45deg);
   }
   
+  .two-logics button{
+    margin-right:16px;
+
+  }
+  .two-logics input:last-child{
+    margin-right:0px;
+    /*so the last one dont push the div thas giving the space only between the inputs*/
+    }
+
+    .fa-3x{
+        font-size: 20px;
+    }
