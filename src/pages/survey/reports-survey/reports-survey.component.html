@@ -90,10 +90,10 @@ style="width:7000; height: 300">
 <!-- secondScroll -->
 <!-- secondScroll -->
 <!-- secondScroll -->
-<div id="content" #content>
+<div >
 
-  <div *ngFor="let chart of charts" class="row">
-    <div class="container-fluid">
+  <div *ngFor="let chart of charts; let i=index" class="content" id="content{{i}}" >
+    <div class="make-box">
       <div class="background-color" style="background:red; padding: 30px; border-radius: 15px 15px 0px 0px;">
 
         <span class="col-xl-12">
@@ -114,18 +114,22 @@ style="width:7000; height: 300">
 
 
       </div>
-    </div>
+
+
+      <google-chart  class="google-center" width="500"
+      [type]="type"
+      [data]="chart.data"
+        >
+      </google-chart>
+
+
+   
     <!-- {{chart.data}} -->
  
-  <google-chart  width="1000"
-  [type]="type"
-  [data]="chart.data"
-    >
-  </google-chart>
 
 
 
-  <div class="responsive-nt">
+  <div class="responsive-nt repo-tab-pad">
     <table class="table datatable table-visible">
       <thead>
         <tr>
@@ -153,12 +157,15 @@ style="width:7000; height: 300">
   </div>
   
 
-  <div class="give-space border-btm"></div>
-  <div class="give-space"></div>
-  <div class="give-space"></div>
-
+  <div class="repo-tab-pad">
+    <div class="col-md-6 col-sm-6 col-xs-6">Page &nbsp;&nbsp; {{i+1}} / {{charts.length}}</div>
+  </div>
+</div>
 
 </div>
+
+
+
 
 </div>
 
