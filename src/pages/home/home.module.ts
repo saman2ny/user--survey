@@ -6,17 +6,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatSidenavModule,MatToolbarModule,MatIconModule } from '@angular/material';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuard } from 'src/guards/auth-guard.service';
-import { MyProfileComponent } from './my-profile/my-profile.component';
-import { ChangePasswordComponent } from '../user/change-password/change-password.component';
-import { SafelistComponent } from '../home/safelist/safelist.component';
+
+// import { MyProfileComponent } from './my-profile/my-profile.component';
+// import { ChangePasswordComponent } from '../user/change-password/change-password.component';
+// import { SafelistComponent } from '../home/safelist/safelist.component';
+
 import { ShowDatePipe } from 'src/pipes/show-date.pipe';
 import { SafePipe } from 'src/pipes/safe.pipe';
 import { SharedModule } from 'src/shared/shared.module';
 import { GoogleChartsModule } from 'angular-google-charts';
-import { NotificationComponent } from './notification/notification.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,7 +25,6 @@ import {DropdownModule} from 'primeng/dropdown';
 //import { EditorModule } from 'primeng/editor';
 
 import {MultiSelectModule} from 'primeng/multiselect';
-import { SeverdashboardComponent } from './severdashboard/severdashboard.component';
 
 // import { DynamicFormsComponent } from './DynamicForms/Master pages/dynamic-forms/dynamic-forms/dynamic-forms.component';
 // import { DynamicformsAddEditComponent } from './DynamicForms/Master pages/dynamic-forms/dynamicforms-add-edit/dynamicforms-add-edit.component';
@@ -80,9 +79,8 @@ import { SeverdashboardComponent } from './severdashboard/severdashboard.compone
 
   ],
 
-  declarations: [DashboardComponent, LandingPageComponent, MyProfileComponent, 
-    SafelistComponent, NotificationComponent, SeverdashboardComponent,
-    //  DynamicFormsComponent,
+  declarations: [LandingPageComponent, 
+     //  DynamicFormsComponent,
     //  DynamicformsAddEditComponent, DynamicFormsPopupComponent, DynamicformslistComponent,SDragNDrop
     ],
      providers: [

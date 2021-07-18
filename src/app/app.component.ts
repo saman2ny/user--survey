@@ -5,7 +5,6 @@ import { ApiService } from '../service/api.service';
 import { ConstantsService } from 'src/service/constants.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MessagingService } from 'src/service/messaging.service';
 import { TranslateService } from '@ngx-translate/core';
 // import { Subscription } from 'rxjs/Subscription';
 
@@ -34,11 +33,9 @@ export class AppComponent {
 
 
   constructor(public formBuilder: FormBuilder, public common: CommonService, public apiService: ApiService, public constantsService: ConstantsService,
-    public activateRoute: ActivatedRoute, private messagingService: MessagingService, private translate: TranslateService
+    public activateRoute: ActivatedRoute,  private translate: TranslateService
   ) {
-    this.messagingService.requestPermission()
-    this.messagingService.receiveMessage()
-    this.message = this.messagingService.currentMessage
+    
     this.ForgotForm = this.formBuilder.group({
       opEmailId: ['', Validators.compose([Validators.required])],
       recaptcha: ['', Validators.compose([Validators.required])]
