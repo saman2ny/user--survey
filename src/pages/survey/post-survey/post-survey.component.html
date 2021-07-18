@@ -2194,6 +2194,11 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                 </span>
 
 
+                <span *ngIf="shoModelName === 'hexColorButton'">
+                    <color-sketch width="200px" height="100px" (onChange)="handleChange($event, 'buttons')">
+                    </color-sketch>
+                </span>
+
                 <!-- <br />
 <a  type="submit" (click)=closeModal()><span>Okay</span></a>
 <a class="cancel-btn" (click)=closeModal()><span>Close</span></a> -->
