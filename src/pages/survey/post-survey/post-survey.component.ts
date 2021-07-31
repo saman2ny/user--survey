@@ -14,6 +14,10 @@ import * as _ from 'lodash';
 import { Font } from 'ngx-font-picker';
 import { keyboard } from '@amcharts/amcharts4/core';
 import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
+import { filter, map } from 'rxjs/operators';
+import { DataSaveCheck } from 'src/models/data-save-check';
+
+
 
 
 
@@ -257,6 +261,9 @@ export class PostSurveyComponent implements OnInit {
   pictureObjModel: any = {
     
   };
+  ansOrder: any;
+  SuccStat: boolean;
+  SuccError: boolean;
   constructor(private el: ElementRef, private formBuilder: FormBuilder, private router: Router, private http: HttpClient, public common: CommonService, private apiService: ApiService,
     public constantsService: ConstantsService) {
     this.user = this.common.getUser();
@@ -682,9 +689,11 @@ console.log(status, "status")
   }
   addAnswer(indexx, k) {
 
+    var seconds = new Date().getTime() / 1000;
+    this.ansOrder = Math.round(seconds);
     let frame = {
       "ansId": this.curretAnwserIdObj,
-      "ansOrder": 0,
+      "ansOrder": this.ansOrder,
       "ansText": this.curretAnwserObj,
       "quesId": this.quesIdObj,
       "respCount": 0,
@@ -696,6 +705,10 @@ console.log(status, "status")
 
       this.common.hideLoading()
       console.log(succ, "succc")
+      const sortedActivities = succ.sort((a, b) => a.quesOrder - b.quesOrder)
+
+      console.log(sortedActivities, "edit order ASC")
+
       this.SubmitQuestion()
       this.curretAnwserIdObj = succ.ansId
       console.log(this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.options.controls[k].controls.ansId, "chekc")
@@ -881,36 +894,60 @@ console.log(status, "status")
 
     this.quesTypeIdObj = this.allQuestion[i].quesTypeId
 
+// check format
+var questionOrder = []
+questionOrder.push({"quesOrder" :this.quesOrder})
+var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-    for (var w = 0; w < this.allQuestion.length; w++) {
-      if (this.Edit === true) {
+console.log(intersection, "intersection");
 
-        if (this.allQuestion[w].quesTypeId === 2) {
-          this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.options.clear()
-          for (var yt = 0; yt < this.allQuestion[w].ansList.length; yt++) {
-            this.MCQValues = this.allQuestion[w].ansList[yt]
-            console.log(this.MCQValues, "this.MCQValues")
-            const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("options");
-            control.push(this.initMcq());
-          }
-        }
+// for setting up answers
+// for setting up answers
+// for setting up answers
+for (var w = 0; w < intersection.length; w++) {
+  if (this.Edit === true) {
 
-        if (this.allQuestion[w].quesTypeId === 6) {
-          this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.clear()
-          for (var yt = 0; yt < this.allQuestion[w].ansList.length; yt++) {
-            this.PictureChoiceValues = this.allQuestion[w].ansList[yt]
-            console.log(this.PictureChoiceValues, "this.PictureChoiceValues")
-            const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("pictureChoices");
-            control.push(this.initPictureChoice());
+    if (intersection[w].quesTypeId === 2) {
+      this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.options.clear()
+      const sortedMCQActivities = intersection[w].ansList.sort((a, b) => a.ansOrder - b.ansOrder)
+      console.log(sortedMCQActivities, "sortedMCQActivities")
+      for (var yt = 0; yt < sortedMCQActivities.length; yt++) {
+        this.MCQValues = sortedMCQActivities[yt]
+        console.log(this.MCQValues, "this.MCQValues")
+
+       
+
+        const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("options");
+        control.push(this.initMcq());
+      }
+    }
+
+    if (intersection[w].quesTypeId === 6) {
+      this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.clear()
+      for (var yt = 0; yt < intersection[w].ansList.length; yt++) {
+        this.PictureChoiceValues = intersection[w].ansList[yt]
+        console.log(this.PictureChoiceValues, "this.PictureChoiceValues")
+        const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("pictureChoices");
+        control.push(this.initPictureChoice());
 
 
 
-
-          }
-
-        }
 
       }
+
+    }
+
+  }
+}
+
+// for setting up normal
+// for setting up normal
+// for setting up normal
+// for setting up normal
+
+
+    for (var w = 0; w < this.allQuestion.length; w++) {
+     
 
       // DisplayLogic Logic
       // DisplayLogic Logic
@@ -1770,9 +1807,13 @@ console.log(status, "status")
           this.configObjModel.questionNumber = false
         }
 
-        this.listquesOrderAscEdit = succ['ques'];
-        this.listquesOrderAsc = succ['ques']
-        this.allQuestion = succ['ques']
+        const sortedActivities = succ['ques'].sort((a, b) => a.quesOrder - b.quesOrder)
+
+        console.log(sortedActivities, "edit order ASC")
+
+        this.listquesOrderAscEdit = sortedActivities;
+        this.listquesOrderAsc = sortedActivities
+        this.allQuestion = sortedActivities
         this.surveyIdObj = this.allQuestion[0].surveyId
 
 
@@ -2439,9 +2480,14 @@ console.log(status, "status")
 
     // this.listquesOrderAsc = []
     this.apiService.postSurvey(this.constantsService.addQuestion, frame).subscribe((succ: any) => {
-
+if(succ.code === 200){
       this.common.hideLoading()
       console.log(succ, "succc")
+ 
+
+      const sortedActivities = succ.sort((a, b) => a.quesOrder - b.quesOrder)
+
+      console.log(sortedActivities, "insert order ASC")
 
 
       this.listquesOrderAsc = succ
@@ -2467,74 +2513,29 @@ console.log(status, "status")
         this.quesTypeIdObj = succ[i].quesId
       }
 
-
-
-
-      // for (var i = succ. length - 1; i >= 0; i--) {
-
-      //   if(this.quesTypeIdObj === succ[i].quesId){
-      //     this.quesTypeIdDetails =[]
-      //   }else{
-      //     var quesTypeIdDetails = succ[i].quesTypeId
-      //           for(var j=0; j < this.listQuestionTypes.length; j++){
-      //             if(this.listQuestionTypes[j].quesTypeId=== quesTypeIdDetails){
-      //               var frame={"quesTypeId":succ[i].quesId, "quesTypeDesc":this.listQuestionTypes[j].quesTypeDesc}
-      //               this.quesTypeIdDetails.push(frame)
-
-      //             }
-      //   }
-
-      //   }
-
-      // }
       //Umesh
       this.allQuestion = succ
-      // for(var j=0; j < this.allQuestion.length; j++){
-      //   if(this.allQuestion[j].quesOrder >= this.currentOrderIdObj){
-      //      var frame={"quesId":succ[i].quesId, "quesText":this.listQuestionTypes[j].quesText}
-      //     this.quesTypeIdDetails.push(frame)
-
-      //   }
-
-      // }
-      console.log(this.quesTypeIdDetails, "this.quesTypeIdDetails")
-      // currentOrderIdObj
-
-      // }
-
-      // maybe.sort(function (a, b) {
-      //   return a['quesOrder'] - b['quesOrder'];
-      // });
-
-      console.log(this.listquesOrderAsc, "this.listquesOrderAsc")
-
       const control = <FormArray>this.survey.get('sections');
-      // var maybe = this.listquesOrderAsc
       var oneAfterOtherQuestion = this.allQuestion
-      // var questionNameShow = obj
-
-
       for (var f = 0; f < maybe.length; f++) {
         var finalmaybe = maybe[f];
         this.initSection(finalmaybe, oneAfterOtherQuestion)
-
-
-
       }
       if (this.addQuestionChecker != false) {
         control.push(this.initSection(finalmaybe, oneAfterOtherQuestion));
-
-      }
-      // var ctrlLegnth = Math.max.apply(null, this.survey.length)
-
-
-    
+      }    
 
       this.common.hideLoading()
+      this.SuccStat = true
+    this.SuccError = false}
+    else{this.SuccStat = false
+    this.SuccError = true}
 
 
     },
       err => {
+        this.SuccStat = false
+        this.SuccError = true
         this.common.hideLoading()
 
       })

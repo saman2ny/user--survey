@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { CommonService } from 'src/service/common.service';
 import { ApiService } from 'src/service/api.service';
 import { ConstantsService } from 'src/service/constants.service';
+import {OnDestroyMixin, untilComponentDestroyed} from "@w11k/ngx-componentdestroyed";
+import { setup, track, printSubscribers } from 'observable-profiler';
+
+
 
 declare var $: any;
 declare function myMethod(): any;
@@ -16,7 +20,7 @@ import * as _ from 'lodash';
   templateUrl: './list-survey.component.html',
   styleUrls: ['./list-survey.component.css']
 })
-export class ListSurveyComponent implements OnInit {
+export class ListSurveyComponent extends OnDestroyMixin implements OnInit {
   listSurvey: any =[];
   user: any;
   selectedSurvey: any = {};
@@ -25,17 +29,24 @@ export class ListSurveyComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, public common: CommonService, private apiService: ApiService,
     public constantsService: ConstantsService) { 
+      super();
       this.user = this.common.getUser();
       console.log(this.user, "111111111111")
     }
 
+
+    demoCall(){
+
+    }
   ngOnInit(): void {
     myMethod();
     // this.loadJquery();
     selectSearchMethod();
+    this.demoCall()
     this.listcall();
 
-    this.apiService.getSurvey(this.constantsService.fetchSurveyStatuss, {}).subscribe((succ: any) => {
+    this.apiService.getSurvey(this.constantsService.fetchSurveyStatuss, {}).pipe(untilComponentDestroyed(this)).subscribe((succ: any) => {
+  
       console.log(succ + "succ")
       this.fetchStatus = succ
 

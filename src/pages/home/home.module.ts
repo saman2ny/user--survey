@@ -25,6 +25,8 @@ import {DropdownModule} from 'primeng/dropdown';
 //import { EditorModule } from 'primeng/editor';
 
 import {MultiSelectModule} from 'primeng/multiselect';
+import {MatButtonModule} from '@angular/material/button';
+
 
 // import { DynamicFormsComponent } from './DynamicForms/Master pages/dynamic-forms/dynamic-forms/dynamic-forms.component';
 // import { DynamicformsAddEditComponent } from './DynamicForms/Master pages/dynamic-forms/dynamicforms-add-edit/dynamicforms-add-edit.component';
@@ -70,6 +72,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
     NgxIntlTelInputModule,
     AutoCompleteModule,
     DropdownModule,
+    MatButtonModule,
     MultiSelectModule,TranslateModule,
     // MatSidenavModule,MatToolbarModule,MatIconModule,DragDropModule,
     // PaginatorModule,

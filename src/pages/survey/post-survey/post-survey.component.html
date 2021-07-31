@@ -18,10 +18,22 @@ class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}<
 
 
 
+ <div *ngIf="checkTwo">
+    <div *ngIf="SuccStat">
 
+ <a href="#" class="float">
+<i class="fa fa-thumbs-o-down my-float"></i>
+</a>
+</div>
+</div>
 
-
-
+<div *ngIf="checkTwo">
+    <div *ngIf="SuccError">
+ <a href="#" class="float-red">
+<i class="fa fa-thumbs-o-down my-float"></i>
+</a>
+</div>
+</div>
 
 <!-- 
 <div class="integratedata-model row">
@@ -532,7 +544,6 @@ class="img-responsive" alt="loreum picsum" />  -->
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{i}}"
                                             class="collapse{{i}}">
 
-
                                             <div class="row">
                                                 <div class="col-sm-8 col-md-8 col-xs-12">
                                                     <span class="radiobutton" id="roundButton">
@@ -624,7 +635,7 @@ class="img-responsive" alt="loreum picsum" />  -->
                                                         *ngFor="let option of getChoices(question); let k=index">
                                                         <!-- <pre>{{option.value | json}}</pre> -->
                                                         <div class="row choices-global-style">
-                                                            <div class="col-sm-5 col-md-6 col-xs-12">
+                                                            <div class="col-sm-4 col-md-4 col-xs-12">
                                                                 <div class="form-group">
                                                                     <input type="text" id="choicesType"
                                                                         (focusout)="getMcQ($event, section, i, k)"

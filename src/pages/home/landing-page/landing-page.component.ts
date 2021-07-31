@@ -9,6 +9,7 @@ declare var $: any;
 declare function sideMenuFunction(): any;
 declare function myMethod(): any;
 
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -25,9 +26,10 @@ export class LandingPageComponent implements OnInit {
   listNotifi: any = [];
   listNotifiCount: any;
   // channelList: any;
-
+  
   constructor(public common: CommonService, public formBuilder: FormBuilder, public apiService: ApiService,
      public constantsService: ConstantsService, public router: Router) {
+
       var succ = {
         branchId: 0,
         companyId: 0,
