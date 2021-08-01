@@ -1275,13 +1275,27 @@ for (var w = 0; w < intersection.length; w++) {
 
   }
 
-  onDisplayFieldQuestionSecondLogicalChange(event, indexx) {
+  onDisplayFieldQuestionSecondLogicalChange(event, indexx, sections) {
     let answer2 = event.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLogicType'].setValue(answer2) as FormArray
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLabelLogicTypeForAnswer'].setValue(answer2) as FormArray
 
+    var getQues = sections.value.questions
+    this.quesOrder = getQues[0].orderId
+    // check format
+var questionOrder = []
+questionOrder.push({"quesOrder" :this.quesOrder})
+var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-    if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered" || answer2 === "select") {
+console.log(intersection[0].quesTypeId, "intersection");
+if((intersection[0].quesTypeId === 7 && answer2 === "Is") || 
+(intersection[0].quesTypeId === 7 && answer2 === "Is Not") ||
+(intersection[0].quesTypeId === 7 && answer2 === "Is Answered") ||
+(intersection[0].quesTypeId === 7 && answer2 === "Not Answered")){
+  this.answerListId = ""
+}
+
+    else if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered" || answer2 === "select") {
       this.answerListId = ""
     } else {
       this.answerListId = this.quesGroupPush[0]
@@ -1392,11 +1406,27 @@ for (var w = 0; w < intersection.length; w++) {
   }
 
 
-  onDisplayFieldQuestionSecondDynamicLogicalChange(event, indexx, k1) {
+  onDisplayFieldQuestionSecondDynamicLogicalChange(event, indexx, k1, sections) {
     this.getDisplayLabelAnswerDynamic = event.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.displayLogic.controls[k1].controls.pickMultipleDisplayQuestionLogicType.setValue(this.getDisplayLabelAnswerDynamic) as FormArray
 
-    if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered") {
+
+    var getQues = sections.value.questions
+    this.quesOrder = getQues[0].orderId
+    // check format
+var questionOrder = []
+questionOrder.push({"quesOrder" :this.quesOrder})
+var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+
+console.log(intersection[0].quesTypeId, "intersection");
+if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is") || 
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Not") ||
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Answered") ||
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Not Answered")){
+  this.answerListId = ""
+}
+
+    else if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered" || this.getDisplayLabelAnswerDynamic === "Is Answered" || this.getDisplayLabelAnswerDynamic === "Not Answered" || this.getDisplayLabelAnswerDynamic === "select") {
       this.answerListId = ""
     } else {
       this.answerListId = this.quesGroupPush[0]
@@ -1560,13 +1590,27 @@ for (var w = 0; w < intersection.length; w++) {
 
 
 
-  onDisplayFieldQuestionSecondLogicalChangeSkip(event, indexx) {
+  onDisplayFieldQuestionSecondLogicalChangeSkip(event, indexx, sections) {
     let answer2 = event.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLogicTypeSkip'].setValue(answer2) as FormArray
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLabelLogicTypeForAnswerSkip'].setValue(answer2) as FormArray
 
+    var getQues = sections.value.questions
+    this.quesOrder = getQues[0].orderId
+    // check format
+var questionOrder = []
+questionOrder.push({"quesOrder" :this.quesOrder})
+var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-    if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered"|| answer2 === "select") {
+console.log(intersection[0].quesTypeId, "intersection");
+if((intersection[0].quesTypeId === 7 && answer2 === "Is") || 
+(intersection[0].quesTypeId === 7 && answer2 === "Is Not") ||
+(intersection[0].quesTypeId === 7 && answer2 === "Is Answered") ||
+(intersection[0].quesTypeId === 7 && answer2 === "Not Answered")){
+  this.answerListId = ""
+}
+
+    else if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered"|| answer2 === "select") {
       this.answerListId = ""
     } else {
       this.answerListId = this.quesGroupPush[0]
@@ -1587,6 +1631,7 @@ for (var w = 0; w < intersection.length; w++) {
   getLastDisplayAnswerSkip(event, i) {
     let answer2 = event.target.value
     this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayAnswerDropDownSkip'].setValue(answer2) as FormArray
+  
   }
 
 
@@ -1677,11 +1722,27 @@ for (var w = 0; w < intersection.length; w++) {
   }
 
 
-  onDisplayFieldQuestionSecondDynamicLogicalChangeSkip(event, indexx, k2) {
+  onDisplayFieldQuestionSecondDynamicLogicalChangeSkip(event, indexx, k2, sections) {
     this.getDisplayLabelAnswerDynamic = event.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleDisplayQuestionLogicTypeSkip.setValue(this.getDisplayLabelAnswerDynamic) as FormArray
 
-    if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered") {
+    
+    var getQues = sections.value.questions
+    this.quesOrder = getQues[0].orderId
+    // check format
+var questionOrder = []
+questionOrder.push({"quesOrder" :this.quesOrder})
+var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+
+console.log(intersection[0].quesTypeId, "intersection");
+if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is") || 
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Not") ||
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Answered") ||
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Not Answered")){
+  this.answerListId = ""
+}
+
+    if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered" || this.getDisplayLabelAnswerDynamic === "Is Answered" || this.getDisplayLabelAnswerDynamic === "Not Answered"||  this.getDisplayLabelAnswerDynamic === "select") {
       this.answerListIdSkip = ""
     } else {
       this.answerListIdSkip = this.quesGroupPush[0]
@@ -2480,7 +2541,7 @@ for (var w = 0; w < intersection.length; w++) {
 
     // this.listquesOrderAsc = []
     this.apiService.postSurvey(this.constantsService.addQuestion, frame).subscribe((succ: any) => {
-if(succ.code === 200){
+// if(succ.code === 200){
       this.common.hideLoading()
       console.log(succ, "succc")
  
@@ -2526,10 +2587,10 @@ if(succ.code === 200){
       }    
 
       this.common.hideLoading()
-      this.SuccStat = true
-    this.SuccError = false}
-    else{this.SuccStat = false
-    this.SuccError = true}
+    //   this.SuccStat = true
+    // this.SuccError = false}
+    // else{this.SuccStat = false
+    // this.SuccError = true}
 
 
     },

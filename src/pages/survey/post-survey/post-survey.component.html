@@ -1255,7 +1255,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
 
                                                                                 <div class="styled-select">
                                                                                     <select
-                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChange($event, i)"
+                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChange($event, i, section)"
                                                                                         formControlName="pickDisplayLogicType">
                                                                                         <option value="select"
                                                                                             [selected]="myquesTextVariable">
@@ -1459,7 +1459,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                                     id="pickMultipleDisplayQuestionLogicType"
                                                                                                     formControlName="pickMultipleDisplayQuestionLogicType"
                                                                                                     #pickMultipleDisplayQuestionLogicType
-                                                                                                    (change)="onDisplayFieldQuestionSecondDynamicLogicalChange($event,i,k1)">
+                                                                                                    (change)="onDisplayFieldQuestionSecondDynamicLogicalChange($event,i,k1, section)">
                                                                                                     <option
                                                                                                         value="select"
                                                                                                         [selected]="myDynamicDisplayquesTextInitial[k1]">
@@ -1708,7 +1708,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                 <div class="styled-select">
                                                                                     <select
-                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChangeSkip($event, i)"
+                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChangeSkip($event, i, section)"
                                                                                         formControlName="pickDisplayLogicTypeSkip">
                                                                                         <option value="select"
                                                                                             [selected]="myquesTextVariableSkip">
@@ -1757,7 +1757,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                 <div class="styled-select">
                                                                                     <select
-                                                                                        (change)="getLastDisplayAnswerSkip($event, i)"
+                                                                                        (change)="getLastDisplayAnswerSkip($event, i, section)"
                                                                                         formControlName="pickDisplayAnswerDropDownSkip">
                                                                                         <option value="select"
                                                                                             [selected]="mydataVariableSkip">
@@ -1912,7 +1912,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                                     id="pickMultipleDisplayQuestionLogicTypeSkip"
                                                                                                     formControlName="pickMultipleDisplayQuestionLogicTypeSkip"
                                                                                                     #pickMultipleDisplayQuestionLogicTypeSkip
-                                                                                                    (change)="onDisplayFieldQuestionSecondDynamicLogicalChangeSkip($event,i,k2)">
+                                                                                                    (change)="onDisplayFieldQuestionSecondDynamicLogicalChangeSkip($event,i,k2,section)">
                                                                                                     <option
                                                                                                         value="select"
                                                                                                         [selected]="myDynamicDisplayquesTextInitialSkip[k2]">
