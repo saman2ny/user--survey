@@ -2541,7 +2541,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
     // this.listquesOrderAsc = []
     this.apiService.postSurvey(this.constantsService.addQuestion, frame).subscribe((succ: any) => {
-// if(succ.code === 200){
+if(succ.code === 200){
       this.common.hideLoading()
       console.log(succ, "succc")
  
@@ -2587,10 +2587,10 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
       }    
 
       this.common.hideLoading()
-    //   this.SuccStat = true
-    // this.SuccError = false}
-    // else{this.SuccStat = false
-    // this.SuccError = true}
+      this.SuccStat = true
+    this.SuccError = false}
+    else{this.SuccStat = false
+    this.SuccError = true}
 
 
     },
