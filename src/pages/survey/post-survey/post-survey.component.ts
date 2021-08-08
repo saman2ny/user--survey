@@ -2546,20 +2546,20 @@ if(succ.code === 200){
       console.log(succ, "succc")
  
 
-      const sortedActivities = succ.sort((a, b) => a.quesOrder - b.quesOrder)
+      const sortedActivities = succ.questions.sort((a, b) => a.quesOrder - b.quesOrder)
 
       console.log(sortedActivities, "insert order ASC")
 
 
-      this.listquesOrderAsc = succ
+      this.listquesOrderAsc = succ.questions
       this.quesTpeNameForEditobj = {}
       for (var i = 0; i < this.listQuestionTypes.length; i++) {
-        for (var j = 0; j < succ.length; j++) {
-          if (succ[j].quesTypeId === this.listQuestionTypes[i].quesTypeId) {
+        for (var j = 0; j < succ.questions.length; j++) {
+          if (succ.questions[j].quesTypeId === this.listQuestionTypes[i].quesTypeId) {
             var maybeFinal = []
 
-            succ[j].quesName = this.listQuestionTypes[i].quesTypeDesc
-            maybeFinal.push(succ)
+            succ.questions[j].quesName = this.listQuestionTypes[i].quesTypeDesc
+            maybeFinal.push(succ.questions)
 
           }
         }
@@ -2571,11 +2571,11 @@ if(succ.code === 200){
 
       for (var i = 0; i < succ.length; i++) {
 
-        this.quesTypeIdObj = succ[i].quesId
+        this.quesTypeIdObj = succ.questions[i].quesId
       }
 
       //Umesh
-      this.allQuestion = succ
+      this.allQuestion = succ.questions
       const control = <FormArray>this.survey.get('sections');
       var oneAfterOtherQuestion = this.allQuestion
       for (var f = 0; f < maybe.length; f++) {
