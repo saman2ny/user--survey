@@ -9069,7 +9069,8 @@ border-color:#e12727;
     top: 10px;
   }
   .choices-global-style{
-    padding: 30px;
+    padding-left: 30px;
+    padding-bottom: 15px;
     display: flex;
   }
   .img-clup{

@@ -18,21 +18,21 @@ class="icon-back"></span></a>{{'label.AddBranch.EditBranchMaster' | translate}}<
 
 
 
- <div *ngIf="checkTwo">
+<div *ngIf="checkTwo">
     <div *ngIf="SuccStat">
 
- <a href="#" class="float">
-<i class="fa fa-thumbs-o-down my-float"></i>
-</a>
-</div>
+        <a href="#" class="float">
+            <i class="fa fa-thumbs-o-up my-float"></i>
+        </a>
+    </div>
 </div>
 
 <div *ngIf="checkTwo">
     <div *ngIf="SuccError">
- <a href="#" class="float-red">
-<i class="fa fa-thumbs-o-down my-float"></i>
-</a>
-</div>
+        <a href="#" class="float-red">
+            <i class="fa fa-thumbs-o-down my-float"></i>
+        </a>
+    </div>
 </div>
 
 <!-- 
@@ -156,17 +156,17 @@ class="radiobutton" id="roundButton">
 
                                         </div>
                                     </div>
-                                </form>
 
 
-                                <div class="col-sm-12 col-md-12 col-xs-12" style="display: inline-flex;">
-                                    <div class="form-group" *ngFor="let surveyTypes of surveyTypes">
-                                        <label class="radio-inline survey-pick">
-                                            <input type="radio" formControlName="typeOfSurvie" name="typeOfSurvie"
-                                                [(ngModel)]="configObjModel.typeOfSurvey" value="{{surveyTypes.typeId}}"
-                                                checked>{{surveyTypes.typeDesc}}
-                                        </label>
-                                        <!-- 
+
+                                    <div class="col-sm-12 col-md-12 col-xs-12" style="display: inline-flex;">
+                                        <div class="form-group" *ngFor="let surveyTypes of surveyTypes">
+                                            <label class="radio-inline survey-pick">
+                                                <input type="radio" formControlName="typeOfSurvie" name="typeOfSurvie"
+                                                    [(ngModel)]="configObjModel.typeOfSurvey"
+                                                    value="{{surveyTypes.typeId}}">{{surveyTypes.typeDesc}}
+                                            </label>
+                                            <!-- 
 <label class="radio-inline" style="margin-right: 160px;">
 <input type="radio"   formControlName="typeOfSurvie" name="typeOfSurvie" [(ngModel)]="configObjModel.typeOfSurvey" value="Option 2">{surveyTypes.typeDesc}
 </label>
@@ -174,14 +174,14 @@ class="radiobutton" id="roundButton">
 <input type="radio"  formControlName="typeOfSurvie"  name="typeOfSurvie" [(ngModel)]="configObjModel.typeOfSurvey" value="{surveyTypes.typeDesc}">{surveyTypes.typeDesc}
 </label> -->
 
-                                        <!-- <div class="form-group"> -->
-                                        <div class="col-sm-4">
-                                            <!-- <img [src]="surveyTypes.typeImage"
+                                            <!-- <div class="form-group"> -->
+                                            <div class="col-sm-4">
+                                                <!-- <img [src]="surveyTypes.typeImage"
 onerror="this.src='assets/images/logo.svg';" class="img-responsive"
 alt="loreum picsum" width="50%" /> -->
-                                        </div>
+                                            </div>
 
-                                        <!-- <div class="col-sm-4">
+                                            <!-- <div class="col-sm-4">
 <img src="https://res.cloudinary.com/demo/basketball_shot.jpg"
 class="img-responsive" alt="loreum picsum" width="50%" />
 </div>
@@ -190,14 +190,17 @@ class="img-responsive" alt="loreum picsum" width="50%" />
 <img src="https://res.cloudinary.com/demo/basketball_shot.jpg"
 class="img-responsive" alt="loreum picsum" width="50%" />
 </div> -->
-                                        <!-- </div> -->
+                                            <!-- </div> -->
 
 
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>
+
                     <!-- End Type of Survey -->
                     <!-- End Type of Survey -->
                     <!-- End Type of Survey -->
@@ -575,10 +578,27 @@ class="img-responsive" alt="loreum picsum" />  -->
                                 <div id="collapse{{i}}" class="panel-collapse collapse">
 
 
+
                                     <div class="question-container" formArrayName="questions">
                                         <div [formGroupName]="j"
                                             *ngFor="let question of getQuestions(section); let j = index">
                                             <div class="row">
+                                                
+                                    <div class="form-group" style="margin: 30px;">
+
+                                        <div class="col-sm-1 col-xl-3 col-xs-6">
+                                            <label>Required</label>
+                                        </div>
+                                        <div class="col-sm-6 col-xl-3 col-xs-6" class="reqTop">
+                                            <div class="tgl-group tg-mg0 tg-mg-padd">
+                                                <input class='tgl tgl-light' id='Required{{i}}' formControlName="isRequired" (change)="changeRequired($event, i,j)" type='checkbox'>
+                                                <label class='tgl-btn' for='Required{{i}}'></label>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                                 <div class="col-sm-5 col-md-5 col-xs-12">
                                                     <div class="form-group" style="margin: 30px;">
                                                         <label>Question Name</label>
@@ -935,14 +955,16 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                             <ul class="nav nav-tabs campaigntab" id="myTab" role="tablist">
                                                 <li class="nav-item">
                                                     <a class="nav-link1" data-toggle="tab" href="#2{{i}}" role="tab"
-                                                        aria-controls="sms" aria-selected="true"><i class="fa fa-wrench" aria-hidden="true"></i>
-&nbsp;                                                        Options</a>
+                                                        aria-controls="sms" aria-selected="true"><i class="fa fa-wrench"
+                                                            aria-hidden="true"></i>
+                                                        &nbsp; Options</a>
                                                 </li>
 
                                                 <li class="nav-item" *ngIf="i >=1">
                                                     <a class="nav-link2" data-toggle="tab" href="#3{{i}}" role="tab"
-                                                        aria-controls="sms" aria-selected="true"><i class="fa fa-pencil" aria-hidden="true"></i>
-                                                        &nbsp;                                                        Logic</a>
+                                                        aria-controls="sms" aria-selected="true"><i class="fa fa-pencil"
+                                                            aria-hidden="true"></i>
+                                                        &nbsp; Logic</a>
                                                 </li>
 
                                             </ul>
@@ -1289,15 +1311,15 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                         <div class="col-sm-12 col-md-12 col-xs-12"
                                                                             *ngIf="question.value.checkDisplayId === 'SELECT' ">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayDropdown"> -->
-                                                                            <div class="form-group"
-                                                                                >
+                                                                            <div class="form-group">
 
                                                                                 <input type="text"
                                                                                     id="pickDisplayLabelLogicTypeForAnswer"
                                                                                     formControlName="pickDisplayLabelLogicTypeForAnswer"
                                                                                     #pickDisplayLabelLogicTypeForAnswer
                                                                                     value="{{question.value.pickDisplayLabelLogicTypeForAnswer}}"
-                                                                                    disabled style="display:none;background: none;">
+                                                                                    disabled
+                                                                                    style="display:none;background: none;">
 
                                                                                 <div class="styled-select">
                                                                                     <select
@@ -1326,8 +1348,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                         <div class="col-sm-12 col-md-12 col-xs-12"
                                                                             *ngIf="question.value.checkDisplayId === 'NOT'">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayTextField"> -->
-                                                                            <div class="form-group"
-                                                                               >
+                                                                            <div class="form-group">
                                                                                 <!-- label -->
                                                                                 <!-- label -->
                                                                                 <!-- label -->
@@ -1376,11 +1397,10 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                                 <div class="row" style="padding: 15px;">
                                                                                     <div
                                                                                         class="col-sm-12 col-md-12 col-xs-12">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
                                                                                             <div class="styled-select">
-                                                                                                <select 
+                                                                                                <select
                                                                                                     (change)="getCompartorDynamic($event,i,k1)"
                                                                                                     id="pickMultipleDisplayLogicType"
                                                                                                     formControlName="pickMultipleDisplayLogicType"
@@ -1416,8 +1436,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                     <div
                                                                                         class="col-sm-4 col-md-4 col-xs-12">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
 
                                                                                             <div class="styled-select">
@@ -1450,8 +1469,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                     <div
                                                                                         class="col-sm-4 col-md-4 col-xs-12">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
 
 
                                                                                             <div class="styled-select">
@@ -1496,8 +1514,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                         *ngIf="displayLogicArray.value.pickMultipleCheckDisplayId === 'SELECT' ">
 
 
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
                                                                                             <!-- label -->
                                                                                             <!-- label -->
@@ -1540,8 +1557,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                     <div class="col-sm-3 col-md-3 col-xs-12"
                                                                                         *ngIf="displayLogicArray.value.pickMultipleCheckDisplayId === 'NOT' ">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- label -->
                                                                                             <!-- label -->
                                                                                             <!-- label -->
@@ -1619,15 +1635,21 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                             type="submit" class="add-btn"
                                                                             value="Add New Display Logic" /> -->
 
-                                                                            <button class="btn pull-right" (click)="addDisplayLogic(i,j)"><span>Add New Display Logic</span></button>
-                                                                            <button *ngIf="Edit" class="btn pull-right" (click)="saveDisplayLogic(i,j)"><span>Update Display Logic</span></button>
-                                                                            <button *ngIf="!Edit" class="btn pull-right" (click)="saveDisplayLogic(i,j)"><span>Save Display Logic</span></button>
+                                                                        <button class="btn pull-right"
+                                                                            (click)="addDisplayLogic(i,j)"><span>Add New
+                                                                                Display Logic</span></button>
+                                                                        <button *ngIf="Edit" class="btn pull-right"
+                                                                            (click)="saveDisplayLogic(i,j)"><span>Update
+                                                                                Display Logic</span></button>
+                                                                        <button *ngIf="!Edit" class="btn pull-right"
+                                                                            (click)="saveDisplayLogic(i,j)"><span>Save
+                                                                                Display Logic</span></button>
 
 
 
                                                                     </div>
 
-                                                            
+
 
 
                                                                 </div>
@@ -1666,8 +1688,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                     <div class="row">
                                                                         <div class="col-sm-6 col-md-6 col-xs-12">
-                                                                            <div class="form-group"
-                                                                                >
+                                                                            <div class="form-group">
                                                                                 <label>Question Type</label>
 
                                                                                 <div class="styled-select">
@@ -1700,8 +1721,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                         </div>
 
                                                                         <div class="col-sm-6 col-md-6 col-xs-12">
-                                                                            <div class="form-group"
-                                                                                >
+                                                                            <div class="form-group">
 
                                                                                 <label>Logical Type</label>
 
@@ -1745,15 +1765,15 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                         <div class="col-sm-4 col-md-4 col-xs-12"
                                                                             *ngIf="question.value.checkDisplayIdSkip === 'SELECT' ">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayDropdown"> -->
-                                                                            <div class="form-group"
-                                                                                >
+                                                                            <div class="form-group">
 
                                                                                 <input type="text"
                                                                                     id="pickDisplayLabelLogicTypeForAnswerSkip"
                                                                                     formControlName="pickDisplayLabelLogicTypeForAnswerSkip"
                                                                                     #pickDisplayLabelLogicTypeForAnswerSkip
                                                                                     value="{{question.value.pickDisplayLabelLogicTypeForAnswerSkip}}"
-                                                                                    disabled style="display: none;background: none;">
+                                                                                    disabled
+                                                                                    style="display: none;background: none;">
 
                                                                                 <div class="styled-select">
                                                                                     <select
@@ -1782,8 +1802,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                         <div class="col-sm-12 col-md-12 col-xs-12"
                                                                             *ngIf="question.value.checkDisplayIdSkip === 'NOT'">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayTextField"> -->
-                                                                            <div class="form-group"
-                                                                                >
+                                                                            <div class="form-group">
                                                                                 <!-- label -->
                                                                                 <!-- label -->
                                                                                 <!-- label -->
@@ -1829,8 +1848,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                 <div class="row" style="padding: 15px;">
                                                                                     <div
                                                                                         class="col-sm-12 col-md-12 col-xs-12">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
                                                                                             <div class="styled-select">
                                                                                                 <select
@@ -1869,8 +1887,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                     <div
                                                                                         class="col-sm-4 col-md-4 col-xs-12">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
 
                                                                                             <div class="styled-select">
@@ -1903,8 +1920,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                     <div
                                                                                         class="col-sm-4 col-md-4 col-xs-12">
-                                                                                        <div class="form-group"
-                                                                                           >
+                                                                                        <div class="form-group">
 
 
                                                                                             <div class="styled-select">
@@ -1950,8 +1966,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                         *ngIf="skipLogicArray.value.pickMultipleCheckDisplayIdSkip === 'SELECT' ">
 
 
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
                                                                                             <!-- label -->
                                                                                             <!-- label -->
@@ -1994,8 +2009,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                     <div class="col-sm-3 col-md-3 col-xs-12"
                                                                                         *ngIf="skipLogicArray.value.pickMultipleCheckDisplayIdSkip === 'NOT' ">
-                                                                                        <div class="form-group"
-                                                                                            >
+                                                                                        <div class="form-group">
                                                                                             <!-- label -->
                                                                                             <!-- label -->
                                                                                             <!-- label -->
@@ -2073,9 +2087,15 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                         <!-- <input (click)=addSkipLogic(i,j) type="submit"
                                                                             class="add-btn"
                                                                             value="Add New Skip Logic" /> -->
-                                                                            <button  class="btn pull-right" (click)="addSkipLogic(i,j)"><span>Add New Skip Logic</span></button>
-                                                                            <button *ngIf="Edit" class="btn pull-right" (click)="saveSkipLogic(i,j)"><span>Update Skip Logic</span></button>
-                                                                            <button *ngIf="!Edit" class="btn pull-right" (click)="saveSkipLogic(i,j)"><span>Save Skip Logic</span></button>
+                                                                        <button class="btn pull-right"
+                                                                            (click)="addSkipLogic(i,j)"><span>Add New
+                                                                                Skip Logic</span></button>
+                                                                        <button *ngIf="Edit" class="btn pull-right"
+                                                                            (click)="saveSkipLogic(i,j)"><span>Update
+                                                                                Skip Logic</span></button>
+                                                                        <button *ngIf="!Edit" class="btn pull-right"
+                                                                            (click)="saveSkipLogic(i,j)"><span>Save Skip
+                                                                                Logic</span></button>
 
                                                                     </div>
 
@@ -2162,8 +2182,8 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
 
 
-<!-- <input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() /> -->
-<button class="btn pull-right" (click)="goPrevious()"><span>Previous</span></button>
+    <!-- <input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() /> -->
+    <button class="btn pull-right" (click)="goPrevious()"><span>Previous</span></button>
 
 </div>
 

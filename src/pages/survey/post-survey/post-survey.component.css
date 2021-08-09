@@ -27,3 +27,8 @@
 .my-float{
 	margin-top:22px;
 }
+.reqTop{
+	position: relative;
+    bottom: 4px !important;
+}
+

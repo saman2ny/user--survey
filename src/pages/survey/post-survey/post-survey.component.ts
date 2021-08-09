@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 import { Font } from 'ngx-font-picker';
 import { keyboard } from '@amcharts/amcharts4/core';
 import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, take,  publish} from 'rxjs/operators';
 import { DataSaveCheck } from 'src/models/data-save-check';
 
 
@@ -149,6 +149,7 @@ export class PostSurveyComponent implements OnInit {
   ChoicesModelFormList: any = [];
   quesTypeIdObj: any = {};
   startTyping: any = {};
+  changeRequiredObj:any ={};
   startTypeDisplay: boolean = false;
   questionTypeNumberIdDisplay: any = {};
   quesOrder: any = {};
@@ -452,6 +453,7 @@ export class PostSurveyComponent implements OnInit {
       return new FormGroup({
         
         questionTitle: new FormControl(maybe.quesText),
+        isRequired: new FormControl(maybe.changeRequiredObj),
         orderId: new FormControl(maybe.quesOrder),
         surveyId: new FormControl(maybe.surveyId),
         questionTypeId: new FormControl(maybe.quesTypeId),
@@ -957,7 +959,7 @@ for (var w = 0; w < intersection.length; w++) {
           this.allQuestion[w].quesText = "..."
         }
 
-        var frame = { "quesId": this.allQuestion[w].quesId, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
+        var frame = { "quesId": this.allQuestion[w].quesId,  "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
         this.quesTypeIdDetails.push(frame)
       }
 
@@ -969,7 +971,7 @@ for (var w = 0; w < intersection.length; w++) {
           this.allQuestion[w].quesText = "..."
         }
 
-        var frame = { "quesId": this.allQuestion[w].quesId, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
+        var frame = { "quesId": this.allQuestion[w].quesId,  "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
         this.quesTypeIdDetailsSkip.push(frame)
       }
 
@@ -1283,8 +1285,10 @@ for (var w = 0; w < intersection.length; w++) {
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
     // check format
+    const allValues = this.answerListQueue[0].quesOrder
+    
 var questionOrder = []
-questionOrder.push({"quesOrder" :this.quesOrder})
+questionOrder.push({"quesOrder" :allValues})
 var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
 console.log(intersection[0].quesTypeId, "intersection");
@@ -1414,8 +1418,10 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
     // check format
+    const allValues = this.answerListQueue[0].quesOrder
+
 var questionOrder = []
-questionOrder.push({"quesOrder" :this.quesOrder})
+questionOrder.push({"quesOrder" :allValues})
 var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
 console.log(intersection[0].quesTypeId, "intersection");
@@ -1598,8 +1604,10 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
     // check format
+    const allValues = this.quesTypeIdDetailsSkip[0].quesOrder
+
 var questionOrder = []
-questionOrder.push({"quesOrder" :this.quesOrder})
+questionOrder.push({"quesOrder" :allValues})
 var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
 console.log(intersection[0].quesTypeId, "intersection");
@@ -1650,7 +1658,7 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     this.onDisplayFieldSecondQuestionSecondDynamicChangeSkip(answer, indexx, k2)
   }
   onDisplayFieldSecondQuestionSecondDynamicChangeSkip(answer, indexx, k2) {
-    const allValues = this.quesTypeIdDetails
+    const allValues = this.quesTypeIdDetailsSkip
     this.answerListQueueSkip = allValues.filter(value => value.quesId === parseInt(answer));
     console.log(this.answerListQueueSkip, "answerListId");
     this.answerListPushSkip = []
@@ -1730,8 +1738,10 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
     // check format
+    const allValues = this.quesTypeIdDetailsSkip[0].quesOrder
+
 var questionOrder = []
-questionOrder.push({"quesOrder" :this.quesOrder})
+questionOrder.push({"quesOrder" :allValues})
 var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
 console.log(intersection[0].quesTypeId, "intersection");
@@ -1739,7 +1749,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Not") ||
 (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Answered") ||
 (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Not Answered")){
-  this.answerListId = ""
+  this.answerListIdSkip = ""
 }
 
     if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered" || this.getDisplayLabelAnswerDynamic === "Is Answered" || this.getDisplayLabelAnswerDynamic === "Not Answered"||  this.getDisplayLabelAnswerDynamic === "select") {
@@ -1836,6 +1846,19 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
       ]),
     });
 
+
+        this.apiService.getSurvey(this.constantsService.fetchSurveyTypes, {}).pipe(take(1)).subscribe((succ: any) => {
+
+      this.common.hideLoading()
+      console.log(succ, "succ")
+      this.surveyTypes = succ
+    },
+      err => {
+        this.common.hideLoading()
+
+      });
+
+
     this.edit = this.common.getEditCompany()
     if (!_.isEmpty(this.edit)) {
       this.listquesOrderAscEdit = [];
@@ -1853,9 +1876,21 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
         this.configObjModel.attachmentFile = succ['survey'].bgImageByte
         this.configObjModel.Questions = succ['survey'].quesColor
         this.configObjModel.hexColorButton = succ['survey'].quesColor
+        this.configObjModel.surveyStatus = succ['survey'].surveyStatus
 
 
         this.configObjModel.surveyName = succ['survey'].surveyName
+
+        
+    let findedData = this.surveyTypes.filter(
+      i => i.typeId === this.configObjModel.surveyStatus);
+      // this.configObjModel.typeOfSurvey = JSON.stringify(findedData[0].typeId)
+      // console.log( this.configObjModel.typeOfSurvey, "this.configObjModel.typeOfSurvey" )
+      console.log( findedData, "findedData" )
+      // this.surveyForm.controls["typeOfSurvie"].setValue(2);
+
+
+
         // this.font = succ['survey'].fontStyle
         if (succ['survey'].progressBar === 1) {
           this.configObjModel.progressBar = true
@@ -1877,11 +1912,11 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
         this.allQuestion = sortedActivities
         this.surveyIdObj = this.allQuestion[0].surveyId
 
-
+  
 
         for (var i = 0; i < this.listquesOrderAsc.length; i++) {
           if (this.quesTypeIdObj === this.listquesOrderAsc[i].quesTypeId) {
-            var frame = { "quesId": this.listquesOrderAsc[i].quesId, "quesTypeId": this.listquesOrderAsc[i].quesTypeId, "placeId": this.placeId }
+            var frame = { "quesId": this.listquesOrderAsc[i].quesId,  "quesOrder": this.listquesOrderAsc[i].quesOrder, "quesTypeId": this.listquesOrderAsc[i].quesTypeId, "placeId": this.placeId }
             this.quesTypeIdDetails.push(frame)
           }
         }
@@ -1911,6 +1946,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
         this.common.showLoading()
         for (var f = 0; f < Finalmaybe.length; f++) {
           var maybe = Finalmaybe[f];
+          maybe['changeRequiredObj'] =  maybe.required ? true : false
           control.push(this.initSection(maybe, oneAfterOtherQuestion));
 
           //  this.initSection(finalmaybe, oneAfterOtherQuestion, questionNameShow)
@@ -1918,7 +1954,8 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
         }
         this.common.hideLoading()
 
-
+      // isRequired
+   
 
         // for(var t=0 ; t< succ['ques'].length; t++){
         //   this.questionTypeCheck(succ['ques'][t].quesTypeId)
@@ -1937,31 +1974,19 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
 
+    // let findedData = this.surveyTypes.find(i => i.typeId === this.configObjModel.surveyStatus);
+    // console.log( findedData[i].typeDesc )
+
 
     this.surveyForm = this.formBuilder.group({
       surveyName: ['', [Validators.required]],
+      typeOfSurvie: [''],
     })
 
   
 
 
-    this.apiService.getSurvey(this.constantsService.fetchSurveyTypes, {}).subscribe((succ: any) => {
 
-      this.common.hideLoading()
-      console.log(succ, "succ")
-      this.surveyTypes = succ
-
-      if (succ.code == 200) {
-        // this.common.showSuccessMessage(succ.message);
-      }
-      else {
-        // this.common.showErrorMessage(succ.message)
-      }
-    },
-      err => {
-        this.common.hideLoading()
-
-      });
 
 
     // 3rd call
@@ -2441,6 +2466,13 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
     }
   }
+  changeRequired($event, i, j){
+    this.changeRequiredObj = $event.target.checked;
+    console.log(this.changeRequiredObj, "this.changeRequiredObj")
+    this.SubmitQuestion();
+
+  }
+
   checkFocusOut(sections) {
     // this.checkFocus = true
     console.log(sections.value.questions, "sections")
@@ -2456,6 +2488,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
     // }
   }
+
   getstartTyping($event, i, j) {
     this.startTyping.value = $event.target.value;
     this.showOrHide = i;
@@ -2518,6 +2551,8 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
   SubmitQuestion() {
+    // this.changeRequiredObj
+    let changeRequiredObj =  this.changeRequiredObj ? 1 : 0
   var frame = {
     "deleted": 0,
     "displayLogic": JSON.stringify(this.displayLogicValue),
@@ -2525,7 +2560,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     "quesOrder": this.quesOrder,
     "quesText": this.startTyping.value,
     "quesTypeId": this.quesTypeIdObj, //QuestionTextoodanumber
-    "required": 0,
+    "required": changeRequiredObj,
     "skipLogic": JSON.stringify(this.skipLogicValue),
     "surveyId": this.surveyIdObj
 
