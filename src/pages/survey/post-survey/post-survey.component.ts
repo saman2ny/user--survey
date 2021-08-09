@@ -1884,8 +1884,8 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
         
     let findedData = this.surveyTypes.filter(
       i => i.typeId === this.configObjModel.surveyStatus);
-      // this.configObjModel.typeOfSurvey = JSON.stringify(findedData[0].typeId)
-      // console.log( this.configObjModel.typeOfSurvey, "this.configObjModel.typeOfSurvey" )
+      this.configObjModel.typeOfSurvey = JSON.stringify(findedData[0].typeId)
+      console.log( this.configObjModel.typeOfSurvey, "this.configObjModel.typeOfSurvey" )
       console.log( findedData, "findedData" )
       // this.surveyForm.controls["typeOfSurvie"].setValue(2);
 
