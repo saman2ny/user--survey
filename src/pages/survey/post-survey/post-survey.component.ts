@@ -966,7 +966,7 @@ for (var w = 0; w < intersection.length; w++) {
       // SkipLogic Logic
       // SkipLogic Logic
       // SkipLogic Logic
-      if (this.allQuestion[w].quesOrder > this.quesOrder) {
+      if (this.allQuestion[w].quesOrder >= this.quesOrder) {
         if (_.isEmpty(this.allQuestion[w].quesText)) {
           this.allQuestion[w].quesText = "..."
         }
