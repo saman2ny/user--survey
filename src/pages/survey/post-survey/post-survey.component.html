@@ -1711,8 +1711,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
 
 
-                                                                                    <span
-                                                                                        class="fa fa-sort-desc"></span>
+                                                                                    <span class="fa fa-sort-desc"></span>
 
                                                                                 </div>
 
@@ -1753,6 +1752,39 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                             </div>
                                                                         </div>
 
+
+
+
+                                                                        <div class="col-sm-6 col-md-6 col-xs-12">
+                                                                            <div class="form-group">
+
+                                                                                <label>SkipTo</label>
+
+
+                                                                                <div class="styled-select">
+                                                                                    <select
+                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChangeSkipTo($event, i. section)"
+                                                                                        formControlName="SkipTo">
+                                                                                        <option value="select"
+                                                                                            [selected]="SkipTo">
+                                                                                            Select</option>
+                                                                                            <option
+                                                                                            *ngFor="let answer of  quesTypeIdDetailsSkip"
+                                                                                            value={{answer.quesId}}
+                                                                                            [selected]="answer.quesId===SkipTo">
+                                                                                            {{answer.quesText}}</option>
+                                                                                    </select>
+
+                                                                                    <span
+                                                                                        class="fa fa-sort-desc"></span>
+
+                                                                                </div>
+
+
+
+
+                                                                            </div>
+                                                                        </div>
 
 
 

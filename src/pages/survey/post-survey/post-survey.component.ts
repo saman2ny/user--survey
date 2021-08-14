@@ -250,6 +250,7 @@ export class PostSurveyComponent implements OnInit {
   quesTypeIdDetailsSkip: any;
   myquesIdVariableSkip: any ={};
   myquesTextVariableSkip: any ={};
+  SkipTo: any ={};
   mydataVariableSkip: any ={};
   dynamicDisplayFramepushSkip: any = [];
   skipLogicValue: any;
@@ -475,6 +476,7 @@ export class PostSurveyComponent implements OnInit {
         ]),
         pickDisplayQuestionSkip: new FormControl(),
         pickDisplayLogicTypeSkip: new FormControl(),
+        SkipTo: new FormControl(),
         pickDisplayAnswerDropDownSkip: new FormControl(''),
         checkDisplayIdSkip: new FormControl(''),
         pickDisplayLabelLogicTypeForAnswerSkip: new FormControl(''),
@@ -1087,6 +1089,7 @@ for (var w = 0; w < intersection.length; w++) {
 
       this.myquesIdVariableSkip = true
       this.myquesTextVariableSkip = true;
+      this.SkipTo = true;
       this.mydataVariableSkip = true;
       this.questionTypeSkipLogics = []
 
@@ -1134,9 +1137,11 @@ for (var w = 0; w < intersection.length; w++) {
           //quesId Edit
           const quesId = this.questionTypeSkipLogicsDemo[dl].quesId
           const quesText = this.questionTypeSkipLogicsDemo[dl].logics
+          const skipTo = this.questionTypeSkipLogicsDemo[dl].skipTo
           const data = this.questionTypeSkipLogicsDemo[dl].data
           setTimeout(() => {
             this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayQuestionSkip'].setValue(quesId) as FormArray
+            this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['SkipTo'].setValue(skipTo) as FormArray
             this.myquesIdVariableSkip = JSON.parse(quesId)
             this.onFieldQuestionSkipChangeSecond(quesId, i)
           }, 1000);
@@ -1534,6 +1539,22 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
       }
 
   }
+
+  onDisplayFieldQuestionSecondLogicalChangeSkipTo(answer2, indexx) {
+    let answerSkip = answer2.target.value
+    this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['SkipTo'].setValue(answerSkip) as FormArray
+    // this.onFieldQuestionSkipChangeSecond(answerSkip, indexx)
+
+    if (answerSkip === "select") {
+      this.answerListId = ""
+      this.secondDisplayHideTypeSkip(indexx)
+      }else{
+        this.answerListId = ""
+        this.secondDisplayHideTypeSkip(indexx)
+      }
+
+  }
+
  
   onFieldQuestionSkipChangeSecond(answer, indexx){
     const allValuesSkip = this.quesTypeIdDetailsSkip
@@ -1794,6 +1815,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     var frame = {
       "quesId": this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayQuestionSkip'].value,
       "logics": this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayLogicTypeSkip'].value,
+      "skipTo": this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['SkipTo'].value,
       "data": this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayAnswerDropDownSkip'].value,
       "ansId": null
     }
@@ -1801,6 +1823,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     // console.log(this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayQuestion'].value, "1")
     // console.log(this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayLogicType'].value, "2")
     // console.log(this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayAnswerDropDown'].value, "3")
+
 
     // dynamic display
     // dynamic display
