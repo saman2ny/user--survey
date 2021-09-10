@@ -85,7 +85,7 @@ export class ApiService {
 
 
   getSurvey(entity, data) {
-    return this.http.get("http://0b52fbf9d562.ngrok.io/survey/" + entity, data)
+    return this.http.get("http://13.127.150.8:8080/survey/" + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -93,7 +93,7 @@ export class ApiService {
   }
 
   postSurvey(entity, data) {
-    return this.http.post("http://0b52fbf9d562.ngrok.io/survey/" + entity, data)
+    return this.http.post("http://13.127.150.8:8080/survey/" + entity, data)
       .pipe(
 
         catchError(this.handleError)

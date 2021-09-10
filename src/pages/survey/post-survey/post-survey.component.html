@@ -1510,8 +1510,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                         disabled
                                                                                         style="display:none; background: none;">
 
-                                                                                    <div class="col-sm-3 col-md-3 col-xs-12"
-                                                                                        *ngIf="displayLogicArray.value.pickMultipleCheckDisplayId === 'SELECT' ">
+                                                                                    <div class="col-sm-3 col-md-3 col-xs-12" *ngIf="displayLogicArray.value.pickMultipleCheckDisplayId === 'SELECT' ">
 
 
                                                                                         <div class="form-group">
@@ -1555,8 +1554,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                     </div>
 
 
-                                                                                    <div class="col-sm-3 col-md-3 col-xs-12"
-                                                                                        *ngIf="displayLogicArray.value.pickMultipleCheckDisplayId === 'NOT' ">
+                                                                                    <div class="col-sm-3 col-md-3 col-xs-12" *ngIf="displayLogicArray.value.pickMultipleCheckDisplayId === 'NOT' ">
                                                                                         <div class="form-group">
                                                                                             <!-- label -->
                                                                                             <!-- label -->
@@ -1763,7 +1761,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                 <div class="styled-select">
                                                                                     <select
-                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChangeSkipTo($event, i. section)"
+                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChangeSkipTo($event, i)"
                                                                                         formControlName="SkipTo">
                                                                                         <option value="select"
                                                                                             [selected]="SkipTo">
@@ -1928,7 +1926,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                                     formControlName="pickMultipleDisplayQuestionSkip"
                                                                                                     #pickMultipleDisplayQuestionSkip
                                                                                                     (change)="onDisplayFieldQuestionSecondDynamicChangeSkip($event,i,k2)">
-                                                                                                    <option
+                                                                                                    <option disabled
                                                                                                         value="select"
                                                                                                         [selected]="myDynamicDisplayquesIdInitialSkip[k2]">
                                                                                                         Select</option>
@@ -1962,7 +1960,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                                     #pickMultipleDisplayQuestionLogicTypeSkip
                                                                                                     (change)="onDisplayFieldQuestionSecondDynamicLogicalChangeSkip($event,i,k2,section)">
                                                                                                     <option
-                                                                                                        value="select"
+                                                                                                        value="select" disabled
                                                                                                         [selected]="myDynamicDisplayquesTextInitialSkip[k2]">
                                                                                                         Select</option>
 
@@ -1980,9 +1978,15 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
                                                                                             </div>
 
-
                                                                                         </div>
                                                                                     </div>
+
+
+
+
+
+
+
 
                                                                                     <!-- <pre>{{displayLogicArray.value.pickMultipleCheckDisplayId | json}}</pre> -->
 
@@ -1993,9 +1997,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                         disabled
                                                                                         style="display:none;background: none;">
 
-                                                                                    <div class="col-sm-3 col-md-3 col-xs-12"
-                                                                                        style="margin-right: 30px;"
-                                                                                        *ngIf="skipLogicArray.value.pickMultipleCheckDisplayIdSkip === 'SELECT' ">
+                                                                                    <div class="col-sm-3 col-md-3 col-xs-12" style="margin-right: 30px;" *ngIf="skipLogicArray.value.pickMultipleCheckDisplayIdSkip === 'SELECT' ">
 
 
                                                                                         <div class="form-group">
@@ -2009,7 +2011,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                                 #pickMultipleLabelChangeForAnswerSkip
                                                                                                 value="{{skipLogicArray.value.pickMultipleLabelChangeForAnswer}}"
                                                                                                 disabled
-                                                                                                style="background: none;">
+                                                                                                style="display:none;background: none;">
 
                                                                                             <div class="styled-select">
                                                                                                 <select
@@ -2039,8 +2041,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                     </div>
 
 
-                                                                                    <div class="col-sm-3 col-md-3 col-xs-12"
-                                                                                        *ngIf="skipLogicArray.value.pickMultipleCheckDisplayIdSkip === 'NOT' ">
+                                                                                    <div class="col-sm-3 col-md-3 col-xs-12" *ngIf="skipLogicArray.value.pickMultipleCheckDisplayIdSkip === 'NOT' ">
                                                                                         <div class="form-group">
                                                                                             <!-- label -->
                                                                                             <!-- label -->
@@ -2051,7 +2052,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                                 #pickMultipleLabelChangeForAnswerSkip
                                                                                                 value="{{skipLogicArray.value.pickMultipleLabelChangeForAnswerSkip}}"
                                                                                                 disabled
-                                                                                                style="background: none;">
+                                                                                                style="display:none;background: none;">
 
                                                                                             <div *ngIf="Edit">
                                                                                                 <input type="text"

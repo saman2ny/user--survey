@@ -266,6 +266,7 @@ export class PostSurveyComponent implements OnInit {
   ansOrder: any;
   SuccStat: boolean;
   SuccError: boolean;
+  getDisplayLabelAnswerDynamicSkip: any;
   constructor(private el: ElementRef, private formBuilder: FormBuilder, private router: Router, private http: HttpClient, public common: CommonService, private apiService: ApiService,
     public constantsService: ConstantsService) {
     this.user = this.common.getUser();
@@ -1445,7 +1446,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
     return [
-      this.firstDisplayDynamicLabelChange(indexx, k1),
+      // this.firstDisplayDynamicLabelChange(indexx, k1),
       this.secondDisplayDynamicHideType(indexx, k1)
 
 
@@ -1625,7 +1626,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
     // check format
-    const allValues = this.quesTypeIdDetailsSkip[0].quesOrder
+    const allValues = this.answerListQueueSkip[0].quesOrder
 
 var questionOrder = []
 questionOrder.push({"quesOrder" :allValues})
@@ -1752,28 +1753,27 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
 
 
   onDisplayFieldQuestionSecondDynamicLogicalChangeSkip(event, indexx, k2, sections) {
-    this.getDisplayLabelAnswerDynamic = event.target.value
-    this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleDisplayQuestionLogicTypeSkip.setValue(this.getDisplayLabelAnswerDynamic) as FormArray
+    this.getDisplayLabelAnswerDynamicSkip = event.target.value
+    this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleDisplayQuestionLogicTypeSkip.setValue(this.getDisplayLabelAnswerDynamicSkip) as FormArray
 
     
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
-    // check format
-    const allValues = this.quesTypeIdDetailsSkip[0].quesOrder
+    const allValues = this.answerListQueueSkip[0].quesOrder
 
 var questionOrder = []
 questionOrder.push({"quesOrder" :allValues})
 var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
 console.log(intersection[0].quesTypeId, "intersection");
-if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is") || 
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Not") ||
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Answered") ||
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Not Answered")){
+if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is") || 
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is Not") ||
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is Answered") ||
+(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Not Answered")){
   this.answerListIdSkip = ""
 }
 
-    if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered" || this.getDisplayLabelAnswerDynamic === "Is Answered" || this.getDisplayLabelAnswerDynamic === "Not Answered"||  this.getDisplayLabelAnswerDynamic === "select") {
+   else if (this.getDisplayLabelAnswerDynamicSkip === "Answered" || this.getDisplayLabelAnswerDynamicSkip === "Not answered" || this.getDisplayLabelAnswerDynamicSkip === "Is Answered" || this.getDisplayLabelAnswerDynamicSkip === "Not Answered"||  this.getDisplayLabelAnswerDynamicSkip === "select") {
       this.answerListIdSkip = ""
     } else {
       this.answerListIdSkip = this.quesGroupPush[0]
@@ -1781,7 +1781,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
     return [
-      this.firstDisplayDynamicLabelChangeSkip(indexx, k2),
+      // this.firstDisplayDynamicLabelChangeSkip(indexx, k2),
       this.secondDisplayDynamicHideTypeSkip(indexx, k2)
 
 
@@ -1789,7 +1789,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
   }
   firstDisplayDynamicLabelChangeSkip(indexx, k2) {
-    return this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleLabelChangeForAnswerSkip.setValue(this.getDisplayLabelAnswerDynamic) as FormArray;
+    return this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleLabelChangeForAnswerSkip.setValue(this.getDisplayLabelAnswerDynamicSkip) as FormArray;
   }
   secondDisplayDynamicHideTypeSkip(indexx, k2) {
     return this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleCheckDisplayIdSkip.setValue(this.answerListIdSkip) as FormArray;
