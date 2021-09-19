@@ -1097,7 +1097,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
 
 
                                                         </div>
-
+0
 
                                                         <div *ngIf="question.value.questionTypeId === 3 ">
                                                             <div class="col-xl-2 col-xs-2">
@@ -1308,8 +1308,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                             value="{{question.value.checkDisplayId}}"
                                                                             style="display:none;">
 
-                                                                        <div class="col-sm-12 col-md-12 col-xs-12"
-                                                                            *ngIf="question.value.checkDisplayId === 'SELECT' ">
+                                                                        <div class="col-sm-12 col-md-12 col-xs-12" *ngIf="question.value.checkDisplayId === 'SELECT' ">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayDropdown"> -->
                                                                             <div class="form-group">
 
@@ -1322,7 +1321,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                                     style="display:none;background: none;">
 
                                                                                 <div class="styled-select">
-                                                                                    <select
+                                                                                    <select 
                                                                                         (change)="getLastDisplayAnswer($event, i)"
                                                                                         formControlName="pickDisplayAnswerDropDown">
                                                                                         <option value="select"
@@ -1345,8 +1344,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                         </div>
 
 
-                                                                        <div class="col-sm-12 col-md-12 col-xs-12"
-                                                                            *ngIf="question.value.checkDisplayId === 'NOT'">
+                                                                        <div class="col-sm-12 col-md-12 col-xs-12" *ngIf="question.value.checkDisplayId === 'NOT'">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayTextField"> -->
                                                                             <div class="form-group">
                                                                                 <!-- label -->
@@ -1357,7 +1355,7 @@ value="{{pictureChoice.value.pictureType}}"> -->
                                                                                     formControlName="pickDisplayLabelLogicTypeForAnswer"
                                                                                     #pickDisplayLabelLogicTypeForAnswer
                                                                                     value="{{question.value.pickDisplayLabelLogicTypeForAnswer}}"
-                                                                                    disabled style="background: none;">
+                                                                                    disabled style="display:none;background: none;">
                                                                                 <div *ngIf="Edit">
                                                                                     <input type="text"
                                                                                         (focusout)="getLastDisplayAnswer($event, i)"
@@ -1438,7 +1436,6 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                         class="col-sm-4 col-md-4 col-xs-12">
                                                                                         <div class="form-group">
                                                                                             <!-- <label>Pick Answer </label> -->
-
                                                                                             <div class="styled-select">
                                                                                                 <select
                                                                                                     id="pickMultipleDisplayQuestion"
@@ -1471,12 +1468,11 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                         class="col-sm-4 col-md-4 col-xs-12">
                                                                                         <div class="form-group">
 
-
                                                                                             <div class="styled-select">
                                                                                                 <select
-                                                                                                    id="pickMultipleDisplayQuestionLogicType"
-                                                                                                    formControlName="pickMultipleDisplayQuestionLogicType"
-                                                                                                    #pickMultipleDisplayQuestionLogicType
+                                                                                                    id="dynamicdisplaylogiclogicaltype"
+                                                                                                    formControlName="dynamicdisplaylogiclogicaltype"
+                                                                                                    #dynamicdisplaylogiclogicaltype
                                                                                                     (change)="onDisplayFieldQuestionSecondDynamicLogicalChange($event,i,k1, section)">
                                                                                                     <option
                                                                                                         value="select"
@@ -1692,7 +1688,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                 <div class="styled-select">
                                                                                     <select
                                                                                         formControlName="pickDisplayQuestionSkip"
-                                                                                        (change)="onSkipFieldQuestionDynamicChange($event,i)">
+                                                                                        (change)="onSkipFieldQuestionChange($event,i)">
                                                                                         <option value="select"
                                                                                             [selected]="myquesIdVariableSkip">
                                                                                             Select</option>
@@ -1760,14 +1756,13 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
 
                                                                                 <div class="styled-select">
-                                                                                    <select
-                                                                                        (change)="onDisplayFieldQuestionSecondLogicalChangeSkipTo($event, i)"
+                                                                                    <select  (change)="onDisplayFieldQuestionSecondLogicalChangeSkipTo($event,i)"
                                                                                         formControlName="SkipTo">
                                                                                         <option value="select"
                                                                                             [selected]="SkipTo">
                                                                                             Select</option>
                                                                                             <option
-                                                                                            *ngFor="let answer of  quesTypeIdDetailsSkip"
+                                                                                            *ngFor="let answer of  quesTypeIdDetailsSkipTo"
                                                                                             value={{answer.quesId}}
                                                                                             [selected]="answer.quesId===SkipTo">
                                                                                             {{answer.quesText}}</option>
@@ -1784,16 +1779,12 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                             </div>
                                                                         </div>
 
-
-
-
                                                                         <input type="text" id="checkDisplayIdSkip"
                                                                             formControlName="checkDisplayIdSkip"
-                                                                            #checkDisplayId
+                                                                            #checkDisplayIdSkip
                                                                             value="{{question.value.checkDisplayIdSkip}}"
-                                                                            style="display: none;visibility: hidden;">
-                                                                        <div class="col-sm-4 col-md-4 col-xs-12"
-                                                                            *ngIf="question.value.checkDisplayIdSkip === 'SELECT' ">
+                                                                            style="display: none">
+                                                                        <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="question.value.checkDisplayIdSkip === 'SELECT' ">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayDropdown"> -->
                                                                             <div class="form-group">
 
@@ -1805,7 +1796,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                     disabled
                                                                                     style="display: none;background: none;">
 
-                                                                                <div class="styled-select">
+                                                                                <div class="styled-select" style="margin-top: 20px;">
                                                                                     <select
                                                                                         (change)="getLastDisplayAnswerSkip($event, i)"
                                                                                         formControlName="pickDisplayAnswerDropDownSkip">
@@ -1829,8 +1820,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                         </div>
 
 
-                                                                        <div class="col-sm-12 col-md-12 col-xs-12"
-                                                                            *ngIf="question.value.checkDisplayIdSkip === 'NOT'">
+                                                                        <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="question.value.checkDisplayIdSkip === 'NOT'">
                                                                             <!-- <div class="col-sm-4 col-md-4 col-xs-12" *ngIf="showDisplayTextField"> -->
                                                                             <div class="form-group">
                                                                                 <!-- label -->
@@ -1841,7 +1831,7 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                                                                                     formControlName="pickDisplayLabelLogicTypeForAnswerSkip"
                                                                                     #pickDisplayLabelLogicTypeForAnswerSkip
                                                                                     value="{{question.value.pickDisplayLabelLogicTypeForAnswerSkip}}"
-                                                                                    disabled style="background: none;">
+                                                                                    disabled style="display: none;background: none;">
                                                                                 <div *ngIf="Edit">
                                                                                     <input type="text"
                                                                                         (focusout)="getLastDisplayAnswerSkip($event, i)"
