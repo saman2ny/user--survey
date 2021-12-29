@@ -1,172 +1,61 @@
-<div class="breadcrumb-div">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/">Home </a></li>
-    <li class="breadcrumb-item active">Reports</li>
-  </ol>
-</div>
-<div class="inner-head">
-  <h2>View Reports</h2>
-</div>
-
-<div class="row">
-  <div class="status-filter">
-
-    <div class="col-xs-12">
-      <div class="tablesearch-sort">
-        <div class="tablesearch-sort">
-          <div class="search-input">
-            <div class="searchexpand">
-              <input type="text" id="searchTextId" placeholder="Search"/>
-              <button type="submit"><i class="icon-search"></i></button>
-            </div>
-            <!-- <span class="icon-search"></span>
-            <span class="icon-close1 closesearch" ></span> -->
-          </div>
-         
+<main>
+    <div class="content">
+      <section class="section">
+        <div class="text">
+          <!-- <h3>Lorem Ipsum</h3> -->
           
+          <ngx-charts-bar-vertical
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="single"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+
         </div>
-      </div>
-   
-      
-      <!-- <div class="button-orange">
-        <a 
-          (click)="addSurvey()">Create <span class="icon-plus"></span></a>
-      </div> -->
-
-      <button class="btn pull-right" (click)="generarPDF()"><span>Download</span></button>
-
-    </div>
-  </div>
-</div>
-
-<!-- <div fxLayoutAlign="center center" id="chart_div" GoogleChart
-style="width:7000; height: 300">
-</div> -->
-<!-- <div *ngFor="let chart of charts">
-    <chart [chartData]="chart.data"></chart>
-  
-  </div> -->
-
-<!-- <google-chart width="600"
-    type="LineChart"
-    [data]="chartData"
-    [options]="chartOptions"
-    >
-  </google-chart> -->
-
-  
-
-
-  <div class="give-space"></div>
-  <div class="give-space"></div>
-  <div class="give-space"></div>
-  <div class="give-space"></div>
-
-<!-- <div class="container">
-  <span class="col-xl-12">
-    <span class="col-xl-4 font-report">Umeshawran|</span>
-    <span class="col-xl-4 font-report">Classic</span>
-    <div class="clearfix give-space"></div>
-  </span>
-  <div class="give-space"></div>
-
-  <h2>Default Report</h2>
-  <div class="give-space"></div>
-
-  <p>Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum</p>
-  <div class="give-space"></div>
-
-  <div class="col-lg-12">
-    <span class="col-lg-3 col-xs-6 reports-right">Started</span>
-    <span class="col-lg-3 col-xs-6 reports-right">Avg.Time to complete</span>
-    <span class="col-lg-3 col-xs-6 reports-right">Completed</span>
-    <span class="col-lg-3 col-xs-6 reports-right">Completion Rate</span>
-  </div>
-  <div class="give-space"></div>
-  <div class="give-space"></div>
-  <div class="give-space"></div>
-
-</div> -->
-<!-- secondScroll -->
-<!-- secondScroll -->
-<!-- secondScroll -->
-<div >
-
-  <div *ngFor="let chart of charts; let i=index" class="content" id="content{{i}}" >
-    <div class="make-box">
-      <div class="background-color" style="background:red; padding: 30px; border-radius: 15px 15px 0px 0px;">
-
-        <span class="col-xl-12">
-          <span class="col-xl-4 font-report report-weight">Question 01|</span>
-          <span class="col-xl-4 font-report">Opinon Scale</span>
-          <div class="clearfix give-space"></div>
-        </span>
-
-        <span class="col-xl-12 font-report">Loreum ipsum Loreum ipsumLoreum ipsumLoreum ipsum</span>
-                  <div class="clearfix give-space"></div>
-
-
-        <span class="col-xl-12">
-          <span class="col-xl-4 font-report">Answered 01 &nbsp;&nbsp;</span>
-          <span class="col-xl-4 font-report">Skipped</span>
-          <div class="clearfix"></div>
-        </span>
-
-
-      </div>
-
-
-      <google-chart  class="google-center" width="500"
-      [type]="type"
-      [data]="chart.data"
-        >
-      </google-chart>
-
-
-   
-    <!-- {{chart.data}} -->
- 
-
-
-
-  <div class="responsive-nt repo-tab-pad">
-    <table class="table datatable table-visible">
-      <thead>
-        <tr>
-          <th scope="col">Answer Choices</th>
-          <th scope="col">Responses</th>
-          <th scope="col">Response Percentage</th>
-          
-        </tr>
-      </thead>
-   
-      
-      <tbody>
-        <tr >
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-
+      </section>
+      <section class="section">
+        <div class="text">
+          <h3>Temporibus nesciunt</h3>
+          <p>Rem quos aliquid tempora dolor temporibus nesciunt</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="text">
+          <h3>Rem quos aliquid</h3>
+          <ngx-charts-bar-vertical
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel"
+          (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
         
-
-        </tr>
-      </tbody>
-    </table>
-  
-  
-  </div>
-  
-
-  <div class="repo-tab-pad">
-    <div class="col-md-6 col-sm-6 col-xs-6">Page &nbsp;&nbsp; {{i+1}} / {{charts.length}}</div>
-  </div>
-</div>
-
-</div>
-
-
-
-
-</div>
-
-<!-- <div #pieChart id="pieChart" style="width: 100vw; height: 100vh;"></div> -->
+    </div>
+      </section>
+      <section class="section">
+        <div class="text">
+          <h3>Quam hic dicta</h3>
+          <p>Rem quos aliquid tempora dolor temporibus nesciunt</p>
+        </div>
+      </section>
+    </div>
+    <div class="nav">
+      <button class="prev">prev</button>
+      <button class="next">next</button>
+    </div>
+  </main>

@@ -123,12 +123,8 @@ export class ListSurveyComponent extends OnDestroyMixin implements OnInit {
     });
   }
 
-demoSurvey(): void {
-  this.router.navigateByUrl("/demo-reports");
-
-}
   addSurvey(){
-    this.router.navigateByUrl("/home/post-survey");
+    this.router.navigateByUrl("/post-survey");
   }
   showReports(listSurvey){
     this.common.setSurveyId(listSurvey)

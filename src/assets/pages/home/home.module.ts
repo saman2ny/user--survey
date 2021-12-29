@@ -59,16 +59,10 @@ import {MatButtonModule} from '@angular/material/button';
             path: '',
             loadChildren: () => import('src/pages/survey/survey.module')
               .then(({ SurveyModule }) => SurveyModule)
+          
          
-        },
- 
-        
-      ],
-
-     
-
-    },
-   
+        }
+      ]}
         
     ]),
     FormsModule,

@@ -3149,7 +3149,7 @@ if(succ.code === 200){
   }
   back() {
 
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl("/");
 
   }
 

@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+  }
+  section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ccc;
+    position: relative;
+  }
+  main {
+    height: 100vh;
+    overflow: hidden;
+  }
+  section:nth-child(2) {
+    background: blueviolet;
+  }
+  section:nth-child(3) {
+    background: yellowgreen;
+  }
+  .nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+  }
+  .text {
+    position: absolute;
+    left: 20%;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 0.5s 0.5s;
+  }
+  .text.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  button {
+    font-size: 14px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+
+  .legend-title {
+      all: initial !important;
+      all: unset !important;
+  }

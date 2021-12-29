@@ -1,0 +1,368 @@
+<div class="breadcrumb-div">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Home </a></li>
+    <li class="breadcrumb-item active">Reports</li>
+  </ol>
+</div>
+<div class="inner-head">
+  <h2>View Reports</h2>
+</div>
+
+<div class="row">
+  <div class="status-filter">
+
+    <div class="col-xs-12">
+      <div class="tablesearch-sort">
+        <div class="tablesearch-sort">
+          <div class="search-input">
+            <div class="searchexpand">
+              <input type="text" id="searchTextId" placeholder="Search"/>
+              <button type="submit"><i class="icon-search"></i></button>
+            </div>
+            <!-- <span class="icon-search"></span>
+            <span class="icon-close1 closesearch" ></span> -->
+          </div>
+         
+          
+        </div>
+      </div>
+   
+      
+      <!-- <div class="button-orange">
+        <a 
+          (click)="addSurvey()">Create <span class="icon-plus"></span></a>
+      </div> -->
+
+      <button class="btn pull-right" (click)="generarPDF()"><span>Download</span></button>
+
+    </div>
+  </div>
+</div>
+
+<!-- <div fxLayoutAlign="center center" id="chart_div" GoogleChart
+style="width:7000; height: 300">
+</div> -->
+<!-- <div *ngFor="let chart of charts">
+    <chart [chartData]="chart.data"></chart>
+  
+  </div> -->
+
+<!-- <google-chart width="600"
+    type="LineChart"
+    [data]="chartData"
+    [options]="chartOptions"
+    >
+  </google-chart> -->
+
+  
+
+
+  <div class="give-space"></div>
+  <div class="give-space"></div>
+  <div class="give-space"></div>
+  <div class="give-space"></div>
+
+<!-- <div class="container">
+  <span class="col-xl-12">
+    <span class="col-xl-4 font-report">Umeshawran|</span>
+    <span class="col-xl-4 font-report">Classic</span>
+    <div class="clearfix give-space"></div>
+  </span>
+  <div class="give-space"></div>
+
+  <h2>Default Report</h2>
+  <div class="give-space"></div>
+
+  <p>Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum Loreum Ipsum</p>
+  <div class="give-space"></div>
+
+  <div class="col-lg-12">
+    <span class="col-lg-3 col-xs-6 reports-right">Started</span>
+    <span class="col-lg-3 col-xs-6 reports-right">Avg.Time to complete</span>
+    <span class="col-lg-3 col-xs-6 reports-right">Completed</span>
+    <span class="col-lg-3 col-xs-6 reports-right">Completion Rate</span>
+  </div>
+  <div class="give-space"></div>
+  <div class="give-space"></div>
+  <div class="give-space"></div>
+
+</div> -->
+<!-- secondScroll -->
+<!-- secondScroll -->
+<!-- secondScroll -->
+<div >
+
+  <!-- <div *ngFor="let chart of charts; let i=index" class="content" id="content{{i}}" >
+    <div class="make-box">
+      <div class="background-color" style="background:red; padding: 30px; border-radius: 15px 15px 0px 0px;">
+
+        <span class="col-xl-12">
+          <span class="col-xl-4 font-report report-weight">Question 01|</span>
+          <span class="col-xl-4 font-report">Opinon Scale</span>
+          <div class="clearfix give-space"></div>
+        </span>
+
+        <span class="col-xl-12 font-report">Loreum ipsum Loreum ipsumLoreum ipsumLoreum ipsum</span>
+                  <div class="clearfix give-space"></div>
+
+
+        <span class="col-xl-12">
+          <span class="col-xl-4 font-report">Answered 01 &nbsp;&nbsp;</span>
+          <span class="col-xl-4 font-report">Skipped</span>
+          <div class="clearfix"></div>
+        </span>
+
+
+      </div>
+
+
+      <google-chart  class="google-center" width="500"
+      [type]="type"
+      [data]="chart.data"
+        >
+      </google-chart> 
+
+
+
+  <div class="responsive-nt repo-tab-pad">
+    <table class="table datatable table-visible">
+      <thead>
+        <tr>
+          <th scope="col">Answer Choices</th>
+          <th scope="col">Responses</th>
+          <th scope="col">Response Percentage</th>
+          
+        </tr>
+      </thead>
+   
+      
+      <tbody>
+        <tr >
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+
+        
+
+        </tr>
+      </tbody>
+    </table>
+  
+  
+  </div>
+  
+
+  <div class="repo-tab-pad">
+    <div class="col-md-6 col-sm-6 col-xs-6">Page &nbsp;&nbsp; {{i+1}} / {{charts.length}}</div>
+  </div>
+</div>
+
+</div> -->
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="app-container">
+<div class="grid grid-nogutter grid-nowrap">
+<div class="fx--fw ss-main-wrapper">
+<div class="fx-row fx--fw fx-ai--start">
+<div class="fx-grow-1 mw-100">
+<div class="grid grid-nogutter grid-nowrap position--relative">
+<div class="ss-reports--wrapper">
+    <div class="ss-reports--container">
+        <div class="ss-reports--item ss-reports--cover" id="reportItemCover">
+            <div class="fx-row fx--fw mb--xs" style="font-family: 'Source Sans Pro';">
+                <h3 class="ss-text ss-text__size--h3 ss-text__weight--regular ss-text__color--black" style="opacity: 0.3;">samantony</h3>
+                <h3 class="ss-text ss-text__size--h3 ss-text__weight--regular ss-text__color--black" style="opacity: 0.3;">&nbsp;&nbsp;|&nbsp;&nbsp;</h3>
+                <h3 class="ss-text ss-text__size--h3 ss-text__weight--regular ss-text__color--black" style="opacity: 0.3;">classic survey</h3>
+            </div>
+            <div class="ss-reports--cover-info">
+                <h1 class="ss-text ss-text__size--jumbo ss-text__weight--bold ss-text__color--black ss-text__family--serif ss-text__overflow-wrap mb--sm" style="font-family: 'Source Serif Pro';">Default Report</h1>
+                <h3 class="ss-text ss-text__size--h3 ss-text__weight--normal ss-text__color--grey ss-text__line-height--medium ss-text__overflow-wrap" style="font-family: 'Source Sans Pro';">
+                    Explore the data behind your survey responses. Gain a better perspective of your survey data and uncover insights for further planning.
+                </h3>
+            </div>
+            <div class="ss-reports--cover-stats wmt--xl">
+                <div class="grid grid-nogutter">
+                    <div class="col-6 wmb--md">
+                        <div class="fx-row fx-ai--start" style="font-family: 'Source Sans Pro';">
+                            <svg height="24" width="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.60594 19.1941C5.9894 18.7726 4.5126 17.9322 3.32449 16.7578C2.13637 15.5834 1.27896 14.1165 0.83872 12.5049C0.398485 10.8934 0.390997 9.19424 0.817011 7.57888C1.24303 5.96353 2.08748 4.48907 3.26519 3.30423C4.44291 2.11939 5.91225 1.26607 7.52501 0.830319C9.13777 0.394573 10.8369 0.391817 12.4511 0.822328C14.0652 1.25284 15.5373 2.10139 16.7189 3.28241C17.9005 4.46342 18.7497 5.93513 19.1809 7.54909"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                                <path
+                                    d="M6.8365 14.5002C6.18401 14.041 5.63925 13.4453 5.24001 12.7545C4.84077 12.0637 4.59661 11.2943 4.52448 10.4997C4.45234 9.70507 4.55396 8.90428 4.82227 8.15287C5.09059 7.40146 5.51918 6.71742 6.07831 6.14822C6.63744 5.57902 7.31372 5.13829 8.06022 4.8566C8.80672 4.57492 9.60557 4.45902 10.4013 4.51696C11.1971 4.5749 11.9708 4.80529 12.6686 5.19213C13.3664 5.57898 13.9717 6.11302 14.4425 6.75721"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                                <path
+                                    d="M18.3933 14.8641L20.5853 12.6721C20.6468 12.6105 20.6911 12.5338 20.7139 12.4498C20.7367 12.3658 20.7371 12.2773 20.7152 12.193C20.6933 12.1088 20.6498 12.0317 20.5889 11.9695C20.5281 11.9072 20.452 11.8619 20.3683 11.8381L9.46531 8.73208C9.3796 8.70762 9.2889 8.70652 9.20262 8.7289C9.11633 8.75127 9.0376 8.79631 8.97457 8.85934C8.91154 8.92237 8.86651 9.0011 8.84413 9.08738C8.82176 9.17367 8.82286 9.26436 8.84731 9.35008L11.9533 20.2501C11.9772 20.3338 12.0225 20.4098 12.0847 20.4707C12.147 20.5315 12.224 20.5751 12.3083 20.597C12.3925 20.6189 12.481 20.6185 12.5651 20.5957C12.6491 20.5729 12.7257 20.5286 12.7873 20.4671L14.8373 18.4181L19.5693 23.1501C19.6158 23.1966 19.6709 23.2336 19.7317 23.2588C19.7924 23.284 19.8575 23.297 19.9233 23.297C19.9891 23.297 20.0542 23.284 20.1149 23.2588C20.1757 23.2336 20.2309 23.1966 20.2773 23.1501L23.1263 20.3011C23.22 20.2073 23.2727 20.0802 23.2727 19.9476C23.2727 19.815 23.22 19.6878 23.1263 19.5941L18.3933 14.8641Z"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                            </svg>
+                            <div class="fx-colum ml--lg">
+                                <h3 class="ss-text ss-text__size--h3 ss-text__weight--normal ss-text__color--grey mb--xs">Started</h3>
+                                <div class="fx-row fx-ai--end">
+                                    <h1 class="ss-text ss-text__size--jumbo ss-text__weight--bold ss-text__color--black ss-text__family--serif ss-text__line-height--normal" style="font-family: 'Source Serif Pro';">7</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 wmb--md">
+                        <div class="fx-row fx-ai--start" style="font-family: 'Source Sans Pro';">
+                            <svg height="24" width="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12 23.501C18.3513 23.501 23.5 18.3523 23.5 12.001C23.5 5.6497 18.3513 0.500977 12 0.500977C5.64873 0.500977 0.5 5.6497 0.5 12.001C0.5 18.3523 5.64873 23.501 12 23.501Z"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                                <path d="M17.9996 18.0011L13.0566 13.0591" stroke="#63686F" stroke-linecap="round"></path>
+                                <path
+                                    d="M12 13.501C12.8284 13.501 13.5 12.8294 13.5 12.001C13.5 11.1725 12.8284 10.501 12 10.501C11.1716 10.501 10.5 11.1725 10.5 12.001C10.5 12.8294 11.1716 13.501 12 13.501Z"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                                <path d="M12 6.50098V10.501" stroke="#63686F" stroke-linecap="round"></path>
+                            </svg>
+                            <div class="fx-colum ml--lg">
+                                <h3 class="ss-text ss-text__size--h3 ss-text__weight--normal ss-text__color--grey mb--xs">Avg. Time to Complete</h3>
+                                <div class="fx-row fx-ai--end">
+                                    <h1 class="ss-text ss-text__size--jumbo ss-text__weight--bold ss-text__color--black ss-text__family--serif ss-text__line-height--normal" style="font-family: 'Source Serif Pro';">22s</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 wmb--md">
+                        <div class="fx-row fx-ai--start" style="font-family: 'Source Sans Pro';">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6.99902L11 16.499L6 12.499" stroke="#63686F" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path
+                                    d="M12 23.499C18.3513 23.499 23.5 18.3503 23.5 11.999C23.5 5.64775 18.3513 0.499023 12 0.499023C5.64873 0.499023 0.5 5.64775 0.5 11.999C0.5 18.3503 5.64873 23.499 12 23.499Z"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                ></path>
+                            </svg>
+                            <div class="fx-colum ml--lg">
+                                <h3 class="ss-text ss-text__size--h3 ss-text__weight--normal ss-text__color--grey mb--xs">Completed</h3>
+                                <div class="fx-row fx-ai--end">
+                                    <h1 class="ss-text ss-text__size--jumbo ss-text__weight--bold ss-text__color--black ss-text__family--serif ss-text__line-height--normal" style="font-family: 'Source Serif Pro';">7</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 wmb--md">
+                        <div class="fx-row fx-ai--start" style="font-family: 'Source Sans Pro';">
+                            <svg height="24" width="24" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.5 9.5V5.5H3.5V18.499L8.5 18.5" stroke="#63686F" stroke-linecap="round"></path>
+                                <path
+                                    d="M17.5 8.49981V3.49981C17.5 3.2346 17.3946 2.98024 17.2071 2.79271C17.0196 2.60517 16.7652 2.49981 16.5 2.49981H12.052C11.7926 1.90677 11.3659 1.40222 10.8242 1.0479C10.2825 0.693588 9.64929 0.504883 9.002 0.504883C8.35471 0.504883 7.72146 0.693588 7.17976 1.0479C6.63806 1.40222 6.2114 1.90677 5.952 2.49981H1.5C1.23478 2.49981 0.98043 2.60517 0.792893 2.79271C0.605357 2.98024 0.5 3.2346 0.5 3.49981V20.4998C0.5 20.765 0.605357 21.0194 0.792893 21.2069C0.98043 21.3945 1.23478 21.4998 1.5 21.4998H9.5"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                                <path d="M6.5 8.5H11.5" stroke="#63686F" stroke-linecap="round"></path>
+                                <path d="M6.5 11.5H11.5" stroke="#63686F" stroke-linecap="round"></path>
+                                <path d="M6.5 14.5H9.5" stroke="#63686F" stroke-linecap="round"></path>
+                                <path
+                                    d="M17.5 23.5C20.8137 23.5 23.5 20.8137 23.5 17.5C23.5 14.1863 20.8137 11.5 17.5 11.5C14.1863 11.5 11.5 14.1863 11.5 17.5C11.5 20.8137 14.1863 23.5 17.5 23.5Z"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                                <path
+                                    d="M20.1737 15.7549L17.2687 19.6289C17.2041 19.7148 17.1218 19.7858 17.0274 19.8372C16.933 19.8886 16.8286 19.9191 16.7214 19.9267C16.6142 19.9343 16.5066 19.9187 16.4059 19.8812C16.3052 19.8436 16.2137 19.7848 16.1377 19.7089L14.6377 18.2089"
+                                    stroke="#63686F"
+                                    stroke-linecap="round"
+                                ></path>
+                            </svg>
+                            <div class="fx-colum ml--lg">
+                                <h3 class="ss-text ss-text__size--h3 ss-text__weight--normal ss-text__color--grey mb--xs">Completion Rate</h3>
+                                <div class="fx-row fx-ai--end">
+                                    <h1 class="ss-text ss-text__size--jumbo ss-text__weight--bold ss-text__color--black ss-text__family--serif ss-text__line-height--normal" style="font-family: 'Source Serif Pro';">100.00%</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ss-reports--cover-image fx-column fx-ai--end fx-jc--end"><img src="https://static.surveysparrow.com/application/images/common/coversvg_1.png" width="373" height="auto" alt="" class="image" /></div>
+            <div class="ss-reports--cover-footer"><p class="ss-text ss-text__size--micro ss-text__weight--normal ss-text__color--grey">Page 1/{{charts.length}}</p></div>
+        </div>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div *ngFor="let chart of chartsAndReports.reports; let i=index" class="content" id="content{{i}}" class="ss-reports--item" id="reportItem1413759" style="font-family: 'Source Sans Pro';">
+    <div class="ss-reports--item__header" style="background-color: rgba(81, 211, 217, 0.7); color: rgb(0, 0, 0);">
+        <div class="ss-reports--item__question" style="background-color: rgb(81, 211, 217);">
+            <p class="ss-text ss-text__size--micro ss-text__weight--normal ss-text__transform--uppercase mb--xs" style="color: inherit;">
+                <b>QUESTION <span>{{i+1}}</span></b>&nbsp;| {{ getDataText(chart.quesTypeId) }}
+            </p>
+            <div class="fx--fw mb--lg">
+                <h1 class="ss-text ss-text__size--jumbo ss-text__weight--thin ss-text__color--white ss-text__overflow-wrap" style="color: inherit;">{{chart.quesText}}</h1>
+                <h4 class="ss-text ss-text__size--h4 ss-text__weight--thin ss-text__line-height--medium ss-text__pre-wrap mt--xs ss-text__overflow-wrap" style="color: inherit;"></h4>
+            </div>
+            <div class="fx-row">
+                <div class="fx-grow-1 fx-row">
+                    <h4 class="ss-text ss-text__size--h4 ss-text__weight--normal wmr--sm" style="color: inherit;">Answered:&nbsp;<b>0</b></h4>
+                    <h4 class="ss-text ss-text__size--h4 ss-text__weight--normal" style="color: inherit;">Skipped:&nbsp;<b>0</b></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <div class="ss-reports--item__metrics" *ngFor="let ct of chartsAndReports.charts;">
+        <div class="fx-column fx-ai--center wptb--xl wplr--sm">
+          <google-chart  class="google-center" width="500"
+          [type]="type"
+          [data]="ct.data"
+            >
+          </google-chart> 
+
+            <!-- <div style="width: 296px; height: 246px;"><img src="https://static.surveysparrow.com/application/images/reports-no-data.png" class="img-responsive" /></div>
+            <h1 class="ss-text ss-text__size--jumbo ss-text__weight--bold ss-text__color--black ss-text__family--serif mb--sm">No Responses Found!</h1>
+            <h4 class="ss-text ss-text__size--h4 ss-text__weight--normal ss-text__color--grey">You have no responses to this question. Either this is too early or Share your survey more.</h4> -->
+        </div>
+    </div>
+    <div class="ss-reports--item__footer">
+        <div class="fx-row fx-jc--between fx--fw">
+            <p class="ss-text ss-text__size--micro ss-text__weight--normal ss-text__color--grey">Page {{i+2}} / {{charts.length}}</p>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- <div #pieChart id="pieChart" style="width: 100vw; height: 100vh;"></div> -->
