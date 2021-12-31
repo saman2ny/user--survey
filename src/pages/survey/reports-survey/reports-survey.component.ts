@@ -1,5 +1,5 @@
-import { Component, OnInit, VERSION, ViewEncapsulation } from '@angular/core';
-
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
+import { Component, ElementRef, OnInit, VERSION, ViewChild, ViewEncapsulation } from '@angular/core';
 
 
 @Component({
@@ -10,19 +10,10 @@ import { Component, OnInit, VERSION, ViewEncapsulation } from '@angular/core';
 })
 export class ReportsSurveyComponent implements OnInit {
 
-  content;
-  prev;
-  next;
-  idlePeriod = 100;
-  animationDuration = 1000;
-  lastAnimation = 0;
-  index = 0;
-
 // charts
 
 single: any[];
   multi: any[];
-
   view: any[] = [700, 400];
 
   // options
@@ -38,81 +29,80 @@ single: any[];
   colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
+  dates: { id: number; name: string; single: any }[];
 
   constructor() {
 
+this.dates = [
+  {id: 1, name: 'hello', single: [
+    {
+      name: 'Germany',
+      value: 8940000
+    },
+    {
+      name: 'USA',
+      value: 5000000
+    },
+    {
+      name: 'France',
+      value: 7200000
+    }
+  ]
+},
+  {id: 2, name: 'hello', single: [
+    {
+      name: 'Germany',
+      value: 8940000
+    },
+    {
+      name: 'USA',
+      value: 5000000
+    },
+    {
+      name: 'France',
+      value: 7200000
+    }
+  ]},
+  {id: 3, name: 'hello', single: [
+    {
+      name: 'Germany',
+      value: 8940000
+    },
+    {
+      name: 'USA',
+      value: 5000000
+    },
+    {
+      name: 'France',
+      value: 7200000
+    }
+  ]},
+  {id: 4, name: 'hello', single: [
+    {
+      name: 'Germany',
+      value: 8940000
+    },
+    {
+      name: 'USA',
+      value: 5000000
+    },
+    {
+      name: 'France',
+      value: 7200000
+    }
+  ]}
+];
+
   }
 
-     toggleText = (index, state) => {
-    if (state === 'show') {
-      this.content[index].querySelector('.text').classList.add('show');
-    } else {
-      this.content[index].querySelector('.text').classList.remove('show');
-    }
-  };
+
 
   ngOnInit(): void {
-      this.loadLibrary();
-          Object.assign(this, { single })
+          // Object.assign(this, { single });
 
 
   }
 
-  loadLibrary(): void {
-
-    this.content = document.querySelectorAll('.section');
-    this.prev = document.querySelector('.prev');
-    this.next = document.querySelector('.next');
-
-    this.toggleText(0, 'show');
-
-    this.prev.addEventListener('click', () => {
-      if (this.index < 1) return;
-      this.toggleText(this.index, 'hide');
-      this.index--;
-      this.content.forEach((section, i) => {
-        if (i === this.index) {
-          this.toggleText(i, 'show');
-          section.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    this.next.addEventListener('click', () => {
-      if (this.index > 2) return;
-      this.toggleText(this.index, 'hide');
-      this.index++;
-      this.content.forEach((section, i) => {
-        if (i === this.index) {
-          this.toggleText(i, 'show');
-          section.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    document.addEventListener('wheel', (event: WheelEvent) => {
-      var delta = 0;
-      if (event['wheelDelta']) {
-        delta = event['wheelDelta'];
-      }
-      var timeNow = new Date().getTime();
-      // Cancel scroll if currently animating or within quiet period
-      if (timeNow - this.lastAnimation < this.idlePeriod + this.animationDuration) {
-        event.preventDefault();
-        return;
-      }
-
-      if (delta < 0) {
-        var event_temp = new Event('click');
-        this.next.dispatchEvent(event_temp);
-      } else {
-        var event_temp = new Event('click');
-        this.prev.dispatchEvent(event_temp);
-      }
-
-      this.lastAnimation = timeNow;
-    });
-  }
 
 
   onSelect(event): void {
@@ -121,26 +111,20 @@ single: any[];
 
   }
 
-  
 
-  
-  export let single = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    }
-  ];
- 
+  // export const single = [
+  //   {
+  //     name: 'Germany',
+  //     value: 8940000
+  //   },
+  //   {
+  //     name: 'USA',
+  //     value: 5000000
+  //   },
+  //   {
+  //     name: 'France',
+  //     value: 7200000
+  //   }
+  // ];
 
-  
-
- 
 

@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
   }
   section {
@@ -47,4 +47,58 @@ body {
   .legend-title {
       all: initial !important;
       all: unset !important;
+  } */
+
+  @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+  .mt{
+    margin-top: 40px;
   }
+
+  .mb{
+    margin-bottom: 40px;
+  }
+
+  .ml-15 {
+    margin-left: 15px;
+  }
+
+  .p-20 {
+    padding: 20px;
+  }
+
+  .bg-radius {
+    border-radius: 15px;
+  }
+
+  .title-bg {
+     background-color: rgba(81, 211, 217, 0.7);
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  .legend-title {
+    all: initial !important;
+    all: unset !important;
+}
+
+@media screen and (min-width: 992px) {
+/* 
+  .set-height{
+    height: 96vh;
+  } */
+ 
+}

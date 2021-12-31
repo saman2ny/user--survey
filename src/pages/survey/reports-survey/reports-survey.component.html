@@ -1,61 +1,66 @@
-<main>
-    <div class="content">
-      <section class="section">
-        <div class="text">
-          <!-- <h3>Lorem Ipsum</h3> -->
-          
-          <ngx-charts-bar-vertical
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="single"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  (select)="onSelect($event)">
-</ngx-charts-bar-vertical>
+<section class="text-center container">
+  <mat-card class="header  mb">Welcome to demo</mat-card>
+  <mat-card class="set-height mb" *ngFor="let repair of dates; let i= index">
+    <mat-card-content #ContainerRef>
+      <mat-card-title class="title-bg bg-radius p-20" align="left" fxLayout="column" fxLayoutAlign="space-between">
+        <mat-card-subtitle><span class="ml-15"><b>QUESTION 02</b> | MULTIPLE CHOICE</span></mat-card-subtitle>
+        <span class="ml-15">{{repair.name | uppercase}}</span>
+        <mat-card-subtitle><span class="ml-15">Answered: <b>1</b> &nbsp;&nbsp;&nbsp;&nbsp; Skipped: <b>0</b></span></mat-card-subtitle>
+      </mat-card-title>
 
-        </div>
-      </section>
-      <section class="section">
-        <div class="text">
-          <h3>Temporibus nesciunt</h3>
-          <p>Rem quos aliquid tempora dolor temporibus nesciunt</p>
-        </div>
-      </section>
-      <section class="section">
-        <div class="text">
-          <h3>Rem quos aliquid</h3>
-          <ngx-charts-bar-vertical
-          [view]="view"
-          [scheme]="colorScheme"
-          [results]="single"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
-        
-    </div>
-      </section>
-      <section class="section">
-        <div class="text">
-          <h3>Quam hic dicta</h3>
-          <p>Rem quos aliquid tempora dolor temporibus nesciunt</p>
-        </div>
-      </section>
-    </div>
-    <div class="nav">
-      <button class="prev">prev</button>
-      <button class="next">next</button>
-    </div>
-  </main>
+      <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="repair.single" [gradient]="gradient"
+        [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)" [view]="[ContainerRef.offsetWidth, 400]">
+      </ngx-charts-bar-vertical>
+
+      <table>
+        <tr>
+          <th>Company</th>
+          <th>Contact</th>
+          <th>Country</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>Centro comercial Moctezuma</td>
+          <td>Francisco Chang</td>
+          <td>Mexico</td>
+        </tr>
+        <tr>
+          <td>Ernst Handel</td>
+          <td>Roland Mendel</td>
+          <td>Austria</td>
+        </tr>
+        <tr>
+          <td>Island Trading</td>
+          <td>Helen Bennett</td>
+          <td>UK</td>
+        </tr>
+        <tr>
+          <td>Laughing Bacchus Winecellars</td>
+          <td>Yoshi Tannamuri</td>
+          <td>Canada</td>
+        </tr>
+        <tr>
+          <td>Magazzini Alimentari Riuniti</td>
+          <td>Giovanni Rovelli</td>
+          <td>Italy</td>
+        </tr>
+      </table>
+
+    </mat-card-content>
+
+    <mat-card-footer>
+      <mat-card-actions align="end">
+        <button mat-button>Page of 0{{i}}</button>
+        <button mat-button>Made with Umesh</button>
+      </mat-card-actions>
+    </mat-card-footer>
+
+
+  </mat-card>
+</section>
