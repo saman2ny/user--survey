@@ -56,15 +56,32 @@
   }
 
   .mb{
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
+  }
+
+  .mb-80{
+    margin-bottom: 80px !important;
   }
 
   .ml-15 {
     margin-left: 15px;
   }
 
+  .mr-25 {
+    margin-right: 25px;
+  }
+
+  .ml-35 {
+    margin-left: 35px !important;
+  }
+
+
   .p-20 {
     padding: 20px;
+  }
+
+  .p-50 {
+    padding: 50px !important;
   }
 
   .bg-radius {
@@ -72,7 +89,8 @@
   }
 
   .title-bg {
-     background-color: rgba(81, 211, 217, 0.7);
+     /* background-color: rgba(81, 211, 217, 0.7); */
+    background: radial-gradient(circle, rgba(29,197,199,1) 0%, rgba(253,187,45,1) 100%);
   }
 
   table {
@@ -95,9 +113,17 @@
     all: unset !important;
 }
 
+.f-size {
+  font-size: 15px;
+}
+
+.f-size-sub {
+  font-size: 25px;
+}
+
 @media screen and (min-width: 992px) {
-/* 
-  .set-height{
+
+  /* .set-height{
     height: 96vh;
   } */
  

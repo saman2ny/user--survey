@@ -128,7 +128,7 @@ demoSurvey(): void {
 
 }
   addSurvey(){
-    this.router.navigateByUrl("/home/post-survey");
+    this.router.navigateByUrl("post-survey");
   }
   showReports(listSurvey){
     this.common.setSurveyId(listSurvey)
@@ -138,8 +138,8 @@ demoSurvey(): void {
   goEditListSurvey(listSurvey){
 
     var listSurveyId = { "listSurvey": listSurvey };
-    this.common.setEditcompany(listSurveyId)
-    
+    this.common.setEditcompany(listSurveyId);
+
     this.router.navigateByUrl('/post-survey');
   }
 
@@ -155,7 +155,7 @@ demoSurvey(): void {
           return fetch;
       });
     if (fetStatus.length)
-      return fetStatus[0].statusDesc
+      return fetStatus[0].statusDesc;
 
   }
 

@@ -1,14 +1,63 @@
 <section class="text-center container">
-  <mat-card class="header  mb">Welcome to demo</mat-card>
+  <mat-card class="mb p-50">
+    <mat-card-subtitle align="left">samantony|classicsurvey</mat-card-subtitle>
+    <mat-card-title align="left" class="mb">Default Report</mat-card-title>
+    <mat-card-subtitle align="left" class="mb">Explore the data behind your survey responses. Gain a better perspective of your survey data and uncover insights for further planning.</mat-card-subtitle>
+
+    <mat-card-content class="mb" >
+
+      <div fxLayout="column" fxLayoutGap="10px" class="container">
+      <div fxLayout.gt-sm="row" fxLayout.lt-md="row" 
+      fxLayoutGap="10px" fxFlex="50%" class="block-2">
+    <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
+      fxFlexFill class="grid-item">
+      <i-feather name="Heart" class="mr-25"></i-feather><span class="f-size row">Started</span>
+
+
+    </div>
+    <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
+      fxFlexFill class="grid-item">
+      <i-feather name="Heart" class="mr-25"></i-feather><span class="f-size row">Completed</span>
+    </div>
+  </div>
+</div>
+
+
+<div fxLayout="column" fxLayoutGap="10px" class="container">
+  <div fxLayout.gt-sm="row" fxLayout.lt-md="row" 
+  fxLayoutGap="10px" fxFlex="50%" class="block-2">
+<div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
+  fxFlexFill class="grid-item">
+  <span class="f-size-sub row ml-35">7</span>
+
+
+</div>
+<div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
+  fxFlexFill class="grid-item">
+  <span class="f-size-sub row ml-35">100%</span>
+</div>
+</div>
+</div>
+
+</mat-card-content>
+
+
+  </mat-card>
+
+
+
+
+
+
   <mat-card class="set-height mb" *ngFor="let repair of dates; let i= index">
     <mat-card-content #ContainerRef>
       <mat-card-title class="title-bg bg-radius p-20" align="left" fxLayout="column" fxLayoutAlign="space-between">
         <mat-card-subtitle><span class="ml-15"><b>QUESTION 02</b> | MULTIPLE CHOICE</span></mat-card-subtitle>
-        <span class="ml-15">{{repair.name | uppercase}}</span>
+        <span class="ml-15">{{repair.quesText | uppercase}}</span>
         <mat-card-subtitle><span class="ml-15">Answered: <b>1</b> &nbsp;&nbsp;&nbsp;&nbsp; Skipped: <b>0</b></span></mat-card-subtitle>
       </mat-card-title>
 
-      <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="repair.single" [gradient]="gradient"
+      <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="repair.chart" [gradient]="gradient"
         [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
         (select)="onSelect($event)" [view]="[ContainerRef.offsetWidth, 400]">
@@ -18,38 +67,14 @@
         <tr>
           <th>Company</th>
           <th>Contact</th>
-          <th>Country</th>
+          <!-- <th>Country</th> -->
         </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>Germany</td>
+        <tr *ngFor="let tables of repair.chart;">
+          <td>{{tables.name}}</td>
+          <td>{{tables.value}}</td>
+          <!-- <td>Germany</td> -->
         </tr>
-        <tr>
-          <td>Centro comercial Moctezuma</td>
-          <td>Francisco Chang</td>
-          <td>Mexico</td>
-        </tr>
-        <tr>
-          <td>Ernst Handel</td>
-          <td>Roland Mendel</td>
-          <td>Austria</td>
-        </tr>
-        <tr>
-          <td>Island Trading</td>
-          <td>Helen Bennett</td>
-          <td>UK</td>
-        </tr>
-        <tr>
-          <td>Laughing Bacchus Winecellars</td>
-          <td>Yoshi Tannamuri</td>
-          <td>Canada</td>
-        </tr>
-        <tr>
-          <td>Magazzini Alimentari Riuniti</td>
-          <td>Giovanni Rovelli</td>
-          <td>Italy</td>
-        </tr>
+   
       </table>
 
     </mat-card-content>

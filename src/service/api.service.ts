@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpRequest, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs/index";
-import { catchError, retry } from 'rxjs/operators'
+import { catchError, retry } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { CommonService } from './common.service';
 import { ConstantsService } from './constants.service';
 
 @Injectable()
 export class ApiService {
-  sessionToken: any = "";
+  sessionToken: any = '';
   user: any;
 
 
@@ -43,8 +44,8 @@ export class ApiService {
   // baseUrl = 'http://59.144.137.134/EA/'; 
 
   //Rajesh
-  // baseUrl = 'http://172.16.8.196:8084/EA/';  
-  baseUrl = 'http://172.16.8.146:8080/EA/';  
+  // baseUrl = 'http://172.16.8.196:8084/EA/';
+  baseUrl = 'http://172.16.8.146:8080/EA/';
 
   //oracle live
   //  baseUrl = 'https://enterprisealert.ducont.com:8080/EA/';
@@ -52,10 +53,10 @@ export class ApiService {
   // scheduleUrl = 'http://enterprisealert.ducont.com:8080/scheduler/';
   //sql database
   // baseUrl="http://enterprisealert.ducont.com:8080/EASQL/"
-  actatorUrl="http://enterprisealert.ducont.com:8080/EASQL/"
+  actatorUrl='http://enterprisealert.ducont.com:8080/EASQL/';
   // scheduleUrl = 'http://172.16.8.164:8085/scheduler/';
   scheduleUrl = 'http://enterprisealert.ducont.com:8080/scheduler/';
-// 
+//
   // analyticsUrl = 'http://enterprisealert.ducont.com:84/callback?code=';
   analyticsUrl = 'http://192.168.0.109:4200/callback?code=';
 
@@ -86,7 +87,7 @@ export class ApiService {
 
 
   getSurvey(entity, data) {
-    return this.http.get("http://668f-27-5-233-250.ngrok.io" + entity, data)
+    return this.http.get('http://13.233.112.77:8080/survey/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -94,7 +95,7 @@ export class ApiService {
   }
 
   postSurvey(entity, data) {
-    return this.http.post("http://668f-27-5-233-250.ngrok.io" + entity, data)
+    return this.http.post('http://13.233.112.77:8080/survey/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -104,7 +105,7 @@ export class ApiService {
 
 
   chatGet(entity, data) {
-    return this.http.get("https://chat.fieldpower.com/" + entity, data)
+    return this.http.get('https://chat.fieldpower.com/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -113,7 +114,7 @@ export class ApiService {
 
   put(entity, data) {
 
-    return this.http.post("https://chat.fieldpower.com/" + entity, data)
+    return this.http.post('https://chat.fieldpower.com/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -122,7 +123,7 @@ export class ApiService {
 
   patch(entity, data) {
 
-    return this.http.patch("https://chat.fieldpower.com/" + entity, data)
+    return this.http.patch('https://chat.fieldpower.com/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -137,10 +138,10 @@ export class ApiService {
   }
   uploadFile(entity, file) {
 
-    return this.http.post(this.baseUrl + entity, file)
+    return this.http.post(this.baseUrl + entity, file);
   }
   downloadFile(entity, data) {
-    return this.http.post(this.baseUrl + entity, data, { responseType: 'blob' })
+    return this.http.post(this.baseUrl + entity, data, { responseType: 'blob' });
 
   }
   checkBlock(url, obj) {
@@ -150,11 +151,11 @@ export class ApiService {
       this.post(url, obj).subscribe((succ: any) => {
         console.log(succ);
 
-        if (succ.code == 200) {
+        if (succ.code === 200) {
           let obj = {
             msg: succ.message,
             valid: true,
-          }
+          };
           // return obj;
           resolve(obj);
 
@@ -162,7 +163,7 @@ export class ApiService {
           let obj = {
             msg: succ.message,
             valid: false,
-          }
+          };
           // return obj;
           resolve(obj);
 
@@ -170,9 +171,9 @@ export class ApiService {
         }
 
       }, err => {
-        reject(obj)
-        console.log(err + "err")
-      })
+        reject(obj);
+        console.log(err + 'err');
+      });
     });
   }
   getActatorData(entity) {
@@ -190,7 +191,7 @@ export class ApiService {
       );
   }
   handleError(error: HttpErrorResponse) {
-    console.log("error");
+    console.log('error');
     return throwError(error);
   }
 

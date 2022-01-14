@@ -45,9 +45,11 @@ export class CommonService {
   operators: any;
   customers: any;
   language: any;
-  UserDetailEncryption: any="sd";
+  UserDetailEncryption: any='sd';
   listSurvey: any;
-  constructor(@Inject(DOCUMENT) private document: Document,public router: Router, public iziToast: Ng2IzitoastService, private translate: TranslateService) {
+
+  constructor(@Inject(DOCUMENT) private document: Document,
+  public router: Router, public iziToast: Ng2IzitoastService, private translate: TranslateService) {
 
     this.user = sessionStorage.user;
 
@@ -55,13 +57,15 @@ export class CommonService {
   }
     //Survey
 
-    setSurveyId(listSurvey) {
+    setSurveyId(listSurvey): void {
       this.listSurvey = listSurvey;
-  
     }
-    getSurveyId() {
+
+    getSurveyId(): void {
       return this.listSurvey;
     }
+
+
 
 
   setLogin(loginCred) {

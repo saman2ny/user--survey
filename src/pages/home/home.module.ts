@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -49,27 +50,26 @@ import {MatButtonModule} from '@angular/material/button';
     CommonModule,
     GoogleChartsModule,
     RouterModule.forChild([
-      {       
-        
+      {
+
         path: '',
         component: LandingPageComponent,
         children: [
           {
-        
+
             path: '',
             loadChildren: () => import('src/pages/survey/survey.module')
               .then(({ SurveyModule }) => SurveyModule)
-         
+
         },
- 
-        
+
+
       ],
 
-     
+
 
     },
-   
-        
+
     ]),
     FormsModule,
     ReactiveFormsModule,
@@ -88,7 +88,7 @@ import {MatButtonModule} from '@angular/material/button';
 
   ],
 
-  declarations: [LandingPageComponent, 
+  declarations: [LandingPageComponent,
      //  DynamicFormsComponent,
     //  DynamicformsAddEditComponent, DynamicFormsPopupComponent, DynamicformslistComponent,SDragNDrop
     ],

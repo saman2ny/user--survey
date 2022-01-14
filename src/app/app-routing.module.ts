@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -5,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
 
- 
+
   {
     path: '',
     loadChildren: () => import('src/pages/home/home.module')
@@ -18,9 +19,8 @@ const routes: Routes = [
     loadChildren: () => import('src/pages/survey/reports-survey/reports-survey.module')
     .then(m => m.ReportsSurveyModule)
   }
-  
 
-  
+
 ];
 
 @NgModule({

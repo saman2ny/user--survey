@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
@@ -21,7 +22,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Ng2IziToastModule } from 'ng2-izitoast'
 import { ConstantsService } from 'src/service/constants.service';
-import { BasicAuthInterceptor } from 'src/guards/BasicAuthInterceptor';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { GoogleChartsModule } from 'angular-google-charts';
 
@@ -52,7 +52,8 @@ export function TranslationLoaderFactory(http: HttpClient) {
 
 
   ],
-  imports: [GoogleChartsModule, BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpModule, HttpClientModule, FormsModule, ReactiveFormsModule, Ng2IziToastModule,
+  imports: [GoogleChartsModule, BrowserModule, BrowserAnimationsModule,
+     AppRoutingModule, HttpModule, HttpClientModule, FormsModule, ReactiveFormsModule, Ng2IziToastModule,
     // PipesModule.forRoot()
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
