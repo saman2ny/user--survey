@@ -61,7 +61,7 @@ export class CommonService {
       this.listSurvey = listSurvey;
     }
 
-    getSurveyId(): void {
+    getSurveyId(): boolean {
       return this.listSurvey;
     }
 

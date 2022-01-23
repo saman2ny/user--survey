@@ -35,22 +35,20 @@ const routes: Routes = [
   {
     path: '',
     component: ListSurveyComponent,
-    
+
   },
   {
     path: 'post-survey',
     component: PostSurveyComponent,
-    
+
   },
   // {
   //   path: 'reports-survey/:surveryId',
   //   component: ReportsSurveyComponent,
-    
-  // },
-         
-           
 
-]
+  // },
+
+];
 @NgModule({
   declarations: [ListSurveyComponent, PostSurveyComponent],
   imports: [

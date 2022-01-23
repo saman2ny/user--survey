@@ -166,6 +166,9 @@ class="radiobutton" id="roundButton">
                                                     [(ngModel)]="configObjModel.typeOfSurvey"
                                                     value="{{surveyTypes.typeId}}">{{surveyTypes.typeDesc}}
                                             </label>
+
+                             
+
                                             <!-- 
 <label class="radio-inline" style="margin-right: 160px;">
 <input type="radio"   formControlName="typeOfSurvie" name="typeOfSurvie" [(ngModel)]="configObjModel.typeOfSurvey" value="Option 2">{surveyTypes.typeDesc}
@@ -194,6 +197,11 @@ class="img-responsive" alt="loreum picsum" width="50%" />
 
 
                                         </div>
+                                        <div class="error error-position"
+                                        *ngIf="surveyForm.controls['typeOfSurvie'].hasError('required') && surveyForm.controls['typeOfSurvie'].touched">
+                                        Survey Type is Required
+                                    </div>
+
                                     </div>
                                 </form>
 

@@ -2269,7 +2269,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
     this.surveyForm = this.formBuilder.group({
       surveyName: ['', [Validators.required]],
-      typeOfSurvie: [''],
+      typeOfSurvie: ['', [Validators.required]],
     })
 
   

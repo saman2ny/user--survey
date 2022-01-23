@@ -2,90 +2,87 @@
   <mat-card class="mb p-50">
     <mat-card-subtitle align="left">samantony|classicsurvey</mat-card-subtitle>
     <mat-card-title align="left" class="mb">Default Report</mat-card-title>
-    <mat-card-subtitle align="left" class="mb">Explore the data behind your survey responses. Gain a better perspective of your survey data and uncover insights for further planning.</mat-card-subtitle>
+    <mat-card-subtitle align="left" class="mb">Explore the data behind your survey responses. Gain a better perspective
+      of your survey data and uncover insights for further planning.</mat-card-subtitle>
 
-    <mat-card-content class="mb" >
+    <mat-card-content class="mb">
 
       <div fxLayout="column" fxLayoutGap="10px" class="container">
-      <div fxLayout.gt-sm="row" fxLayout.lt-md="row" 
-      fxLayoutGap="10px" fxFlex="50%" class="block-2">
-    <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
-      fxFlexFill class="grid-item">
-      <i-feather name="Heart" class="mr-25"></i-feather><span class="f-size row">Started</span>
+        <div fxLayout.gt-sm="row" fxLayout.lt-md="row" fxLayoutGap="10px" fxFlex="50%" class="block-2">
+          <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" fxFlexFill class="grid-item">
+            <i-feather name="Heart" class="mr-25"></i-feather><span class="f-size row">Started</span>
 
 
-    </div>
-    <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
-      fxFlexFill class="grid-item">
-      <i-feather name="Heart" class="mr-25"></i-feather><span class="f-size row">Completed</span>
-    </div>
-  </div>
-</div>
+          </div>
+          <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" fxFlexFill class="grid-item">
+            <i-feather name="Heart" class="mr-25"></i-feather><span class="f-size row">Completed</span>
+          </div>
+        </div>
+      </div>
 
 
-<div fxLayout="column" fxLayoutGap="10px" class="container">
-  <div fxLayout.gt-sm="row" fxLayout.lt-md="row" 
-  fxLayoutGap="10px" fxFlex="50%" class="block-2">
-<div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
-  fxFlexFill class="grid-item">
-  <span class="f-size-sub row ml-35">7</span>
+      <div fxLayout="column" fxLayoutGap="10px" class="container">
+        <div fxLayout.gt-sm="row" fxLayout.lt-md="row" fxLayoutGap="10px" fxFlex="50%" class="block-2">
+          <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" fxFlexFill class="grid-item">
+            <span class="f-size-sub row ml-35">7</span>
 
 
-</div>
-<div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" 
-  fxFlexFill class="grid-item">
-  <span class="f-size-sub row ml-35">100%</span>
-</div>
-</div>
-</div>
-
-</mat-card-content>
-
-
-  </mat-card>
-
-
-
-
-
-
-  <mat-card class="set-height mb" *ngFor="let repair of dates; let i= index">
-    <mat-card-content #ContainerRef>
-      <mat-card-title class="title-bg bg-radius p-20" align="left" fxLayout="column" fxLayoutAlign="space-between">
-        <mat-card-subtitle><span class="ml-15"><b>QUESTION 02</b> | MULTIPLE CHOICE</span></mat-card-subtitle>
-        <span class="ml-15">{{repair.quesText | uppercase}}</span>
-        <mat-card-subtitle><span class="ml-15">Answered: <b>1</b> &nbsp;&nbsp;&nbsp;&nbsp; Skipped: <b>0</b></span></mat-card-subtitle>
-      </mat-card-title>
-
-      <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="repair.chart" [gradient]="gradient"
-        [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-        (select)="onSelect($event)" [view]="[ContainerRef.offsetWidth, 400]">
-      </ngx-charts-bar-vertical>
-
-      <table>
-        <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <!-- <th>Country</th> -->
-        </tr>
-        <tr *ngFor="let tables of repair.chart;">
-          <td>{{tables.name}}</td>
-          <td>{{tables.value}}</td>
-          <!-- <td>Germany</td> -->
-        </tr>
-   
-      </table>
+          </div>
+          <div fxFlex.gt-sm="50%" fxFlex.lt-md="50%" fxLayoutAlign="start center" fxFlexFill class="grid-item">
+            <span class="f-size-sub row ml-35">100%</span>
+          </div>
+        </div>
+      </div>
 
     </mat-card-content>
 
-    <mat-card-footer>
-      <mat-card-actions align="end">
-        <button mat-button>Page of 0{{i}}</button>
-        <button mat-button>Made with Umesh</button>
-      </mat-card-actions>
-    </mat-card-footer>
-
 
   </mat-card>
+
+
+  <div *ngFor="let surverReport of surverReports; let i= index;">
+    <mat-card class="set-height mb" *ngIf="surverReport.quesTypeId !== 9">
+      <mat-card-content #ContainerRef>
+        <mat-card-title class="title-bg bg-radius p-20" align="left" fxLayout="column" fxLayoutAlign="space-between">
+          <mat-card-subtitle><span class="ml-15"><b>QUESTION {{i+1}}</b> | {{surverReport.quesTypeName |
+              uppercase}}</span></mat-card-subtitle>
+          <span class="ml-15">{{surverReport.quesText | uppercase}}</span>
+          <mat-card-subtitle><span class="ml-15">Answered: <b>{{surverReport.attempted}}</b> &nbsp;&nbsp;&nbsp;&nbsp;
+              Skipped: <b>{{surverReport.skipped}}</b></span></mat-card-subtitle>
+        </mat-card-title>
+
+
+        <ngx-charts-bar-vertical *ngIf="surverReport.quesTypeId !== SurveyTypeId.FOUR && surverReport.quesTypeId !== SurveyTypeId.FIVE && surverReport.quesTypeId !== SurveyTypeId.EIGHT &&
+      surverReport.quesTypeId !== SurveyTypeId.TEN && surverReport.quesTypeId !== SurveyTypeId.ELEVEN" [view]="view"
+          [scheme]="colorScheme" [results]="surverReport.report['chart']" [gradient]="gradient" [xAxis]="showXAxis"
+          [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)"
+          [view]="[ContainerRef.offsetWidth, 400]">
+        </ngx-charts-bar-vertical>
+
+
+        <table>
+          <tr>
+            <th>Answer</th>
+            <th>Attempted</th>
+          </tr>
+          <tr *ngFor="let report of surverReport.report['chart'];">
+            <td>{{report.name}}</td>
+            <td>{{report.value}}</td>
+          </tr>
+        </table>
+
+
+
+      </mat-card-content>
+
+      <mat-card-footer>
+        <mat-card-actions align="end">
+          <button mat-button>Page of {{i+1}}</button>
+          <button mat-button>Made with Umesh</button>
+        </mat-card-actions>
+      </mat-card-footer>
+
+    </mat-card>
+  </div>
 </section>
