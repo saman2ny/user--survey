@@ -5,7 +5,7 @@ import { ApiService } from 'src/service/api.service';
 import { CommonService } from 'src/service/common.service';
 import { ConstantsService } from 'src/service/constants.service';
 import { Survey, SurveyTypeId } from 'src/models/survey';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -39,9 +39,11 @@ export class ReportsSurveyComponent extends OnDestroyMixin implements OnInit {
   constructor(private common: CommonService,
     private apiService: ApiService,
     public constantsService: ConstantsService,
-    private router: Router) {
+    private snapshotRouter: ActivatedRoute, private router: Router) {
     super();
-    this.getSurveyId = this.common.getSurveyId();
+    // this.getSurveyId = this.common.getSurveyId();
+    this.getSurveyId = this.snapshotRouter.snapshot.queryParams.surveryId;
+
     if (this.getSurveyId) {
       this.loadDetails();
     } else {
@@ -142,7 +144,7 @@ export class ReportsSurveyComponent extends OnDestroyMixin implements OnInit {
       quesColor: 'string',
       respCount: 0,
       showQuesNo: 0,
-      surveyId: this.getSurveyId.surveyId,
+      surveyId: this.getSurveyId,
       surveyName: 'string',
       surveyStatus: 0,
       surveyUrl: 'string',

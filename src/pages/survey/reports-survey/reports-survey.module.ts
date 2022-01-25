@@ -28,6 +28,11 @@ const icons = {
 
         path: '',
         component: ReportsSurveyComponent
+      },
+      {
+
+        path: ':surveryId',
+        component: ReportsSurveyComponent
       }
     ]),
     FormsModule,

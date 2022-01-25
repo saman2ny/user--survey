@@ -65,7 +65,7 @@
           <div class="text-align" *ngIf ="listSurvey.surveyStatus === 1 ">
               <i class="icon-delete column6" (click)="showModal(listSurvey)" title="Delete"
                   data-toggle="tooltip" data-placement="left"></i> | &nbsp;
-                  <i class="fa fa-3x fa-file-text column6" (click)="showReports(listSurvey)" title="Reports"
+                  <i class="fa fa-3x fa-file-text column6" (click)="showReports(listSurvey.surveyId)" title="Reports"
                   data-toggle="tooltip" data-placement="left"> <ng-template [listSurvey] = "listSurvey" ></ng-template></i>
           </div>
           <div class="text-align" *ngIf ="listSurvey.surveyStatus > 1 ">
