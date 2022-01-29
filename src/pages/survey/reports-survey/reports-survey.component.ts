@@ -129,7 +129,7 @@ export class ReportsSurveyComponent extends OnDestroyMixin implements OnInit {
     this.survey = {
       ansColor: 'string',
       bgColor: 'string',
-      bgImageByte: [],
+      bgImageByte: null,
       bgImgString: 'string',
       code: 0,
       companyId: 0,
