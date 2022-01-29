@@ -44,7 +44,7 @@ export class ReportsSurveyComponent extends OnDestroyMixin implements OnInit {
     // this.getSurveyId = this.common.getSurveyId();
     this.getSurveyId = this.snapshotRouter.snapshot.queryParams.surveryId;
 
-    if (this.getSurveyId) {
+    if (this.getSurveyId || this.getSurveyId === undefined) {
       this.loadDetails();
     } else {
       this.loadFail();
