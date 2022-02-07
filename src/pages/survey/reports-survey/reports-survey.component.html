@@ -40,8 +40,9 @@
   </mat-card> -->
 
 
-  <div *ngFor="let surverReport of surverReports; let i= index;">
-    <mat-card class="set-height mb" *ngIf="surverReport.quesTypeId !== 9">
+    <mat-card class="set-height mb" *ngFor="let surverReport of surverReports; let i= index;">
+      <ng-container *ngIf="surverReport.quesTypeId !== 9">
+
       <mat-card-content #ContainerRef>
         <mat-card-title class="title-bg bg-radius p-20" align="left" fxLayout="column" fxLayoutAlign="space-between">
           <mat-card-subtitle><span class="ml-15"><b>QUESTION {{i+1}}</b> | {{surverReport.quesTypeName |
@@ -83,17 +84,18 @@
         </mat-card-actions>
       </mat-card-footer>
 
+    </ng-container>
+
     </mat-card>
 
 
-  </div>
 
 
-  <div class="fixed-wrapper">
+  <!-- <div class="fixed-wrapper">
     <div fxLayoutAlign="end center">
       <button mat-raised-button color="primary" class="fixed-icon">Download</button>
     </div>
 
-  </div>
+  </div> -->
 
 </section>

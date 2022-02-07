@@ -31,7 +31,7 @@ const icons = {
       },
       {
 
-        path: ':surveryId',
+        path: ':surveyId',
         component: ReportsSurveyComponent
       }
     ]),

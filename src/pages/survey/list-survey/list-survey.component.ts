@@ -118,7 +118,7 @@ export class ListSurveyComponent implements OnInit {
   demoSurvey(): void {
     // this.router.navigateByUrl('/demo-reports');
     const listSurvey = 33;
-    const url = `/reports-survey?surveryId=${listSurvey}`;
+    const url = `/reports-survey?surveyId=${listSurvey}`;
     this.router.navigateByUrl(url);
 
   }
@@ -129,7 +129,7 @@ export class ListSurveyComponent implements OnInit {
   showReports(listSurvey): void {
     this.common.setSurveyId(listSurvey);
     // this.router.navigateByUrl('/reports-survey/' + listSurvey.surveyId);
-    const url = `/reports-survey?surveryId=${listSurvey}`;
+    const url = `/reports-survey?surveyId=${listSurvey}`;
     this.router.navigateByUrl(url);
   }
 
