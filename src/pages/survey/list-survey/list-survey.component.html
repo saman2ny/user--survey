@@ -19,19 +19,11 @@
                 <input type="text" id="searchTextId" placeholder="Search"/>
                 <button type="submit"><i class="icon-search"></i></button>
               </div>
-              <!-- <span class="icon-search"></span>
-              <span class="icon-close1 closesearch" ></span> -->
             </div>
            
             
           </div>
         </div>
-     
-        
-        <!-- <div class="button-orange">
-          <a 
-            (click)="addSurvey()">Create <span class="icon-plus"></span></a>
-        </div> -->
 
         <button class="btn pull-right" (click)="demoSurvey()"><span>Demo Survey</span></button>
         <button class="btn pull-right" (click)="addSurvey()"><span>Create</span></button>
@@ -40,6 +32,7 @@
     </div>
   </div>
   
+
   <div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="20">
  
   </div>
@@ -72,8 +65,10 @@
           <div class="text-align" *ngIf ="listSurvey.surveyStatus === 1 ">
               <i class="icon-delete column6" (click)="showModal(listSurvey)" title="Delete"
                   data-toggle="tooltip" data-placement="left"></i> | &nbsp;
-                  <i class="fa fa-3x fa-file-text column6" (click)="showReports(listSurvey)" title="Reports"
-                  data-toggle="tooltip" data-placement="left"></i>
+                  <i class="fa fa-3x fa-file-text column6" (click)="showReports(listSurvey.surveyId)" title="Reports"
+                  data-toggle="tooltip" data-placement="left"> <ng-template [listSurvey] = "listSurvey" ></ng-template></i> | &nbsp;
+                  <i class="fa fa-3x fa-clipboard column6" ngxClipboard [cbContent]=listSurvey.surveyUrl title="Copy Clipboard"
+                  data-toggle="tooltip" data-placement="left" (click)="showToast()"></i> 
           </div>
           <div class="text-align" *ngIf ="listSurvey.surveyStatus > 1 ">
           </div>

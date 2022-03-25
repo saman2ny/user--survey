@@ -252,7 +252,7 @@ chart: GoogleChartComponent;
   
 
   ngOnInit(): void {
-    const surverId = this.activatedRoute.snapshot.params.surveryId
+    const surverId = this.activatedRoute.snapshot.params.surveyId
     console.log(surverId, "surverId")
     myMethod();
     selectSearchMethod();

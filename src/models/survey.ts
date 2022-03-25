@@ -22,3 +22,25 @@ export interface Survey {
   surveyUrl?: string;
   typeId?: number;
 }
+
+export enum SurveyTypeId {
+  FOUR = 4,
+  FIVE = 5,
+  EIGHT = 8,
+  TEN = 10,
+  ELEVEN = 11
+}
+
+export enum QuestionType {
+  OPINIONSCALE = 'Opinion Scale',
+  MCQ = 'Multiple Choice Questions',
+  RATING = 'Rating',
+  TEXT = 'Text',
+  EMAIL = 'Email',
+  PICTURECHOICE = 'Picture Choice',
+  YESORNO = 'Yes or No',
+  NUMBERINPUT = 'Number Input',
+  MESSAGE = 'Message',
+  DATE = 'Date',
+  WEBSITE = 'Website'
+}

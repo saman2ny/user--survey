@@ -43,7 +43,7 @@ const routes: Routes = [
     
   },
   // {
-  //   path: 'reports-survey/:surveryId',
+  //   path: 'reports-survey/:surveyId',
   //   component: ReportsSurveyComponent,
     
   // },

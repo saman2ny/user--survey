@@ -27,6 +27,8 @@ import { ListSurveyComponent } from './list-survey/list-survey.component';
 import { PostSurveyComponent } from './post-survey/post-survey.component';
 // import { ReportsSurveyComponent } from './reports-survey/reports-survey.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ClipboardModule } from 'ngx-clipboard';
+
 
 
 const routes: Routes = [
@@ -35,22 +37,20 @@ const routes: Routes = [
   {
     path: '',
     component: ListSurveyComponent,
-    
+
   },
   {
     path: 'post-survey',
     component: PostSurveyComponent,
-    
+
   },
   // {
-  //   path: 'reports-survey/:surveryId',
+  //   path: 'reports-survey/:surveyId',
   //   component: ReportsSurveyComponent,
-    
-  // },
-         
-           
 
-]
+  // },
+
+];
 @NgModule({
   declarations: [ListSurveyComponent, PostSurveyComponent],
   imports: [
@@ -65,7 +65,8 @@ const routes: Routes = [
     DropdownModule,
     MultiSelectModule,
     FontPickerModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    ClipboardModule
     ],
     providers: [
       {
