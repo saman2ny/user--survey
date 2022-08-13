@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 import { Font } from 'ngx-font-picker';
 import { keyboard } from '@amcharts/amcharts4/core';
 import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
-import { filter, map, take,  publish} from 'rxjs/operators';
+import { filter, map, take, publish } from 'rxjs/operators';
 import { DataSaveCheck } from 'src/models/data-save-check';
 
 
@@ -149,7 +149,7 @@ export class PostSurveyComponent implements OnInit {
   ChoicesModelFormList: any = [];
   quesTypeIdObj: any = {};
   startTyping: any = {};
-  changeRequiredObj:any ={};
+  changeRequiredObj: any = {};
   startTypeDisplay: boolean = false;
   questionTypeNumberIdDisplay: any = {};
   quesOrder: any = {};
@@ -249,10 +249,10 @@ export class PostSurveyComponent implements OnInit {
   myDynamicDisplayquesTextInitialSkip: any[] = [];
   quesTypeIdDetailsSkip: any;
   quesTypeIdDetailsSkipTo: any;
-  myquesIdVariableSkip: any ={};
-  myquesTextVariableSkip: any ={};
-  SkipTo: any ={};
-  mydataVariableSkip: any ={};
+  myquesIdVariableSkip: any = {};
+  myquesTextVariableSkip: any = {};
+  SkipTo: any = {};
+  mydataVariableSkip: any = {};
   dynamicDisplayFramepushSkip: any = [];
   skipLogicValue: any;
   LogicStatus: any;
@@ -262,7 +262,7 @@ export class PostSurveyComponent implements OnInit {
   questionTypeSkipLogics: any;
   questionTypeSkipLogicsDemo: any;
   pictureObjModel: any = {
-    
+
   };
   ansOrder: any;
   SuccStat: boolean;
@@ -280,7 +280,7 @@ export class PostSurveyComponent implements OnInit {
     this.configObjModel.Questions = '#d2c4ff'
     this.configObjModel.Answers = '#d2c4ff'
     this.configObjModel.hexColorButton = '#d2c4ff'
-    
+
     this.configObjModel.mainConfig = false
 
 
@@ -352,23 +352,18 @@ export class PostSurveyComponent implements OnInit {
     this.questionTypeDisplayLogicsDemo = this.questionTypeDisplayLogics[0]
 
     console.log(this.questionTypeDisplayLogicsDemo, "this.finalQuestionTypePush")
-    // var quesTypeIdObj =this.quesTypeIdObj
     var seconds = new Date().getTime() / 1000;
     this.quesOrder = Math.round(seconds)
 
     var quesOrderBetaFrame = { "OrderId": this.quesOrder, "quesTypeId": this.quesTypeIdObj }
-    // this.quesOrderBeta =[]
     this.quesOrderBeta = quesOrderBetaFrame
     this.startTyping.value = ""
     this.quesIdObj = 0
     this.addQuestionChecker = true
-    // this.SubmitQuestion()
 
-    console.log( this.survey.controls.sections['controls'].length, "lenght");
-      var join  = 0
+    $('#accordion').collapse('hide');
 
-    $('#accordion' ).collapse('hide');
-
+    this.displayLogicValue = [];
 
     this.SubmitQuestion()
 
@@ -409,7 +404,7 @@ export class PostSurveyComponent implements OnInit {
     if (!_.isEmpty(this.PictureChoiceValues)) {
       return new FormGroup({
         pictureType: new FormControl(this.PictureChoiceValues.ansText),
-        pictureImage:new FormControl(this.PictureChoiceValues.ansText),
+        pictureImage: new FormControl(this.PictureChoiceValues.ansText),
         ansId: new FormControl(this.PictureChoiceValues.ansId),
         allStatus: new FormControl(this.PictureChoiceValues)
       });
@@ -455,7 +450,7 @@ export class PostSurveyComponent implements OnInit {
     this.common.showLoading()
     if (!_.isEmpty(maybe)) {
       return new FormGroup({
-        
+
         questionTitle: new FormControl(maybe.quesText),
         isRequired: new FormControl(maybe.changeRequiredObj),
         orderId: new FormControl(maybe.quesOrder),
@@ -469,7 +464,8 @@ export class PostSurveyComponent implements OnInit {
         pictureChoices: new FormArray([
           // this.initMcq()
         ]),
-        pickDisplayQuestion: new FormControl(''),
+
+        pickDisplayQuestion: new FormControl(),
         pickDisplayLogicType: new FormControl(),
         pickDisplayAnswerDropDown: new FormControl(''),
         checkDisplayId: new FormControl(''),
@@ -477,6 +473,7 @@ export class PostSurveyComponent implements OnInit {
         displayLogic: new FormArray([
           // this.initdisplayLogic()
         ]),
+
         pickDisplayQuestionSkip: new FormControl(),
         pickDisplayLogicTypeSkip: new FormControl(),
         SkipTo: new FormControl(),
@@ -611,12 +608,6 @@ export class PostSurveyComponent implements OnInit {
 
   removeChoices(i, j, k, status) {
     const control = this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.options.removeAt(k)
-console.log(status, "status")
-    // const control = <FormArray>(
-    //   this.survey.get(["sections", i, "questions", j, "options"])
-    // );
-    // control.removeAt(0);
-    // control.controls = [];
     this.apiService.postSurvey(this.constantsService.deleteAnswerss, status).subscribe((succ: any) => {
     }, err => {
       this.common.hideLoading();
@@ -628,7 +619,7 @@ console.log(status, "status")
 
   removePictureChoices(i, j, k3, status) {
     const control = this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.removeAt(k3)
-console.log(status, "status")
+    console.log(status, "status")
 
     this.apiService.postSurvey(this.constantsService.deleteAnswerss, status).subscribe((succ: any) => {
     }, err => {
@@ -644,18 +635,14 @@ console.log(status, "status")
     console.log(sections.value.questions, "sections")
     var j = 0
     var getQues = sections.value.questions[0]
-    console.log(getQues, "getQues")
-    // this.surveyIdObj= getQues[0].surveyId
-    // this.quesTypeIdObj= getQues[0].questionTypeId
-    // this.quesIdObj= getQues[0].questionId
-    if(getQues.options.length === 0){
+    if (getQues.options.length === 0) {
       var allStatusPush = []
     }
     for (var c = 0; c < getQues.options.length; c++) {
       var allStatusPush = []
       var allStatus = getQues.options[c].allStatus
       allStatusPush.push(allStatus)
-      
+
     }
     let frame = {
       "ansList": allStatusPush,
@@ -670,30 +657,50 @@ console.log(status, "status")
       "surveyId": getQues.surveyId
     }
 
-
-
-
     this.apiService.postSurvey(this.constantsService.deleteQuestion, frame).subscribe((succ: any) => {
 
-      if(succ.code=== 200){
-      const control = <FormArray>(
-        this.survey.get("sections")
-      );
-      control.removeAt(i);
-      this.common.hideLoading()
-
+      if (succ.code === 200) {
+        const control = <FormArray>(
+          this.survey.get("sections")
+        );
+        control.removeAt(i);
+        this.common.hideLoading()
       }
-
-
     }, err => {
       this.common.hideLoading();
       this.common.showErrorMessage(err.message)
 
     });
 
-
-
   }
+
+  deleteDisplayQuest(sections, i) {
+    this.common.showLoading()
+    var j = 0
+    var getQues = sections.value.questions[0]
+    if (getQues.options.length === 0) {
+      var allStatusPush = []
+    }
+    for (var c = 0; c < getQues.options.length; c++) {
+      var allStatusPush = []
+      var allStatus = getQues.options[c].allStatus
+      allStatusPush.push(allStatus)
+
+    }
+
+    this.displayLogicValue = [];
+
+    this.SubmitQuestion();
+    setTimeout(() => {
+
+      this.getAllDetailsForEdit(sections, i)
+    }, 2000);
+
+
+    // this.saveDisplayLogic(i, j)
+  }
+
+
   addAnswer(indexx, k) {
 
     var seconds = new Date().getTime() / 1000;
@@ -748,8 +755,8 @@ console.log(status, "status")
       this.curretAnwserIdObj = succ.ansId
       console.log(this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.pictureChoices.controls[k].controls.ansId, "chekc")
       return this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.pictureChoices.controls[k].controls.ansId.setValue(this.curretAnwserIdObj) as FormArray;
-      
-      },
+
+    },
       err => {
         this.common.hideLoading()
 
@@ -757,30 +764,30 @@ console.log(status, "status")
   }
 
   getPicture(event, sections, i, k3) {
-    if(event.target.files.length === 0){
+    if (event.target.files.length === 0) {
       return;
     }
-        var file: File = event.target.files[0];
-        var fileFormat = file.name.substring(file.name.lastIndexOf("."), file.name.length);
-    
-        if (event.target.files.length > 0) {
-          const file = event.target.files[0];
-          console.log(file, "file")
-    
-    
-    
-    
-      this.common.convertBase64(file, (result) => {
-            this.pictureObjModel = result;
-            // this.pictureObjModel.attachmentFile = result;
-            // this.pictureObjModel.attach = file.name;
-    
-            // this.pictureObjModel.attachmentFileName = file.name;
-          })
-        
+    var file: File = event.target.files[0];
+    var fileFormat = file.name.substring(file.name.lastIndexOf("."), file.name.length);
 
-          setTimeout(() => {
-           this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.controls[k3].controls.pictureImage.setValue(this.pictureObjModel) as FormArray;
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log(file, "file")
+
+
+
+
+      this.common.convertBase64(file, (result) => {
+        this.pictureObjModel = result;
+        // this.pictureObjModel.attachmentFile = result;
+        // this.pictureObjModel.attach = file.name;
+
+        // this.pictureObjModel.attachmentFileName = file.name;
+      })
+
+
+      setTimeout(() => {
+        this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.controls[k3].controls.pictureImage.setValue(this.pictureObjModel) as FormArray;
 
         console.log(this.pictureObjModel, "names")
         var getQues = sections.value.questions
@@ -794,15 +801,15 @@ console.log(status, "status")
           this.curretAnwserIdObj = 0
         } else {
           this.curretAnwserIdObj = getOPt[k3].ansId
-    
+
         }
         this.addAnswerPicture(i, k3)
       }, 2000);
 
-      }
+    }
 
   }
-    getMcQ(event, sections, i, k) {
+  getMcQ(event, sections, i, k) {
     console.log(event.target.value, "names")
     var getQues = sections.value.questions
     var getOPt = sections.value.questions[0].options
@@ -824,8 +831,8 @@ console.log(status, "status")
   firstFunction(dl, compartor, quesId, quesText, data, i) {
     setTimeout(() => {
 
-    this.myDynamicDisplayoficalInitial[dl] = compartor
-  }, 1000);
+      this.myDynamicDisplayoficalInitial[dl] = compartor
+    }, 1000);
 
     setTimeout(() => {
       this.myDynamicDisplayquesIdInitial[dl] = JSON.parse(quesId)
@@ -842,12 +849,12 @@ console.log(status, "status")
       }
     }, 3000);
     setTimeout(() => {
-      if(data === "null" || data === null || data === "" || data === " "){
+      if (data === "null" || data === null || data === "" || data === " ") {
         this.myDynamicDisplaydataInitial[dl] = null
-      }else{
+      } else {
         this.myDynamicDisplaydataInitial[dl] = JSON.parse(data)
       }
-        }, 3000);
+    }, 3000);
 
 
   }
@@ -856,8 +863,8 @@ console.log(status, "status")
   skipFunction(dl, compartor, quesId, quesText, data, i) {
     setTimeout(() => {
 
-    this.myDynamicDisplayoficalInitialSkip[dl] = compartor
-  }, 1000);
+      this.myDynamicDisplayoficalInitialSkip[dl] = compartor
+    }, 1000);
 
     setTimeout(() => {
       this.myDynamicDisplayquesIdInitialSkip[dl] = JSON.parse(quesId)
@@ -875,11 +882,11 @@ console.log(status, "status")
 
     }, 3000);
     setTimeout(() => {
-      
 
-      if(data === "null" || data === null || data === "" || data === " "){
+
+      if (data === "null" || data === null || data === "" || data === " ") {
         this.myDynamicDisplaydataInitialSkip[dl] = null
-      }else{
+      } else {
         this.myDynamicDisplaydataInitialSkip[dl] = JSON.parse(data)
       }
     }, 3000);
@@ -889,8 +896,8 @@ console.log(status, "status")
 
   async getAllDetailsForEdit(sections, i) {
     this.quesTypeIdDetails = []
-    this.quesTypeIdDetailsSkip  =[]
-    this.quesTypeIdDetailsSkipTo  =[]
+    this.quesTypeIdDetailsSkip = []
+    this.quesTypeIdDetailsSkipTo = []
     console.log(sections.value.questions, "sections")
     var getQues = sections.value.questions
     this.surveyIdObj = getQues[0].surveyId
@@ -898,64 +905,63 @@ console.log(status, "status")
     this.quesIdObj = getQues[0].questionId
     this.quesOrder = getQues[0].orderId
     this.startTyping.value = getQues[0].questionTitle
-    // alert(i)
 
     this.quesTypeIdObj = this.allQuestion[i].quesTypeId
 
-// check format
-var questionOrder = []
-questionOrder.push({"quesOrder" :this.quesOrder})
-var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+    // check format
+    var questionOrder = []
+    questionOrder.push({ "quesOrder": this.quesOrder })
+    var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-console.log(intersection, "intersection");
+    console.log(intersection, "intersection");
 
-// for setting up answers
-// for setting up answers
-// for setting up answers
-for (var w = 0; w < intersection.length; w++) {
-  if (this.Edit === true) {
+    // for setting up answers
+    // for setting up answers
+    // for setting up answers
+    for (var w = 0; w < intersection.length; w++) {
+      if (this.Edit === true) {
 
-    if (intersection[w].quesTypeId === 2) {
-      this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.options.clear()
-      const sortedMCQActivities = intersection[w].ansList.sort((a, b) => a.ansOrder - b.ansOrder)
-      console.log(sortedMCQActivities, "sortedMCQActivities")
-      for (var yt = 0; yt < sortedMCQActivities.length; yt++) {
-        this.MCQValues = sortedMCQActivities[yt]
-        console.log(this.MCQValues, "this.MCQValues")
+        if (intersection[w].quesTypeId === 2) {
+          this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.options.clear()
+          const sortedMCQActivities = intersection[w].ansList.sort((a, b) => a.ansOrder - b.ansOrder)
+          console.log(sortedMCQActivities, "sortedMCQActivities")
+          for (var yt = 0; yt < sortedMCQActivities.length; yt++) {
+            this.MCQValues = sortedMCQActivities[yt]
+            console.log(this.MCQValues, "this.MCQValues")
 
-       
 
-        const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("options");
-        control.push(this.initMcq());
+
+            const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("options");
+            control.push(this.initMcq());
+          }
+        }
+
+        if (intersection[w].quesTypeId === 6) {
+          this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.clear()
+          for (var yt = 0; yt < intersection[w].ansList.length; yt++) {
+            this.PictureChoiceValues = intersection[w].ansList[yt]
+            console.log(this.PictureChoiceValues, "this.PictureChoiceValues")
+            const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("pictureChoices");
+            control.push(this.initPictureChoice());
+
+
+
+
+          }
+
+        }
+
       }
     }
 
-    if (intersection[w].quesTypeId === 6) {
-      this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.pictureChoices.clear()
-      for (var yt = 0; yt < intersection[w].ansList.length; yt++) {
-        this.PictureChoiceValues = intersection[w].ansList[yt]
-        console.log(this.PictureChoiceValues, "this.PictureChoiceValues")
-        const control = <FormArray>this.survey.get("sections")['controls'][i].get("questions")['controls']['0'].get("pictureChoices");
-        control.push(this.initPictureChoice());
-
-
-
-
-      }
-
-    }
-
-  }
-}
-
-// for setting up normal
-// for setting up normal
-// for setting up normal
-// for setting up normal
+    // for setting up normal
+    // for setting up normal
+    // for setting up normal
+    // for setting up normal
 
 
     for (var w = 0; w < this.allQuestion.length; w++) {
-     
+
 
       // DisplayLogic Logic
       // DisplayLogic Logic
@@ -965,7 +971,7 @@ for (var w = 0; w < intersection.length; w++) {
           this.allQuestion[w].quesText = "..."
         }
 
-        var frame = { "quesId": this.allQuestion[w].quesId,  "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
+        var frame = { "quesId": this.allQuestion[w].quesId, "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
         this.quesTypeIdDetails.push(frame)
       }
 
@@ -977,10 +983,10 @@ for (var w = 0; w < intersection.length; w++) {
           this.allQuestion[w].quesText = "..."
         }
 
-        var frame = { "quesId": this.allQuestion[w].quesId,  "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
-        this.quesTypeIdDetailsSkip.push(frame)               
+        var frame = { "quesId": this.allQuestion[w].quesId, "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
+        this.quesTypeIdDetailsSkip.push(frame)
         this.quesTypeIdDetailsSkip = this.quesTypeIdDetailsSkip.sort((a, b) => b.quesOrder - a.quesOrder)
-        console.log( this.quesTypeIdDetailsSkip, "edit order DESC")
+        console.log(this.quesTypeIdDetailsSkip, "edit order DESC")
 
       }
 
@@ -994,10 +1000,10 @@ for (var w = 0; w < intersection.length; w++) {
           this.allQuestion[w].quesText = "..."
         }
 
-        var frame = { "quesId": this.allQuestion[w].quesId,  "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
-        this.quesTypeIdDetailsSkipTo.push(frame)               
+        var frame = { "quesId": this.allQuestion[w].quesId, "quesOrder": this.allQuestion[w].quesOrder, "answerList": this.allQuestion[w].ansList, "quesText": this.allQuestion[w].quesText, "quesTypeId": this.allQuestion[w].quesTypeId }
+        this.quesTypeIdDetailsSkipTo.push(frame)
         this.quesTypeIdDetailsSkipTo = this.quesTypeIdDetailsSkipTo.sort((a, b) => a.quesOrder - b.quesOrder)
-        console.log( this.quesTypeIdDetailsSkipTo, "edit order ASC")
+        console.log(this.quesTypeIdDetailsSkipTo, "edit order ASC")
 
       }
 
@@ -1010,11 +1016,11 @@ for (var w = 0; w < intersection.length; w++) {
 
     if (this.Edit === true) {
 
-            
+
       // Dont Touch For common
       // Dont Touch For common
       // Dont Touch For common
-      this.diplayLogicCheck= JSON.parse(this.allQuestion[i].displayLogic);
+      this.diplayLogicCheck = JSON.parse(this.allQuestion[i].displayLogic);
       this.skipLogicCheck = JSON.parse(this.allQuestion[i].skipLogic);
 
       // DisplayLogic Edit
@@ -1085,7 +1091,7 @@ for (var w = 0; w < intersection.length; w++) {
             if (this.myquesTextVariable === "Answered" || this.myquesTextVariable === "Not answered" || this.myquesTextVariable === "Is Answered" || this.myquesTextVariable === "Not Answered") {
               this.answerListId = ""
               this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['checkDisplayId'].setValue(this.answerListId) as FormArray;
-  
+
             }
           }, 2000);
 
@@ -1094,10 +1100,10 @@ for (var w = 0; w < intersection.length; w++) {
           //quesId Edit
           setTimeout(() => {
             this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayAnswerDropDown'].setValue(data) as FormArray
-            if(data === "null" || data === null || data === "" || data === " "){
+            if (data === "null" || data === null || data === "" || data === " ") {
               this.mydataVariable = null
-            }else{
-            this.mydataVariable = JSON.parse(data)
+            } else {
+              this.mydataVariable = JSON.parse(data)
             }
           }, 2000);
         }
@@ -1105,9 +1111,9 @@ for (var w = 0; w < intersection.length; w++) {
       // SkipLogic Edit
       // SkipLogic Edit
       // SkipLogic Edit
- 
 
-      
+
+
 
 
 
@@ -1124,7 +1130,7 @@ for (var w = 0; w < intersection.length; w++) {
       this.questionTypeSkipLogicsDemo = this.questionTypeSkipLogics[0]
       console.log(this.questionTypeSkipLogicsDemo, "this.questionTypeDisplayLogicsDemo"); // true
       this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls.skipLogic.clear()
-    
+
       for (var dl = 0; dl < this.questionTypeSkipLogicsDemo.length; dl++) {
         this.myDynamicDisplayoficalInitialSkip[dl] = true
         this.myDynamicDisplayquesIdInitialSkip[dl] = true
@@ -1181,7 +1187,7 @@ for (var w = 0; w < intersection.length; w++) {
             if (this.myquesTextVariableSkip === "Answered" || this.myquesTextVariableSkip === "Not answered" || this.myquesTextVariableSkip === "Is Answered" || this.myquesTextVariableSkip === "Not Answered") {
               this.answerListId = ""
               this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['checkDisplayIdSkip'].setValue(this.answerListId) as FormArray;
-  
+
             }
           }, 2000);
 
@@ -1190,25 +1196,24 @@ for (var w = 0; w < intersection.length; w++) {
           //quesId Edit
           setTimeout(() => {
             this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayAnswerDropDownSkip'].setValue(data) as FormArray
-            if(data === "null" || data === null || data === "" || data === " "){
+            if (data === "null" || data === null || data === "" || data === " ") {
               this.mydataVariableSkip = null
-            }else{
-            this.mydataVariableSkip = JSON.parse(data)
+            } else {
+              this.mydataVariableSkip = JSON.parse(data)
             }
 
           }, 2000);
         }
 
-        
-      
-		}
+
+
+      }
 
 
 
     }
 
 
-    console.log(this.myVariable, "skipLogic")
 
 
   }
@@ -1220,7 +1225,7 @@ for (var w = 0; w < intersection.length; w++) {
 
 
 
- 
+
 
 
   onFieldQuestionChangeIntial(answer2, indexx) {
@@ -1228,9 +1233,9 @@ for (var w = 0; w < intersection.length; w++) {
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayQuestion'].setValue(answer) as FormArray
     // this.onFieldQuestionChangeSecond(answer, indexx)
     if (answer === "select") {
-    this.answerListId = ""
-    this.secondDisplayHideType(indexx)
-    }else{
+      this.answerListId = ""
+      this.secondDisplayHideType(indexx)
+    } else {
       this.onFieldQuestionChangeSecond(answer, indexx)
       this.answerListId = ""
       this.secondDisplayHideType(indexx)
@@ -1242,7 +1247,7 @@ for (var w = 0; w < intersection.length; w++) {
     this.answerListQueue = allValues.filter(value => value.quesId === parseInt(answer));
     console.log(this.answerListQueue, "answerListId");
     this.answerListPush = [];
-    this.mydataVariable =""
+    this.mydataVariable = ""
     var quesTypeIde = this.answerListQueue[0].quesTypeId
     var quesText = this.answerListQueue[0].quesText
     var answerList = this.answerListQueue[0].answerList
@@ -1251,89 +1256,89 @@ for (var w = 0; w < intersection.length; w++) {
       this.answerListPush.push(answerFrame)
 
     }
-  
-      var quesTypeId = quesTypeIde - 1;
-      if (this.listQuestionTypes[quesTypeId].quesGroup === "SELECT" || 
+
+    var quesTypeId = quesTypeIde - 1;
+    if (this.listQuestionTypes[quesTypeId].quesGroup === "SELECT" ||
       this.listQuestionTypes[quesTypeId].quesTypeDesc === "Multiple Choice Questions" ||
       this.listQuestionTypes[quesTypeId].quesTypeDesc === "Opinion Scale" ||
       this.listQuestionTypes[quesTypeId].quesTypeDesc === "Rating") {
-        this.quesGroupPush = []
-        this.answerListId = "SELECT"
-      }else {
-        this.quesGroupPush = []
-        this.answerListId = "NOT"
+      this.quesGroupPush = []
+      this.answerListId = "SELECT"
+    } else {
+      this.quesGroupPush = []
+      this.answerListId = "NOT"
+    }
+
+    this.questionTypeDisplayLogics = []
+    if (quesTypeIde === 1) {
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa, "parse")
+      this.questionTypeDisplayLogics.push(aaa)
+      var Opinonscale = []
+      for (var ty = 1; ty <= 10; ty++) {
+        var OpinonscaleFrame = { "ansId": ty, "ansText": ty }
+
+        Opinonscale.push(OpinonscaleFrame)
       }
+      this.displayLogics[indexx] = this.questionTypeDisplayLogics[0]
+      console.log(this.displayLogics[indexx], "this.displayLogics[i]")
+      this.answerListPushFinal[indexx] = Opinonscale
+      console.log(this.answerListPushFinal[indexx], "this.displayLogics[i]")
+      this.getDisplayLabelQuestion = answer
 
-      this.questionTypeDisplayLogics = []
-      if (quesTypeIde === 1) {
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa, "parse")
-        this.questionTypeDisplayLogics.push(aaa)
-        var Opinonscale = []
-        for(var ty=1 ; ty <= 10; ty++){
-          var OpinonscaleFrame = { "ansId": ty, "ansText": ty }
-
-          Opinonscale.push(OpinonscaleFrame)
-        }
-        this.displayLogics[indexx] = this.questionTypeDisplayLogics[0]
-        console.log(this.displayLogics[indexx], "this.displayLogics[i]")
-        this.answerListPushFinal[indexx] = Opinonscale
-        console.log(this.answerListPushFinal[indexx], "this.displayLogics[i]")
-        this.getDisplayLabelQuestion = answer
-        
-        return[
-          this.secondType(indexx),
-          this.initalReset(indexx),
-        ]
-        
-
-      }
-     else if (quesTypeIde === 3) {
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa.length, "parse")
-        this.questionTypeDisplayLogics.push(aaa)
-        
-        var Ratingscale = []
-        for(var ty=1 ; ty <= 5; ty++){
-          var RatingscaleFrame = { "ansId": ty, "ansText": ty }
-
-          Ratingscale.push(RatingscaleFrame)
-        }
-   
-        this.displayLogics[indexx] = this.questionTypeDisplayLogics[0]
-        console.log(this.displayLogics[indexx], "Ratingscale.displayLogics[i]")
-        this.answerListPushFinal[indexx] = Ratingscale
-        console.log(this.answerListPushFinal[indexx], "Ratingscale[i]")
-        this.getDisplayLabelQuestion = answer
-
-        return[
-          this.secondType(indexx),
-          this.initalReset(indexx),
-        ]
-        
-      }
-      else {
-
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa.length, "parse")
-        this.questionTypeDisplayLogics.push(aaa)
-
-        this.displayLogics[indexx] = this.questionTypeDisplayLogics[0]
-        console.log(this.displayLogics[indexx], "this.displayLogics[i]")
-        this.answerListPushFinal[indexx] = this.answerListPush
-        console.log(this.answerListPushFinal[indexx], "this.displayLogics[i]")
-        this.getDisplayLabelQuestion = answer
-
-
-      return[
+      return [
         this.secondType(indexx),
         this.initalReset(indexx),
       ]
-        
+
+
+    }
+    else if (quesTypeIde === 3) {
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa.length, "parse")
+      this.questionTypeDisplayLogics.push(aaa)
+
+      var Ratingscale = []
+      for (var ty = 1; ty <= 5; ty++) {
+        var RatingscaleFrame = { "ansId": ty, "ansText": ty }
+
+        Ratingscale.push(RatingscaleFrame)
       }
 
-      
-    
+      this.displayLogics[indexx] = this.questionTypeDisplayLogics[0]
+      console.log(this.displayLogics[indexx], "Ratingscale.displayLogics[i]")
+      this.answerListPushFinal[indexx] = Ratingscale
+      console.log(this.answerListPushFinal[indexx], "Ratingscale[i]")
+      this.getDisplayLabelQuestion = answer
+
+      return [
+        this.secondType(indexx),
+        this.initalReset(indexx),
+      ]
+
+    }
+    else {
+
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa.length, "parse")
+      this.questionTypeDisplayLogics.push(aaa)
+
+      this.displayLogics[indexx] = this.questionTypeDisplayLogics[0]
+      console.log(this.displayLogics[indexx], "this.displayLogics[i]")
+      this.answerListPushFinal[indexx] = this.answerListPush
+      console.log(this.answerListPushFinal[indexx], "this.displayLogics[i]")
+      this.getDisplayLabelQuestion = answer
+
+
+      return [
+        this.secondType(indexx),
+        this.initalReset(indexx),
+      ]
+
+    }
+
+
+
   }
 
   firstType(indexx) {
@@ -1361,18 +1366,18 @@ for (var w = 0; w < intersection.length; w++) {
     this.quesOrder = getQues[0].orderId
     // check format
     const allValues = this.answerListQueue[0].quesOrder
-    
-var questionOrder = []
-questionOrder.push({"quesOrder" :allValues})
-var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-console.log(intersection[0].quesTypeId, "intersection");
-if((intersection[0].quesTypeId === 7 && answer2 === "Is") || 
-(intersection[0].quesTypeId === 7 && answer2 === "Is Not") ||
-(intersection[0].quesTypeId === 7 && answer2 === "Is Answered") ||
-(intersection[0].quesTypeId === 7 && answer2 === "Not Answered")){
-  this.answerListId = ""
-}
+    var questionOrder = []
+    questionOrder.push({ "quesOrder": allValues })
+    var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+
+    console.log(intersection[0].quesTypeId, "intersection");
+    if ((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
+      (intersection[0].quesTypeId === 7 && answer2 === "Is Not") ||
+      (intersection[0].quesTypeId === 7 && answer2 === "Is Answered") ||
+      (intersection[0].quesTypeId === 7 && answer2 === "Not Answered")) {
+      this.answerListId = ""
+    }
 
     else if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered" || answer2 === "select") {
       this.answerListId = ""
@@ -1429,84 +1434,84 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     }
 
     // for (var i = 1; i <= this.listQuestionTypes.length; i++) {
-      var quesTypeId = quesTypeIde - 1;
-      if (this.listQuestionTypes[quesTypeId].quesGroup === "SELECT" || 
+    var quesTypeId = quesTypeIde - 1;
+    if (this.listQuestionTypes[quesTypeId].quesGroup === "SELECT" ||
       this.listQuestionTypes[quesTypeId].quesTypeDesc === "Multiple Choice Questions" ||
       this.listQuestionTypes[quesTypeId].quesTypeDesc === "Opinion Scale" ||
       this.listQuestionTypes[quesTypeId].quesTypeDesc === "Rating") {
-        this.quesGroupPush = []
-        this.answerListId = "SELECT"
-      }else {
-        this.quesGroupPush = []
-        this.answerListId = "NOT"
+      this.quesGroupPush = []
+      this.answerListId = "SELECT"
+    } else {
+      this.quesGroupPush = []
+      this.answerListId = "NOT"
+    }
+
+    this.questionTypeDisplayLogics = []
+    if (quesTypeIde === 1) {
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa, "parse")
+      this.questionTypeDisplayLogics.push(aaa)
+      this.displayLogicsDynamic[k1] = this.questionTypeDisplayLogics[0]
+      this.answerListPushFinalDynamic[k1] = this.answerListPush
+      var Opinonscale = []
+      for (var ty = 1; ty <= 10; ty++) {
+        var OpinonscaleFrame = { "ansId": ty, "ansText": ty }
+
+        Opinonscale.push(OpinonscaleFrame)
       }
+      console.log(Opinonscale, "Opinonscale")
+      this.answerListPushFinalDynamic[k1] = Opinonscale
+      console.log(this.answerListPushFinalDynamic[k1], "Opinonscale")
+      this.getDisplayLabelQuestion = answer
 
-      this.questionTypeDisplayLogics = []
-      if (quesTypeIde === 1) {
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa, "parse")
-        this.questionTypeDisplayLogics.push(aaa)
-        this.displayLogicsDynamic[k1] = this.questionTypeDisplayLogics[0]
-        this.answerListPushFinalDynamic[k1] = this.answerListPush
-        var Opinonscale = []
-        for(var ty=1 ; ty <= 10; ty++){
-          var OpinonscaleFrame = { "ansId": ty, "ansText": ty }
-
-          Opinonscale.push(OpinonscaleFrame)
-        }
-        console.log(Opinonscale, "Opinonscale")
-        this.answerListPushFinalDynamic[k1] = Opinonscale
-        console.log(this.answerListPushFinalDynamic[k1], "Opinonscale")
-        this.getDisplayLabelQuestion = answer
-        
-        return[
-          this.firstDynamicType(indexx, k1),
-          this.initalResetDynamic(indexx, k1),
-        ]
-        
-
-      }
-     else if (quesTypeIde === 3) {
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa.length, "parse")
-        this.questionTypeDisplayLogics.push(aaa)
-        this.displayLogicsDynamic[k1] = this.questionTypeDisplayLogics[0]
-        this.answerListPushFinalDynamic[k1] = this.answerListPush
-        var Ratingscale = []
-        for(var ty=1 ; ty <= 5; ty++){
-          var RatingscaleFrame = { "ansId": ty, "ansText": ty }
-
-          Ratingscale.push(RatingscaleFrame)
-        }
-        console.log(Ratingscale, "Ratingscale")
-        this.answerListPushFinalDynamic[k1] = Ratingscale
-        console.log(this.answerListPushFinalDynamic[k1], "Ratingscale")
-        this.getDisplayLabelQuestion = answer
-
-        return[
-          this.firstDynamicType(indexx, k1),
-          this.initalResetDynamic(indexx, k1),
-        ]
-        
-      }
-      else {
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa.length, "parse")
-        this.questionTypeDisplayLogics.push(aaa)
-
-        this.displayLogicsDynamic[k1] = this.questionTypeDisplayLogics[0]
-        this.answerListPushFinalDynamic[k1] = this.answerListPush
-
-
-        this.getDisplayLabelQuestionDynamic = answer
-      return[
-          this.firstDynamicType(indexx, k1),
-          this.initalResetDynamic(indexx, k1)
+      return [
+        this.firstDynamicType(indexx, k1),
+        this.initalResetDynamic(indexx, k1),
       ]
-        
-      }
 
-      
+
+    }
+    else if (quesTypeIde === 3) {
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa.length, "parse")
+      this.questionTypeDisplayLogics.push(aaa)
+      this.displayLogicsDynamic[k1] = this.questionTypeDisplayLogics[0]
+      this.answerListPushFinalDynamic[k1] = this.answerListPush
+      var Ratingscale = []
+      for (var ty = 1; ty <= 5; ty++) {
+        var RatingscaleFrame = { "ansId": ty, "ansText": ty }
+
+        Ratingscale.push(RatingscaleFrame)
+      }
+      console.log(Ratingscale, "Ratingscale")
+      this.answerListPushFinalDynamic[k1] = Ratingscale
+      console.log(this.answerListPushFinalDynamic[k1], "Ratingscale")
+      this.getDisplayLabelQuestion = answer
+
+      return [
+        this.firstDynamicType(indexx, k1),
+        this.initalResetDynamic(indexx, k1),
+      ]
+
+    }
+    else {
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa.length, "parse")
+      this.questionTypeDisplayLogics.push(aaa)
+
+      this.displayLogicsDynamic[k1] = this.questionTypeDisplayLogics[0]
+      this.answerListPushFinalDynamic[k1] = this.answerListPush
+
+
+      this.getDisplayLabelQuestionDynamic = answer
+      return [
+        this.firstDynamicType(indexx, k1),
+        this.initalResetDynamic(indexx, k1)
+      ]
+
+    }
+
+
     // }
 
 
@@ -1539,17 +1544,17 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     // check format
     const allValues = this.answerListQueue[0].quesOrder
 
-var questionOrder = []
-questionOrder.push({"quesOrder" :allValues})
-var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+    var questionOrder = []
+    questionOrder.push({ "quesOrder": allValues })
+    var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-console.log(intersection[0].quesTypeId, "intersection");
-if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is") || 
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Not") ||
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Answered") ||
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Not Answered")){
-  this.answerListId = ""
-}
+    console.log(intersection[0].quesTypeId, "intersection");
+    if ((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is") ||
+      (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Not") ||
+      (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Is Answered") ||
+      (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "Not Answered")) {
+      this.answerListId = ""
+    }
 
     else if (this.getDisplayLabelAnswerDynamic === "Answered" || this.getDisplayLabelAnswerDynamic === "Not answered" || this.getDisplayLabelAnswerDynamic === "Is Answered" || this.getDisplayLabelAnswerDynamic === "Not Answered" || this.getDisplayLabelAnswerDynamic === "select") {
       this.answerListId = ""
@@ -1582,7 +1587,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
   }
-  saveDisplayLogic(i, j) {
+  saveDisplayLogic(i, j?: any) {
     // odd display
     // odd display
     // odd display
@@ -1624,9 +1629,9 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     // this.skipLogicValue = this.skipLogicCheck
     this.addQuestionChecker = false
     this.skipLogicCheck = JSON.parse(this.allQuestion[i].skipLogic);
-        console.log(this.displayLogicValue, "this.displayLogicValue")
-        console.log(this.skipLogicValue, "this.skipLogicValue")
-        this.quesTypeIdObj = this.allQuestion[i].quesTypeId
+    console.log(this.displayLogicValue, "this.displayLogicValue")
+    console.log(this.skipLogicValue, "this.skipLogicValue")
+    this.quesTypeIdObj = this.allQuestion[i].quesTypeId
 
     this.SubmitQuestion()
   }
@@ -1637,7 +1642,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
   // Skip Logic
   // Skip Logic
 
-  
+
   onDisplayFieldQuestionSecondLogicalChangeSkipTo(answer2, indexx) {
     let answerSkip = answer2.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['SkipTo'].setValue(answerSkip) as FormArray
@@ -1651,21 +1656,21 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     if (answerSkip === "select") {
       this.answerListIdSkip = ""
       this.hideTypeSkip(indexx)
-      }else{
-        this.displaySkipLogics(answerSkip, indexx)
-        this.answerListIdSkip = ""
-        this.hideTypeSkip(indexx)
-      }
+    } else {
+      this.displaySkipLogics(answerSkip, indexx)
+      this.answerListIdSkip = ""
+      this.hideTypeSkip(indexx)
+    }
 
   }
 
- 
-  displaySkipLogics(answerSkip, indexx){
+
+  displaySkipLogics(answerSkip, indexx) {
     const allValuesSkip = this.quesTypeIdDetailsSkip
     this.answerListQueueSkip = allValuesSkip.filter(value => value.quesId === parseInt(answerSkip));
     console.log(this.answerListQueueSkip, "answerListId");
     this.answerListPushSkip = [];
-    this.mydataVariableSkip =""
+    this.mydataVariableSkip = ""
 
     var quesTypeIdeSkip = this.answerListQueueSkip[0].quesTypeId
     var quesTextSkip = this.answerListQueueSkip[0].quesText
@@ -1710,15 +1715,15 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
 
-      
+
     var quesTypeIdSkip = quesTypeIdeSkip - 1;
-    if (this.listQuestionTypes[quesTypeIdSkip].quesGroup === "SELECT" || 
-    this.listQuestionTypes[quesTypeIdSkip].quesTypeDesc === "Multiple Choice Questions" ||
-    this.listQuestionTypes[quesTypeIdSkip].quesTypeDesc === "Opinion Scale" ||
-    this.listQuestionTypes[quesTypeIdSkip].quesTypeDesc === "Rating") {
+    if (this.listQuestionTypes[quesTypeIdSkip].quesGroup === "SELECT" ||
+      this.listQuestionTypes[quesTypeIdSkip].quesTypeDesc === "Multiple Choice Questions" ||
+      this.listQuestionTypes[quesTypeIdSkip].quesTypeDesc === "Opinion Scale" ||
+      this.listQuestionTypes[quesTypeIdSkip].quesTypeDesc === "Rating") {
       this.quesGroupPushSkip = []
       this.answerListIdSkip = "SELECT"
-    }else {
+    } else {
       this.quesGroupPushSkip = []
       this.answerListIdSkip = "NOT"
     }
@@ -1729,7 +1734,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
       console.log(aaa, "parse")
       this.questionTypeDisplayLogicsSkip.push(aaa)
       var Opinonscale = []
-      for(var ty=1 ; ty <= 10; ty++){
+      for (var ty = 1; ty <= 10; ty++) {
         var OpinonscaleFrame = { "ansId": ty, "ansText": ty }
 
         Opinonscale.push(OpinonscaleFrame)
@@ -1739,37 +1744,37 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
       this.answerListPushFinalSkip[indexx] = Opinonscale
       console.log(this.answerListPushFinalSkip[indexx], "this.displayLogicsSkip[i]")
       this.getDisplayLabelQuestionSkip = answerSkip
-      
-      return[
+
+      return [
         this.secondTypeSkip(indexx),
         this.initalResetSkip(indexx),
       ]
-      
+
 
     }
-   else if (quesTypeIdeSkip === 3) {
+    else if (quesTypeIdeSkip === 3) {
       let aaa = JSON.parse(this.listQuestionTypes[quesTypeIdSkip].logicsArray);
       console.log(aaa, "parse")
       this.questionTypeDisplayLogicsSkip.push(aaa)
-      
+
       var Ratingscale = []
-      for(var ty=1 ; ty <= 5; ty++){
+      for (var ty = 1; ty <= 5; ty++) {
         var RatingscaleFrame = { "ansId": ty, "ansText": ty }
 
         Ratingscale.push(RatingscaleFrame)
       }
- 
+
       this.displayLogicsSkip[indexx] = this.questionTypeDisplayLogicsSkip[0]
       console.log(this.displayLogicsSkip[indexx], "this.displayLogicsSkip[i]")
       this.answerListPushFinalSkip[indexx] = Ratingscale
       console.log(this.answerListPushFinalSkip[indexx], "this.displayLogicsSkip[i]")
       this.getDisplayLabelQuestionSkip = answerSkip
 
-      return[
+      return [
         this.secondTypeSkip(indexx),
         this.initalResetSkip(indexx),
       ]
-      
+
     }
     else {
 
@@ -1786,11 +1791,11 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
 
 
 
-    return[
-      this.secondTypeSkip(indexx),
-      this.initalResetSkip(indexx),
-    ]
-      
+      return [
+        this.secondTypeSkip(indexx),
+        this.initalResetSkip(indexx),
+      ]
+
     }
 
 
@@ -1802,7 +1807,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     this.quesGroupPushSkip.push(this.answerListIdSkip)
     return this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['checkDisplayIdSkip'].setValue(this.answerListIdSkip) as FormArray;
   }
- 
+
   initalResetSkip(indexx) {
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['pickDisplayLabelLogicTypeForAnswerSkip'].setValue("") as FormArray;
   }
@@ -1819,19 +1824,19 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamic === "I
     // check format
     const allValues = this.answerListQueueSkip[0].quesOrder
 
-var questionOrder = []
-questionOrder.push({"quesOrder" :allValues})
-var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+    var questionOrder = []
+    questionOrder.push({ "quesOrder": allValues })
+    var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-console.log(intersection[0].quesTypeId, "intersection");
-if((intersection[0].quesTypeId === 7 && answer2 === "Is") || 
-(intersection[0].quesTypeId === 7 && answer2 === "Is Not") ||
-(intersection[0].quesTypeId === 7 && answer2 === "Is Answered") ||
-(intersection[0].quesTypeId === 7 && answer2 === "Not Answered")){
-  this.answerListIdSkip = ""
-}
+    console.log(intersection[0].quesTypeId, "intersection");
+    if ((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
+      (intersection[0].quesTypeId === 7 && answer2 === "Is Not") ||
+      (intersection[0].quesTypeId === 7 && answer2 === "Is Answered") ||
+      (intersection[0].quesTypeId === 7 && answer2 === "Not Answered")) {
+      this.answerListIdSkip = ""
+    }
 
-    else if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered"|| answer2 === "select") {
+    else if (answer2 === "Answered" || answer2 === "Not answered" || answer2 === "Is Answered" || answer2 === "Not Answered" || answer2 === "select") {
       this.answerListIdSkip = ""
     } else {
       this.answerListIdSkip = this.quesGroupPushSkip[0]
@@ -1845,21 +1850,21 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     ]
 
   }
-  
+
   hideTypeSkip(indexx) {
     return this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls['checkDisplayIdSkip'].setValue(this.answerListIdSkip) as FormArray;
   }
   getLastDisplayAnswerSkip(event, i) {
     let answer2 = event.target.value
     this.survey.controls.sections['controls'][i].controls.questions.controls['0'].controls['pickDisplayAnswerDropDownSkip'].setValue(answer2) as FormArray
-  
+
   }
 
 
 
-    // Dynamic Skip starts
-    // Dynamic Skip starts
-    // Dynamic Skip starts
+  // Dynamic Skip starts
+  // Dynamic Skip starts
+  // Dynamic Skip starts
   getCompartorDynamicSkip(answer, indexx, k2) {
     this.comparatorDynamic = answer.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleDisplayLogicTypeSkip.setValue(this.comparatorDynamic) as FormArray
@@ -1886,13 +1891,13 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
 
 
     var quesTypeId = quesTypeIde - 1;
-    if (this.listQuestionTypes[quesTypeId].quesGroup === "SELECT" || 
-    this.listQuestionTypes[quesTypeId].quesTypeDesc === "Multiple Choice Questions" ||
-    this.listQuestionTypes[quesTypeId].quesTypeDesc === "Opinion Scale" ||
-    this.listQuestionTypes[quesTypeId].quesTypeDesc === "Rating") {
+    if (this.listQuestionTypes[quesTypeId].quesGroup === "SELECT" ||
+      this.listQuestionTypes[quesTypeId].quesTypeDesc === "Multiple Choice Questions" ||
+      this.listQuestionTypes[quesTypeId].quesTypeDesc === "Opinion Scale" ||
+      this.listQuestionTypes[quesTypeId].quesTypeDesc === "Rating") {
       this.quesGroupPush = []
       this.answerListId = "SELECT"
-    }else {
+    } else {
       this.quesGroupPush = []
       this.answerListId = "NOT"
     }
@@ -1904,7 +1909,7 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
       this.questionTypeDisplayDynamicLogicsSkip.push(aaa)
 
       var Opinonscale = []
-      for(var ty=1 ; ty <= 10; ty++){
+      for (var ty = 1; ty <= 10; ty++) {
         var OpinonscaleFrame = { "ansId": ty, "ansText": ty }
 
         Opinonscale.push(OpinonscaleFrame)
@@ -1913,21 +1918,21 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
       this.answerListPushFinalDynamicSkip[k2] = Opinonscale
 
       this.getDisplayLabelQuestionDynamic = answer
-      
-      return[
+
+      return [
         this.firstDynamicTypeSkip(indexx, k2),
         this.initalResetDynamicSkip(indexx, k2),
       ]
-      
+
 
     }
-   else if (quesTypeIde === 3) {
-    let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-    console.log(aaa.length, "parse")
-    this.questionTypeDisplayDynamicLogicsSkip.push(aaa)
+    else if (quesTypeIde === 3) {
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa.length, "parse")
+      this.questionTypeDisplayDynamicLogicsSkip.push(aaa)
 
       var Ratingscale = []
-      for(var ty=1 ; ty <= 5; ty++){
+      for (var ty = 1; ty <= 5; ty++) {
         var RatingscaleFrame = { "ansId": ty, "ansText": ty }
 
         Ratingscale.push(RatingscaleFrame)
@@ -1936,31 +1941,31 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
       this.answerListPushFinalDynamicSkip[k2] = Ratingscale
 
 
-    this.getDisplayLabelQuestionDynamic = answer
+      this.getDisplayLabelQuestionDynamic = answer
 
-      return[
+      return [
         this.firstDynamicTypeSkip(indexx, k2),
         this.initalResetDynamicSkip(indexx, k2),
       ]
-      
+
     }
     else {
-        let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
-        console.log(aaa.length, "parse")
-        this.questionTypeDisplayDynamicLogicsSkip.push(aaa)
+      let aaa = JSON.parse(this.listQuestionTypes[quesTypeId].logicsArray);
+      console.log(aaa.length, "parse")
+      this.questionTypeDisplayDynamicLogicsSkip.push(aaa)
 
-        this.displayLogicsDynamicSkip[k2] = this.questionTypeDisplayDynamicLogicsSkip[0]
-        this.answerListPushFinalDynamicSkip[k2] = this.answerListPush
+      this.displayLogicsDynamicSkip[k2] = this.questionTypeDisplayDynamicLogicsSkip[0]
+      this.answerListPushFinalDynamicSkip[k2] = this.answerListPush
 
 
       this.getDisplayLabelQuestionDynamic = answer
-    return[
-         this.firstDynamicTypeSkip(indexx, k2),
-          this.initalResetDynamicSkip(indexx, k2),
-    ]
-      
-    
-  }
+      return [
+        this.firstDynamicTypeSkip(indexx, k2),
+        this.initalResetDynamicSkip(indexx, k2),
+      ]
+
+
+    }
     // for (var i = 0; i < this.listQuestionTypes.length; i++) {
     //   if (this.listQuestionTypes[i].quesGroup === "SELECT") {
     //     this.quesGroupPush = []
@@ -2022,24 +2027,24 @@ if((intersection[0].quesTypeId === 7 && answer2 === "Is") ||
     this.getDisplayLabelAnswerDynamicSkip = event.target.value
     this.survey.controls.sections['controls'][indexx].controls.questions.controls['0'].controls.skipLogic.controls[k2].controls.pickMultipleDisplayQuestionLogicTypeSkip.setValue(this.getDisplayLabelAnswerDynamicSkip) as FormArray
 
-    
+
     var getQues = sections.value.questions
     this.quesOrder = getQues[0].orderId
     const allValues = this.answerListQueueSkip[0].quesOrder
 
-var questionOrder = []
-questionOrder.push({"quesOrder" :allValues})
-var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
+    var questionOrder = []
+    questionOrder.push({ "quesOrder": allValues })
+    var intersection = _.intersectionBy(this.allQuestion, questionOrder, 'quesOrder');
 
-console.log(intersection[0].quesTypeId, "intersection");
-if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is") || 
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is Not") ||
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is Answered") ||
-(intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Not Answered")){
-  this.answerListIdSkip = ""
-}
+    console.log(intersection[0].quesTypeId, "intersection");
+    if ((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is") ||
+      (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is Not") ||
+      (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Is Answered") ||
+      (intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip === "Not Answered")) {
+      this.answerListIdSkip = ""
+    }
 
-   else if (this.getDisplayLabelAnswerDynamicSkip === "Answered" || this.getDisplayLabelAnswerDynamicSkip === "Not answered" || this.getDisplayLabelAnswerDynamicSkip === "Is Answered" || this.getDisplayLabelAnswerDynamicSkip === "Not Answered"||  this.getDisplayLabelAnswerDynamicSkip === "select") {
+    else if (this.getDisplayLabelAnswerDynamicSkip === "Answered" || this.getDisplayLabelAnswerDynamicSkip === "Not answered" || this.getDisplayLabelAnswerDynamicSkip === "Is Answered" || this.getDisplayLabelAnswerDynamicSkip === "Not Answered" || this.getDisplayLabelAnswerDynamicSkip === "select") {
       this.answerListIdSkip = ""
     } else {
       this.answerListIdSkip = this.quesGroupPush[0]
@@ -2070,7 +2075,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
 
   }
-  
+
 
 
 
@@ -2116,7 +2121,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
     this.skipLogicValue = this.dynamicDisplayFramepushSkip
     // this.displayLogicValue = this.diplayLogicCheck
-    this.diplayLogicCheck= JSON.parse(this.allQuestion[i].displayLogic);
+    this.diplayLogicCheck = JSON.parse(this.allQuestion[i].displayLogic);
     this.addQuestionChecker = false
     console.log(this.displayLogicValue, "this.displayLogicValue")
     console.log(this.skipLogicValue, "this.skipLogicValue")
@@ -2136,7 +2141,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
     });
 
 
-        this.apiService.getSurvey(this.constantsService.fetchSurveyTypes, {}).pipe(take(1)).subscribe((succ: any) => {
+    this.apiService.getSurvey(this.constantsService.fetchSurveyTypes, {}).pipe(take(1)).subscribe((succ: any) => {
 
       this.common.hideLoading()
       console.log(succ, "succ")
@@ -2170,13 +2175,13 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
         this.configObjModel.surveyName = succ['survey'].surveyName
 
-        
-    let findedData = this.surveyTypes.filter(
-      i => i.typeId === this.configObjModel.surveyStatus);
-      this.configObjModel.typeOfSurvey = JSON.stringify(findedData[0].typeId)
-      console.log( this.configObjModel.typeOfSurvey, "this.configObjModel.typeOfSurvey" )
-      console.log( findedData, "findedData" )
-      // this.surveyForm.controls["typeOfSurvie"].setValue(2);
+
+        let findedData = this.surveyTypes.filter(
+          i => i.typeId === this.configObjModel.surveyStatus);
+        this.configObjModel.typeOfSurvey = JSON.stringify(findedData[0].typeId)
+        console.log(this.configObjModel.typeOfSurvey, "this.configObjModel.typeOfSurvey")
+        console.log(findedData, "findedData")
+        // this.surveyForm.controls["typeOfSurvie"].setValue(2);
 
 
 
@@ -2201,11 +2206,11 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
         this.allQuestion = sortedActivities
         this.surveyIdObj = this.allQuestion[0].surveyId
 
-  
+
 
         for (var i = 0; i < this.listquesOrderAsc.length; i++) {
           if (this.quesTypeIdObj === this.listquesOrderAsc[i].quesTypeId) {
-            var frame = { "quesId": this.listquesOrderAsc[i].quesId,  "quesOrder": this.listquesOrderAsc[i].quesOrder, "quesTypeId": this.listquesOrderAsc[i].quesTypeId, "placeId": this.placeId }
+            var frame = { "quesId": this.listquesOrderAsc[i].quesId, "quesOrder": this.listquesOrderAsc[i].quesOrder, "quesTypeId": this.listquesOrderAsc[i].quesTypeId, "placeId": this.placeId }
             this.quesTypeIdDetails.push(frame)
           }
         }
@@ -2235,7 +2240,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
         this.common.showLoading()
         for (var f = 0; f < Finalmaybe.length; f++) {
           var maybe = Finalmaybe[f];
-          maybe['changeRequiredObj'] =  maybe.required ? true : false
+          maybe['changeRequiredObj'] = maybe.required ? true : false
           control.push(this.initSection(maybe, oneAfterOtherQuestion));
 
           //  this.initSection(finalmaybe, oneAfterOtherQuestion, questionNameShow)
@@ -2243,8 +2248,8 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
         }
         this.common.hideLoading()
 
-      // isRequired
-   
+        // isRequired
+
 
         // for(var t=0 ; t< succ['ques'].length; t++){
         //   this.questionTypeCheck(succ['ques'][t].quesTypeId)
@@ -2272,7 +2277,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
       typeOfSurvie: ['', [Validators.required]],
     })
 
-  
+
 
 
 
@@ -2755,7 +2760,7 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
     }
   }
-  changeRequired($event, i, j){
+  changeRequired($event, i, j) {
     this.changeRequiredObj = $event.target.checked;
     console.log(this.changeRequiredObj, "this.changeRequiredObj")
     this.SubmitQuestion();
@@ -2841,22 +2846,22 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
   SubmitQuestion() {
     // this.changeRequiredObj
-    let changeRequiredObj =  this.changeRequiredObj ? 1 : 0
-  var frame = {
-    "deleted": 0,
-    "displayLogic": JSON.stringify(this.displayLogicValue),
-    "quesId": this.quesIdObj,
-    "quesOrder": this.quesOrder,
-    "quesText": this.startTyping.value,
-    "quesTypeId": this.quesTypeIdObj, //QuestionTextoodanumber
-    "required": changeRequiredObj,
-    "skipLogic": JSON.stringify(this.skipLogicValue),
-    "surveyId": this.surveyIdObj
+    let changeRequiredObj = this.changeRequiredObj ? 1 : 0
+    var frame = {
+      "deleted": 0,
+      "displayLogic": JSON.stringify(this.displayLogicValue),
+      "quesId": this.quesIdObj,
+      "quesOrder": this.quesOrder,
+      "quesText": this.startTyping.value,
+      "quesTypeId": this.quesTypeIdObj, //QuestionTextoodanumber
+      "required": changeRequiredObj,
+      "skipLogic": JSON.stringify(this.skipLogicValue),
+      "surveyId": this.surveyIdObj
 
-  }
+    }
 
 
-    
+
 
 
     console.log(this.listquesOrderAscEdit, "oldPush");
@@ -2865,56 +2870,59 @@ if((intersection[0].quesTypeId === 7 && this.getDisplayLabelAnswerDynamicSkip ==
 
     // this.listquesOrderAsc = []
     this.apiService.postSurvey(this.constantsService.addQuestion, frame).subscribe((succ: any) => {
-if(succ.code === 200){
-      this.common.hideLoading()
-      console.log(succ, "succc")
- 
-
-      const sortedActivities = succ.questions.sort((a, b) => a.quesOrder - b.quesOrder)
-
-      console.log(sortedActivities, "insert order ASC")
+      if (succ.code === 200) {
+        this.common.hideLoading()
+        console.log(succ, "succc")
 
 
-      this.listquesOrderAsc = succ.questions
-      this.quesTpeNameForEditobj = {}
-      for (var i = 0; i < this.listQuestionTypes.length; i++) {
-        for (var j = 0; j < succ.questions.length; j++) {
-          if (succ.questions[j].quesTypeId === this.listQuestionTypes[i].quesTypeId) {
-            var maybeFinal = []
+        const sortedActivities = succ.questions.sort((a, b) => a.quesOrder - b.quesOrder)
 
-            succ.questions[j].quesName = this.listQuestionTypes[i].quesTypeDesc
-            maybeFinal.push(succ.questions)
+        console.log(sortedActivities, "insert order ASC")
 
+
+        this.listquesOrderAsc = succ.questions
+        this.quesTpeNameForEditobj = {}
+        for (var i = 0; i < this.listQuestionTypes.length; i++) {
+          for (var j = 0; j < succ.questions.length; j++) {
+            if (succ.questions[j].quesTypeId === this.listQuestionTypes[i].quesTypeId) {
+              var maybeFinal = []
+
+              succ.questions[j].quesName = this.listQuestionTypes[i].quesTypeDesc
+              maybeFinal.push(succ.questions)
+
+            }
           }
         }
+        console.log(maybeFinal, "maybeFinal")
+        var maybe = maybeFinal[0]
+
+
+
+        // for (var i = 0; i < succ.length; i++) {
+
+        //   this.quesTypeIdObj = succ.questions[i].quesId
+        // }
+
+        //Umesh
+        this.allQuestion = succ.questions
+        const control = <FormArray>this.survey.get('sections');
+        var oneAfterOtherQuestion = this.allQuestion
+        for (var f = 0; f < maybe.length; f++) {
+          var finalmaybe = maybe[f];
+          this.initSection(finalmaybe, oneAfterOtherQuestion)
+        }
+        if (this.addQuestionChecker != false) {
+          control.push(this.initSection(finalmaybe, oneAfterOtherQuestion));
+        }
+
+        this.common.hideLoading()
+        this.SuccStat = true
+        this.SuccError = false
       }
-      console.log(maybeFinal, "maybeFinal")
-      var maybe = maybeFinal[0]
-
-
-
-      for (var i = 0; i < succ.length; i++) {
-
-        this.quesTypeIdObj = succ.questions[i].quesId
+      else {
+        this.SuccStat = false
+        this.SuccError = true
       }
-
-      //Umesh
-      this.allQuestion = succ.questions
-      const control = <FormArray>this.survey.get('sections');
-      var oneAfterOtherQuestion = this.allQuestion
-      for (var f = 0; f < maybe.length; f++) {
-        var finalmaybe = maybe[f];
-        this.initSection(finalmaybe, oneAfterOtherQuestion)
-      }
-      if (this.addQuestionChecker != false) {
-        control.push(this.initSection(finalmaybe, oneAfterOtherQuestion));
-      }    
-
-      this.common.hideLoading()
-      this.SuccStat = true
-    this.SuccError = false}
-    else{this.SuccStat = false
-    this.SuccError = true}
 
 
     },
@@ -2968,7 +2976,7 @@ if(succ.code === 200){
   }
 
 
-  
+
   public scrollToTop() {
     let target;
     target = this.el.nativeElement.querySelector('.inner-head')
@@ -3136,7 +3144,7 @@ if(succ.code === 200){
     if (whatConfig === "hexColorButton") {
       this.shoModelName = "hexColorButton"
     }
-   
+
 
 
     $('#showButtonColor').modal('show')

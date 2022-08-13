@@ -1144,9 +1144,28 @@ value="{{pictureChoice.value.pictureType}}"> -->
                               <div class="panel-heading">
                                 <h4 class="panel-title">
                                   <a id="back" data-toggle="collapse" data-parent="#accordion12"
-                                    href="#collapseoneDisplay{{i}}"><span class="radiobutton" id="roundButton">
-                                    </span>Display Logic</a>
+                                    href="#collapseoneDisplay{{i}}">
+
+                                    <div class="row">
+                                      <div class="col-sm-10 col-md-10 col-xs-12">
+                                        <span class="radiobutton" id="roundButton">
+                                        </span> Display Logic
+                                      </div>
+
+                                      <div class="col-sm-2 col-md-2 col-xs-12">
+
+                                        <i class="icon-delete column6-post" (click)="deleteDisplayQuest(section, i)"
+                                          title="Delete" data-toggle="tooltip" data-placement="left"></i>
+                                      </div>
+
+                                    </div>
+
+                                  </a>
+
                                 </h4>
+
+
+
                               </div>
 
 
@@ -1916,23 +1935,11 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
                           </div>
 
 
-
-
-
-
-
-
-
-
                         </div>
-
-
 
                       </div>
                     </div>
                   </div>
-
-
 
                 </div>
 
@@ -1944,10 +1951,6 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
           </div>
         </form>
 
-
-
-
-
       </div>
     </div>
 
@@ -1956,23 +1959,8 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
 
     <!-- <pre> {{survey.value | json}} </pre> -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </div>
 
-  <!-- </div> -->
 
 </div>
 
@@ -1987,10 +1975,6 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
     </ul>
   </div>
 
-
-
-
-  <!-- <input *ngIf="!isPrev" type="submit" class="add-btn" value="Previous" (click)=goPrevious() /> -->
   <button class="btn pull-right" (click)="goPrevious()"><span>Previous</span></button>
 
 </div>
@@ -2038,9 +2022,6 @@ value="{{displayLogic.type}}" [selected]="putAnswer.ansOrder===mydataVariable">
           </color-sketch>
         </span>
 
-        <!-- <br />
-<a  type="submit" (click)=closeModal()><span>Okay</span></a>
-<a class="cancel-btn" (click)=closeModal()><span>Close</span></a> -->
 
       </div>
 

@@ -10,18 +10,18 @@ export class ConstantsService {
 
 
   // survey call
-  fetchSurveyTypes ='/fetchSurveyTypes';
-  fetchSurveyConfig='/fetchSurveyConfig';
-  addSurvey='addSurvey';
-  listSurveyyy='listSurvey';
-  fetchQuestionType='/fetchQuestionType';
-  addQuestion='v2/addQuestion';
+  fetchSurveyTypes = '/fetchSurveyTypes';
+  fetchSurveyConfig = '/fetchSurveyConfig';
+  addSurvey = 'addSurvey';
+  listSurveyyy = 'listSurvey';
+  fetchQuestionType = '/fetchQuestionType';
+  addQuestion = 'v2/addQuestion';
   getSurveyDetailsUsingId = 'getSurveyDetailsUsingId';
-  deleteSurvey='deleteSurvey';
-  deleteQuestion='deleteQuestion';
-  addAnswers='addAnswer';
-  deleteAnswerss='deleteAnswer';
-  fetchSurveyStatuss= 'fetchSurveyStatus';
+  deleteSurvey = 'deleteSurvey';
+  deleteQuestion = 'deleteQuestion';
+  addAnswers = 'addAnswer';
+  deleteAnswerss = 'deleteAnswer';
+  fetchSurveyStatuss = 'fetchSurveyStatus';
   // surveyDetails="surveyDetails"
   surveyReport = 'report';
   constructor() { }

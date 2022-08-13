@@ -87,7 +87,7 @@ export class ApiService {
 
 
   getSurvey(entity, data) {
-    return this.http.get('http://13.233.112.77:8080/survey/' + entity, data)
+    return this.http.get('http://singularitysolutions.in:8080/survey/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
@@ -95,7 +95,7 @@ export class ApiService {
   }
 
   postSurvey(entity, data) {
-    return this.http.post('http://13.233.112.77:8080/survey/' + entity, data)
+    return this.http.post('http://singularitysolutions.in:8080/survey/' + entity, data)
       .pipe(
 
         catchError(this.handleError)
